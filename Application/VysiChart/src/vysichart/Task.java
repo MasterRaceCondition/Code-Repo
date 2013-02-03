@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.ArrayList;
 /**
  *
- * @author Harry
+ * @author UP619902, OtherID1, OtherID2
  */
 public class Task {
     private String taskName, taskNumber;
@@ -15,7 +15,7 @@ public class Task {
     private int taskLevel;
     private Task taskParent;
     
-    //An array of all nodes that need to be done before this task.
+    //An array of all nodes that need to be completed before this task.
     private Task[] dependentNodes;
     private Date startDate, endDate, lateStart, lateEnd;
     private float taskDuration, taskSlack;
@@ -65,7 +65,7 @@ public class Task {
         return lateEnd;
     }
     
-    //set methods for modifying class variables.
+    //Set methods for modifying class variables.
     public void setTaskName(String taskName){
         this.taskName = taskName;
     }

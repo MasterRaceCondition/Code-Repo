@@ -6,7 +6,7 @@ package vysichart;
 
 /**
  *
- * @author Harry
+ * @author Harry, Todd
  */
 
 import java.util.ArrayList;
@@ -27,9 +27,9 @@ public class Project {
     
     public Project(String name, String filePath){
         tasks = new ArrayList<Task>(); // init
-        gantt = new Gantt(); // init
-        pert = new PERT(); // init
-        wbt = new WBT(); // init
+        gantt = new Gantt(); // init  \
+        pert = new PERT(); // init    | all have no tasks, they all start empty
+        wbt = new WBT(); // init      /
         
         this.name = name; // read in
         this.filePath = filePath; // read in
@@ -54,5 +54,43 @@ public class Project {
     
     public Chart getWBT(){
         return wbt;
+    }
+    
+    public String getName(){
+        return name;
+    }
+    
+    public String getFilePath(){
+        return filePath;
+    }
+    
+    public float getTimeFrame(){
+        return timeFrame; // no need for mutator, is calculated from tasks
+    }
+    
+    // --- mutators ---
+    
+    public void setTasks(ArrayList<Task> tasks){
+        this.tasks = tasks;
+    }
+    
+    public void setGantt(Gantt gantt){
+        this.gantt = gantt; // may be useful for templating
+    }
+    
+    public void setPERT(PERT pert){
+        this.pert = pert;
+    }
+    
+    public void setWBT(WBT wbt){
+        this.wbt = wbt;
+    }
+    
+    public void setName(String name){
+        this.name = name;
+    }
+    
+    public void setFilePath(String filePath){
+        this.filePath = filePath;
     }
 }

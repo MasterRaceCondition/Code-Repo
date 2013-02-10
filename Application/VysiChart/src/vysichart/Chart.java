@@ -11,13 +11,17 @@ package vysichart;
 import java.util.ArrayList;
 
 public abstract class Chart {
-    private boolean isValid; //are all the relationships valid? 
-    private int currentX;
-    private int currentY;
-    
+    protected ArrayList<Task> tasks; // read in from project
+    protected boolean isValid; //are all the relationships valid? 
+    protected int currentX;
+    protected int currentY;
     
     public Chart(){
         // default constructor
+    }
+    
+    public Chart(ArrayList tasks){
+        this.tasks = tasks; // share the same pointer, allows for dynamic edit
         currentX = 0;
         currentY = currentX; // coords default as 0, 0
         isValid = true; // default as true
@@ -27,6 +31,9 @@ public abstract class Chart {
     // --- Accessors ---
     
 
+    public ArrayList<Task> getTasks(){
+        return tasks;
+    }
     
     public boolean getValidity(){
         return isValid; // only accessor, no mutator, as it's calculated
@@ -41,6 +48,10 @@ public abstract class Chart {
     }
     
     // --- Mutators ---
+    
+    public void setTasks(ArrayList<Task> tasks){
+        this.tasks = tasks;
+    }
     
     public void setCurrentX(int newX){
         currentX = newX;

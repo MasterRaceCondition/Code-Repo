@@ -6,8 +6,23 @@ package vysichart;
 
 /**
  *
- * @author Harry
+ * @author Harry, Todd
  */
+import java.util.ArrayList;
+
 public class Gantt extends Chart {
+
+    public Gantt() {
+        //default constructor
+    }
+
+    public Gantt(ArrayList<Task> tasks) {
+        super(tasks); // calls constructor from chart
+    }
+    
+    public void drawNode(){
+        //TODO
+    }
+    
     
 }

@@ -11,10 +11,10 @@ package vysichart;
 import java.util.ArrayList;
 
 public abstract class Chart {
-    private float timeFrame; //total timeframe (in hrs), calculated from tasks
     private boolean isValid; //are all the relationships valid? 
     private int currentX;
     private int currentY;
+    
     
     public Chart(){
         // default constructor
@@ -26,9 +26,7 @@ public abstract class Chart {
     
     // --- Accessors ---
     
-    public float getTimeFrame(){ // only accessor, no mutator, as it's calculated
-        return timeFrame;
-    }
+
     
     public boolean getValidity(){
         return isValid; // only accessor, no mutator, as it's calculated

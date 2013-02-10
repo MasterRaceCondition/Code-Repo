@@ -6,7 +6,7 @@ package vysichart;
 
 /**
  *
- * @author Harry
+ * @author Harry, Todd
  */
 public abstract class Chart {
     

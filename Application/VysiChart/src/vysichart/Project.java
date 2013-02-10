@@ -93,4 +93,22 @@ public class Project {
     public void setFilePath(String filePath){
         this.filePath = filePath;
     }
+    
+    //--- 'Utility' methods ---
+    
+    public void addTask(Task newTask){
+        tasks.add(newTask);
+    }
+    
+    
+    public void printOut(){
+        System.out.println("Project Name: " + name);
+        System.out.println("File Path: " + filePath);
+        System.out.println("---Task Overview---");
+        for(Task currentTask : tasks){
+            currentTask.printOut();
+            System.out.println("-------------");
+        }
+        
+    }
 }

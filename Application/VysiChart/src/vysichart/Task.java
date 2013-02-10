@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.ArrayList;
 /**
  *
- * @author Harry
+ * @author Harry, Todd
  */
 public class Task {
     private String taskName, taskNumber;
@@ -32,6 +32,7 @@ public class Task {
         this.startDate = startDate;
         this.endDate = endDate;
     }
+    
     
     //Get methods for retrieving variable data
     public String getName(){
@@ -88,4 +89,16 @@ public class Task {
     public void setTaskIsComplete(boolean taskIsComplete){
         this.taskIsComplete = taskIsComplete;
     }
+    
+        //--- 'Utility' methods ---
+    
+    public void printOut(){
+        System.out.println("Task Name:" + taskName);
+        if (taskParent != null){
+            System.out.println("Parent: " + taskParent.getName());
+        } else {
+            System.out.println("No Parent");
+        }
+    }
+    
 }

@@ -24,5 +24,23 @@ public class Gantt extends Chart {
         //TODO
     }
     
+    public void drawChart(){
+        //TODO
+    }
     
+    public int[] calculateNextCoords(){
+        int[] arr = {};
+        return arr;
+        //TODO
+    }
+    
+    public int calculateNextX(){
+        return 0;
+        //TODO
+    }
+    
+    public int calculateNextY(){
+        return 0;
+        //TODO
+    }
 }

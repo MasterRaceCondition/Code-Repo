@@ -6,7 +6,7 @@ package vysichart;
 
 /**
  *
- * @author Harry, Todd
+ * @author Harry, Todd, Paddy
  */
 import java.util.ArrayList;
 

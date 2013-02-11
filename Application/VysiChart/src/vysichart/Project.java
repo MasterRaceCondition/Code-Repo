@@ -104,6 +104,7 @@ public class Project {
     public void printOut(){
         System.out.println("Project Name: " + name);
         System.out.println("File Path: " + filePath);
+        System.out.println("-------------------");
         System.out.println("---Task Overview---");
         for(Task currentTask : tasks){
             currentTask.printOut();

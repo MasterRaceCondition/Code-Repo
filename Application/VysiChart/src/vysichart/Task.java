@@ -1,104 +1,135 @@
-
 package vysichart;
 
 import java.util.Date;
 import java.util.ArrayList;
+
 /**
  *
  * @author Harry, Todd
  */
 public class Task {
+
     private String taskName, taskNumber;
     private int taskId;
-    
     //The level of the task in the tree (the parent's level plus one).
     private int taskLevel;
     private Task taskParent;
-    
     //An array of all nodes that need to be done before this task.
-    private Task[] dependentNodes;
+    private ArrayList<Task> dependentNodes;
     private Date startDate, endDate, lateStart, lateEnd;
     private float taskDuration, taskSlack;
     private boolean taskIsComplete;
-    
-    public Task (){} //Default constructor.
-    
-    public Task(String taskName, Task taskParent, Task[] dependentNodes,
-                Date startDate, Date endDate){
-    
+
+    public Task() {
+        dependentNodes = new ArrayList<Task>();
+    } //Default constructor.
+
+    public Task(String taskName, Task taskParent, ArrayList<Task> dependentNodes,
+            Date startDate, Date endDate) {
+
         this.taskName = taskName;
         this.taskParent = taskParent;
-        this.dependentNodes = dependentNodes;
+        this.dependentNodes = dependentNodes; //  no need to init
         this.startDate = startDate;
         this.endDate = endDate;
     }
     
-    
+    public Task(String taskName, Task taskParent,
+            Date startDate, Date endDate) {
+
+        this.taskName = taskName;
+        this.taskParent = taskParent;
+        this.dependentNodes = new ArrayList<Task>(); // init
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
     //Get methods for retrieving variable data
-    public String getName(){
+    public String getName() {
         return taskName;
     }
-    public String getTaskNumber(){
+
+    public String getTaskNumber() {
         return taskNumber;
     }
-    public int getTaskId(){
+
+    public int getTaskId() {
         return taskId;
     }
-    public int getTaskLevel(){
+
+    public int getTaskLevel() {
         return taskLevel;
     }
-    public Task getTaskParent(){
+
+    public Task getTaskParent() {
         return taskParent;
     }
-    public Task[] getDependentNodes(){
+
+    public ArrayList<Task> getDependentNodes() {
         return dependentNodes;
     }
-    public Date getStartDate(){
+
+    public Date getStartDate() {
         return startDate;
     }
-    public Date getEndDate(){
+
+    public Date getEndDate() {
         return endDate;
     }
-    public Date getLateStart(){
+
+    public Date getLateStart() {
         return lateStart;
     }
-    public Date getLateEnd(){
+
+    public Date getLateEnd() {
         return lateEnd;
     }
-    
+
     //set methods for modifying class variables.
-    public void setTaskName(String taskName){
+    public void setTaskName(String taskName) {
         this.taskName = taskName;
     }
-    public void setTaskNumber(String taskNumber){
+
+    public void setTaskNumber(String taskNumber) {
         this.taskNumber = taskNumber;
     }
-    
+
     /*Remove if not needed*/
-    public void setTaskParent(Task taskParent){
+    public void setTaskParent(Task taskParent) {
         this.taskParent = taskParent;
     }
-    
-    public void setTaskDuration(int taskDuration){
+
+    public void setTaskDuration(int taskDuration) {
         this.taskDuration = taskDuration;
     }
-    
-    public void setTaskSlack(int taskSlack){
+
+    public void setTaskSlack(int taskSlack) {
         this.taskSlack = taskSlack;
     }
-    public void setTaskIsComplete(boolean taskIsComplete){
+
+    public void setTaskIsComplete(boolean taskIsComplete) {
         this.taskIsComplete = taskIsComplete;
     }
-    
-        //--- 'Utility' methods ---
-    
-    public void printOut(){
+
+    //--- 'Utility' methods ---
+    public void printOut() {
         System.out.println("Task Name:" + taskName);
-        if (taskParent != null){
+        if (taskParent != null) {
             System.out.println("Parent: " + taskParent.getName());
         } else {
             System.out.println("No Parent");
         }
+        System.out.println("Depedent Nodes:");
+        if (dependentNodes.isEmpty()) {
+            System.out.println("    None");
+        } else {
+            for (Task currentTask : dependentNodes) {
+                System.out.println("    " + currentTask.getName());
+            }
+        }
     }
-    
+
+    public void addDependantNode(Task task) {
+        dependentNodes.add(task);
+    }
 }

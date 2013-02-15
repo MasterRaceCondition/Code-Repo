@@ -84,6 +84,10 @@ public class Task {
     public Date getLateEnd() {
         return lateEnd;
     }
+    
+    public float getTaskDuration(){
+        return taskDuration;
+    }
 
     //set methods for modifying class variables.
     public void setTaskName(String taskName) {

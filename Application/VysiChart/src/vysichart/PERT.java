@@ -28,9 +28,7 @@ public class PERT extends Chart {
         //TODO
     }
     
-    public int[] calculateNextCoords(){
-        int[] arr = {};
-        return arr;
+    public void getNextCoords(){
         //TODO
     }
     

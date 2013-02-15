@@ -27,9 +27,7 @@ public class WBT extends Chart {
         //TODO
     }
     
-    public int[] calculateNextCoords(){
-        int[] arr = {};
-        return arr;
+    public void getNextCoords(){
         //TODO
     }
     

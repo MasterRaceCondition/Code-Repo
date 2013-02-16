@@ -16,6 +16,7 @@ public class Task {
     private Task taskParent;
     //An array of all nodes that need to be done before this task.
     private ArrayList<Task> dependentNodes;
+    private ArrayList<Task> children; // tasks children
     private Date startDate, endDate, lateStart, lateEnd;
     private float taskDuration, taskSlack;
     private boolean taskIsComplete;
@@ -32,16 +33,22 @@ public class Task {
         this.dependentNodes = dependentNodes; //  no need to init
         this.startDate = startDate;
         this.endDate = endDate;
+        this.children = new ArrayList<Task>();
+        
+        this.taskParent.addChild(this); // adds THIS as child to parent
     }
-    
+
     public Task(String taskName, Task taskParent,
             Date startDate, Date endDate) {
 
         this.taskName = taskName;
         this.taskParent = taskParent;
         this.dependentNodes = new ArrayList<Task>(); // init
+        this.children = new ArrayList<Task>(); // init
         this.startDate = startDate;
         this.endDate = endDate;
+        
+        this.taskParent.addChild(this); // adds THIS as child to parent
     }
 
     //Get methods for retrieving variable data
@@ -69,6 +76,10 @@ public class Task {
         return dependentNodes;
     }
 
+    public ArrayList<Task> getChildren() {
+        return children;
+    }
+
     public Date getStartDate() {
         return startDate;
     }
@@ -84,8 +95,8 @@ public class Task {
     public Date getLateEnd() {
         return lateEnd;
     }
-    
-    public float getTaskDuration(){
+
+    public float getTaskDuration() {
         return taskDuration;
     }
 
@@ -101,6 +112,7 @@ public class Task {
     /*Remove if not needed*/
     public void setTaskParent(Task taskParent) {
         this.taskParent = taskParent;
+        this.taskParent.addChild(this); // adds THIS as child to parent
     }
 
     public void setTaskDuration(int taskDuration) {
@@ -135,5 +147,25 @@ public class Task {
 
     public void addDependantNode(Task task) {
         dependentNodes.add(task);
+    }
+    
+    public void removeDependentNode(Task taskToRemove){
+        dependentNodes.remove(taskToRemove);
+    }
+    
+    public void addChild(Task task){
+        children.add(task);
+    }
+    
+    public void removeChild(Task taskToRemove){
+        children.remove(taskToRemove);
+    }
+    
+    public void changeParent(Task newParent){
+        // 'cut ties' with old parent
+        this.taskParent.removeChild(this);
+        // set new parent
+        setTaskParent(newParent);
+        //setTaskParent automatically adds THIS as child
     }
 }

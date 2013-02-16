@@ -23,6 +23,7 @@ public class Task {
 
     public Task() {
         dependentNodes = new ArrayList<Task>();
+        children = new ArrayList<Task>();
     } //Default constructor.
 
     public Task(String taskName, Task taskParent, ArrayList<Task> dependentNodes,
@@ -34,7 +35,7 @@ public class Task {
         this.startDate = startDate;
         this.endDate = endDate;
         this.children = new ArrayList<Task>();
-        
+
         this.taskParent.addChild(this); // adds THIS as child to parent
     }
 
@@ -47,7 +48,7 @@ public class Task {
         this.children = new ArrayList<Task>(); // init
         this.startDate = startDate;
         this.endDate = endDate;
-        
+
         this.taskParent.addChild(this); // adds THIS as child to parent
     }
 
@@ -143,25 +144,33 @@ public class Task {
                 System.out.println("    " + currentTask.getName());
             }
         }
+        System.out.println("Children:");
+        if (children.isEmpty()) {
+            System.out.println("    None");
+        } else {
+            for (Task currentTask : children) {
+                System.out.println("    " + currentTask.getName());
+            }
+        }
     }
 
     public void addDependantNode(Task task) {
         dependentNodes.add(task);
     }
-    
-    public void removeDependentNode(Task taskToRemove){
+
+    public void removeDependentNode(Task taskToRemove) {
         dependentNodes.remove(taskToRemove);
     }
-    
-    public void addChild(Task task){
+
+    public void addChild(Task task) {
         children.add(task);
     }
-    
-    public void removeChild(Task taskToRemove){
+
+    public void removeChild(Task taskToRemove) {
         children.remove(taskToRemove);
     }
-    
-    public void changeParent(Task newParent){
+
+    public void changeParent(Task newParent) {
         // 'cut ties' with old parent
         this.taskParent.removeChild(this);
         // set new parent

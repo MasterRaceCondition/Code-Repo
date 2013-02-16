@@ -25,19 +25,24 @@ public class Task {
         dependentNodes = new ArrayList<Task>();
         children = new ArrayList<Task>();
     } //Default constructor.
-
-    public Task(String taskName, Task taskParent, ArrayList<Task> dependentNodes,
-            Date startDate, Date endDate) {
-
+    
+    public Task(String taskName){
         this.taskName = taskName;
-        this.taskParent = taskParent;
-        this.dependentNodes = dependentNodes; //  no need to init
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.children = new ArrayList<Task>();
-
-        this.taskParent.addChild(this); // adds THIS as child to parent
+        dependentNodes = new ArrayList<Task>();
+        children = new ArrayList<Task>();
     }
+    
+    public Task(String taskName, Task taskParent){
+        this.taskName = taskName;
+        
+        this.taskParent = taskParent;
+        taskParent.addChild(this); // adds THIS as child to parent
+        
+        dependentNodes = new ArrayList<Task>();
+        children = new ArrayList<Task>();
+    }
+
+  
 
     public Task(String taskName, Task taskParent,
             Date startDate, Date endDate) {
@@ -48,6 +53,19 @@ public class Task {
         this.children = new ArrayList<Task>(); // init
         this.startDate = startDate;
         this.endDate = endDate;
+
+        this.taskParent.addChild(this); // adds THIS as child to parent
+    }
+    
+      public Task(String taskName, Task taskParent, ArrayList<Task> dependentNodes,
+            Date startDate, Date endDate) {
+
+        this.taskName = taskName;
+        this.taskParent = taskParent;
+        this.dependentNodes = dependentNodes; //  no need to init
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.children = new ArrayList<Task>();
 
         this.taskParent.addChild(this); // adds THIS as child to parent
     }
@@ -130,7 +148,7 @@ public class Task {
 
     //--- 'Utility' methods ---
     public void printOut() {
-        System.out.println("Task Name:" + taskName);
+        System.out.println("Task Name: " + taskName);
         if (taskParent != null) {
             System.out.println("Parent: " + taskParent.getName());
         } else {

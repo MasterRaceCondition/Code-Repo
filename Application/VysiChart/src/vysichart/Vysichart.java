@@ -10,7 +10,7 @@ public class Vysichart {
     /**
      * @param args Command-line arguments.
      */
-    public static void debug(){
+    public static void test1(){
         // debug stuff in here!
         Project myProject = new Project("Toast Maker", "C:/System32/VysiChart");
         Task task1 = new Task();
@@ -35,12 +35,41 @@ public class Vysichart {
         task5.addDependantNode(task4);
         
         myProject.addTask(task1);
-        myProject.addTask(task2);
-        myProject.addTask(task3);
-        myProject.addTask(task4);
-        myProject.addTask(task5);
         
         myProject.printOut();
+        
+
+    }
+    
+    public static void test2(){
+        //make breakfast!
+        Project makeBreakfast = new Project("Breakfast Maker", "D:/Documents/MRC/Vysichart/Breakfast");
+        
+        Task makeBreak = new Task("Make Breakfast");
+        
+        Task makeCerial = new Task("Make Cerial", makeBreak);
+        Task makeJuice = new Task("Make Juice", makeBreak);
+        Task eatBreakfast = new Task("Eat The Breakfast", makeBreak);
+        
+        Task getBowl = new Task("Get Bowl", makeCerial);
+        Task pourCerial = new Task("Pour Cerial Into Bowl", makeCerial);
+        Task addMilk = new Task("Add Milk To Cerial", makeCerial);
+        
+        Task getGlass = new Task("Get Glass", makeJuice);
+        Task addJuice = new Task("Pour Juice", makeJuice);
+        
+        eatBreakfast.addDependantNode(makeCerial);
+        eatBreakfast.addDependantNode(makeJuice);
+        
+        pourCerial.addDependantNode(getBowl);
+        addMilk.addDependantNode(pourCerial);
+        
+        addJuice.addDependantNode(getGlass);
+   
+        
+        makeBreakfast.addTask(makeBreak);
+        
+        makeBreakfast.printOut();
         
     }
     
@@ -48,7 +77,11 @@ public class Vysichart {
         
         long startTime = System.currentTimeMillis();
         
-        debug();
+        //test1();
+        test2();
+        
+        
+        
         //GraphicalUserInterface.main(null); // run GUI
         
         long endTime = System.currentTimeMillis();

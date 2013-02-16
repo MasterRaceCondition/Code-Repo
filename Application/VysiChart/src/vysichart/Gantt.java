@@ -12,6 +12,8 @@ import java.util.ArrayList;
 
 public class Gantt extends Chart {
     private int boxLength; // relies on current tasks duration
+    private int currentX2; // bottom right coords
+    private int currentY2;
 
     public Gantt() {
         //default constructor
@@ -21,7 +23,7 @@ public class Gantt extends Chart {
         super(tasks); // calls constructor from chart
         currentY2 = 50; //default box height
         boxLength = 2 * (int)currentTask.getTaskDuration(); // 2 is 'multiplier'
-        currentX2 = currentX1 + boxLength;
+        currentX2 = currentX + boxLength;
     }
     
     public void drawNode(){
@@ -38,12 +40,12 @@ public class Gantt extends Chart {
         int newX1 = 0; // will equal currentTask.endDate (int somehow)
         int newX2 = newX1 + boxLength;
         // update attributes
-        currentX1 = newX1;
+        currentX = newX1;
         currentX2 = newX2;
-        currentY1 = newY1;
+        currentY = newY1;
         currentY2 = newY2;
         
-        //TODO
+        //TODO 
     }
     
 

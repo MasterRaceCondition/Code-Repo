@@ -25,20 +25,13 @@ public class PERT extends Chart {
     }
     
     public void drawChart(){
+        // All 'next node' calculations are handled in here
         //TODO
     }
     
-    public void getNextCoords(){
+    public ArrayList<Task> getCriticalPath(){
         //TODO
+        return null;
     }
     
-    public int calculateNextX(){
-        return 0;
-        //TODO
-    }
-    
-    public int calculateNextY(){
-        return 0;
-        //TODO
-    }
 }

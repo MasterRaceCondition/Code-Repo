@@ -26,19 +26,6 @@ public class WBT extends Chart {
     public void drawChart(){
         //TODO
     }
-    
-    public void getNextCoords(){
-        //TODO
-    }
-    
-    public int calculateNextX(){
-        return 0;
-        //TODO
-    }
-    
-    public int calculateNextY(){
-        return 0;
-        //TODO
-    }
+
     
 }

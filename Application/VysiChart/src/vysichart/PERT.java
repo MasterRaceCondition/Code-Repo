@@ -20,10 +20,12 @@ public class PERT extends Chart {
         super(tasks); // calls constructor from chart
     }
     
+    @Override
     public void drawNode(){
         //TODO
     }
     
+    @Override
     public void drawChart(){
         // All 'next node' calculations are handled in here
         //TODO

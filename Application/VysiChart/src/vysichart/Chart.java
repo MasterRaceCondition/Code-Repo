@@ -23,7 +23,7 @@ public abstract class Chart {
     }
 
     public Chart(ArrayList<Task> tasks) {
-        tasks = new ArrayList<Task>();
+        tasks = new ArrayList<>();
         this.tasks = tasks; // share the same pointer, allows for dynamic edit
         currentX = 0;
         currentY = currentX; // coords default as 0, 0
@@ -32,7 +32,6 @@ public abstract class Chart {
         if (tasks.isEmpty() == false) {
             currentTask = tasks.get(0);
         }
-
     }
 
     // --- Accessors ---

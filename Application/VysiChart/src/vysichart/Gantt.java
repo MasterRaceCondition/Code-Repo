@@ -37,11 +37,11 @@ public class Gantt extends Chart {
         }
         currentX2 = currentX + boxLength;
     }
-
+    @Override
     public void drawNode() {
         //TODO
     }
-
+    @Override
     public void drawChart() {
         //TODO
     }

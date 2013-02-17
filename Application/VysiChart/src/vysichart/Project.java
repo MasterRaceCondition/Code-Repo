@@ -25,7 +25,7 @@ public class Project {
     }
 
     public Project(String name, String filePath) {
-        tasks = new ArrayList<Task>(); // init
+        tasks = new ArrayList<>(); // init
         gantt = new Gantt(tasks, timeFrame); // init  \
         pert = new PERT(tasks); // init    | all have no tasks, they all start empty
         wbt = new WBT(tasks); // init      /

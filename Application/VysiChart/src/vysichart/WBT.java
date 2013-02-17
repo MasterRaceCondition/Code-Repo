@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package vysichart;
 
 /**
@@ -11,7 +7,7 @@ package vysichart;
 import java.util.ArrayList;
 public class WBT extends Chart {
     
-       public WBT() {
+    public WBT() {
         //default constructor
     }
 
@@ -19,10 +15,13 @@ public class WBT extends Chart {
         super(tasks); // calls constructor from chart
     }
     
+    
+    @Override
     public void drawNode(){
         //TODO
     }
     
+    @Override
     public void drawChart(){
         //TODO
     }

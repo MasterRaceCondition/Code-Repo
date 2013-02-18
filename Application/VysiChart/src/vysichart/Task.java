@@ -1,6 +1,6 @@
 package vysichart;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.ArrayList;
 
 /**
@@ -18,7 +18,7 @@ public class Task {
     //An array of all nodes that need to be done before this task.
     private ArrayList<Task> dependentNodes;
     private ArrayList<Task> children; // tasks children
-    private Date startDate, endDate, lateStart, lateEnd;
+    private Calendar startDate, endDate, lateStart, lateEnd;
     private float taskDuration, taskSlack;
     private boolean taskIsComplete;
 
@@ -48,7 +48,7 @@ public class Task {
     }
 
     public Task(String taskName, Task taskParent,
-            Date startDate, Date endDate) {
+            Calendar startDate, Calendar endDate) {
 
         this.taskName = taskName;
         this.taskParent = taskParent;
@@ -63,7 +63,7 @@ public class Task {
     }
 
     public Task(String taskName, Task taskParent, ArrayList<Task> dependentNodes,
-            Date startDate, Date endDate) {
+            Calendar startDate, Calendar endDate) {
 
         this.taskName = taskName;
         this.taskParent = taskParent;
@@ -108,19 +108,19 @@ public class Task {
         return children;
     }
 
-    public Date getStartDate() {
+    public Calendar getStartDate() {
         return startDate;
     }
 
-    public Date getEndDate() {
+    public Calendar getEndDate() {
         return endDate;
     }
 
-    public Date getLateStart() {
+    public Calendar getLateStart() {
         return lateStart;
     }
 
-    public Date getLateEnd() {
+    public Calendar getLateEnd() {
         return lateEnd;
     }
 
@@ -143,10 +143,6 @@ public class Task {
         this.taskParent.addChild(this); // adds THIS as child to parent
     }
 
-    public void setTaskDuration(int taskDuration) {
-        this.taskDuration = taskDuration;
-    }
-
     public void setTaskSlack(int taskSlack) {
         this.taskSlack = taskSlack;
     }
@@ -154,11 +150,20 @@ public class Task {
     public void setTaskIsComplete(boolean taskIsComplete) {
         this.taskIsComplete = taskIsComplete;
     }
+    
+    public void setStartDate(Calendar startDate){
+        this.startDate = startDate;
+    }
+    
+    public void setEndDate(Calendar endDate){
+        this.endDate = endDate;
+    }
 
     //--- 'Utility' methods ---
     
     public void printOut() { // just a console printout for debugging
         System.out.println("Task Name: " + taskName);
+        System.out.println("Duration(ms): " + calculateDuration());
         if (taskParent != null) {
             System.out.println("Parent: " + taskParent.getName());
         } else {
@@ -205,5 +210,61 @@ public class Task {
         // set new parent
         setTaskParent(newParent);
         //setTaskParent automatically adds THIS as child
+    }
+    
+    /*throws NPE, but works okay? fix if you can!*/
+    public long dateToMillisecond(Calendar date){
+        
+        long year = date.get(Calendar.YEAR) * 31556952000L;
+        long day = date.get(Calendar.DAY_OF_YEAR) * 86400000;
+        long hour = date.get(Calendar.HOUR_OF_DAY) * 3600000;
+        long minute = date.get(Calendar.MINUTE) * 60000;
+        long second = date.get(Calendar.SECOND) * 1000;
+        
+        return (year + day + hour + minute + second);
+    }
+    
+    public long calculateDuration(){
+        return dateToMillisecond(endDate) - 
+                dateToMillisecond(startDate);
+    }
+    
+    public String getString(){
+        // string interpretation of task
+        //taskname, taskNumber already string
+        //String idStr = String.valueOf(taskId);
+        //String levelStr = String.valueOf(taskLevel);
+        // store parent ID
+        //String parentStr = String.valueOf(taskParent.getTaskId());
+        //String dependentStr = "";
+        //for (Task currentTask : dependentNodes){
+        //    dependentStr += String.valueOf(currentTask.getTaskId()); // stores IDs
+        //    dependentStr += " "; // seperated by spaces
+        //}
+        
+        //String childStr = "";
+        //for (Task currentTask : children){
+        //    childStr += String.valueOf(currentTask.getTaskId()); // stores IDs
+        //    childStr += " "; // seperated by spaces
+        //}
+        
+        //String strtStr = String.valueOf(startDate);
+        //String endStr = String.valueOf(endDate);
+        //String lateStartStr = String.valueOf(lateStart);
+        //String lateEndStr = String.valueOf(lateEnd);
+        
+        //String durationStr = String.valueOf(taskDuration);
+        //String slackStr = String.valueOf(taskSlack);
+        
+        //String completeStr = String.valueOf(taskIsComplete);
+        
+        
+        //String str = taskName + "\n" + taskNumber + "\n" +  idStr + "\n" + levelStr + 
+        //        "\n" + parentStr + "\n" + dependentStr + "\n" + childStr + "\n" + strtStr + 
+        //        "\n" + endStr + "\n" + lateStartStr + "\n" + lateEndStr + "\n" + 
+        //        durationStr + "\n" + slackStr + "\n" + completeStr;
+        
+        String str = taskName;
+        return str;
     }
 }

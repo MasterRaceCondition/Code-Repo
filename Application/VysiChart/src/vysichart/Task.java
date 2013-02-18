@@ -206,4 +206,43 @@ public class Task {
         setTaskParent(newParent);
         //setTaskParent automatically adds THIS as child
     }
+    
+    public String getString(){
+        // string interpretation of task
+        //taskname, taskNumber already string
+        //String idStr = String.valueOf(taskId);
+        //String levelStr = String.valueOf(taskLevel);
+        // store parent ID
+        //String parentStr = String.valueOf(taskParent.getTaskId());
+        //String dependentStr = "";
+        //for (Task currentTask : dependentNodes){
+        //    dependentStr += String.valueOf(currentTask.getTaskId()); // stores IDs
+        //    dependentStr += " "; // seperated by spaces
+        //}
+        
+        //String childStr = "";
+        //for (Task currentTask : children){
+        //    childStr += String.valueOf(currentTask.getTaskId()); // stores IDs
+        //    childStr += " "; // seperated by spaces
+        //}
+        
+        //String strtStr = String.valueOf(startDate);
+        //String endStr = String.valueOf(endDate);
+        //String lateStartStr = String.valueOf(lateStart);
+        //String lateEndStr = String.valueOf(lateEnd);
+        
+        //String durationStr = String.valueOf(taskDuration);
+        //String slackStr = String.valueOf(taskSlack);
+        
+        //String completeStr = String.valueOf(taskIsComplete);
+        
+        
+        //String str = taskName + "\n" + taskNumber + "\n" +  idStr + "\n" + levelStr + 
+        //        "\n" + parentStr + "\n" + dependentStr + "\n" + childStr + "\n" + strtStr + 
+        //        "\n" + endStr + "\n" + lateStartStr + "\n" + lateEndStr + "\n" + 
+        //        durationStr + "\n" + slackStr + "\n" + completeStr;
+        
+        String str = taskName;
+        return str;
+    }
 }

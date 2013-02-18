@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class Gantt extends Chart {
 
     private int boxLength; // calculated by the ratio of taskDuraion / timeFrame
-    private float timeFrame; 
+    private float timeFrame;
     private int currentX2; // bottom right coords
     private int currentY2; //
 
@@ -37,10 +37,12 @@ public class Gantt extends Chart {
         }
         currentX2 = currentX + boxLength;
     }
+
     @Override
     public void drawNode() {
         //TODO
     }
+
     @Override
     public void drawChart() {
         //TODO
@@ -58,5 +60,19 @@ public class Gantt extends Chart {
         currentY2 = newY2;
 
         //TODO 
+    }
+
+    @Override
+    public String getString() {
+        // Gantt has other stuff
+        String str = super.getString();
+        String boxLengthStr = String.valueOf(boxLength);
+        // timeFrame is contained in Project
+        String curX2Str = String.valueOf(currentX2);
+        String curY2Str = String.valueOf(currentY2);
+        
+        str += "\n" + boxLengthStr + "\n" + curX2Str + "\n" + curY2Str;
+
+        return str;
     }
 }

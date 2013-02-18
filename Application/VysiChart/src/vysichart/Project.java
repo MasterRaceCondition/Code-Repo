@@ -95,7 +95,7 @@ public class Project {
     public void addTask(Task newTask) {
         // not only adds newTask, but also all it's children
         tasks.add(newTask);
-        for (Task currentTask : newTask.getChildren()){
+        for (Task currentTask : newTask.getChildren()) {
             addTask(currentTask);
         }
     }
@@ -113,7 +113,7 @@ public class Project {
                 System.out.println("-------------");
             }
         }
-        
+
         System.out.println("-------------------");
     }
 
@@ -122,5 +122,38 @@ public class Project {
         // get latest end date
         // timeFrame = earliestStart - latestEnd
         // update class 
+    }
+
+    public String getString() {
+        // String representation of the project
+        String tasksStr = "";
+        
+        for (Task current : tasks) {
+            System.out.println(current.getName());
+
+            tasksStr += current.getString();
+            tasksStr += "\n"; // net line between each
+        }
+        
+
+        //String ganttStr = gantt.getString();
+        //String pertStr = pert.getString();
+        //String wbtStr = wbt.getString();
+
+        // name is already a string
+        // filePath is alreadt a string
+
+        String timeFrameStr = String.valueOf(timeFrame);
+
+
+
+        String str = tasksStr + "\n" + name + "\n" + filePath + "\n" + timeFrameStr;
+
+        return str;
+    }
+
+    public void saveToFile() {
+        // save everything to the filePath
+        // tasks saves as full tasks
     }
 }

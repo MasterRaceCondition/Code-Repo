@@ -77,6 +77,8 @@ public class Vysichart {
         
         makeBreakfast.printOut();
         
+        System.out.println(makeBreakfast.getString());
+        
     }
     
     public static void main(String[] args) {

@@ -100,7 +100,7 @@ public class Project {
         }
     }
 
-    public void printOut() {
+    public void printOut() { // print out function
         System.out.println("Project Name: " + name);
         System.out.println("File Path: " + filePath);
         System.out.println("-------------------");

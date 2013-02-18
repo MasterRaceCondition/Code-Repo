@@ -12,10 +12,10 @@ import java.util.ArrayList;
 
 public class Gantt extends Chart {
 
-    private int boxLength; // relies on current tasks duration/timeFrame
-    private float timeFrame;
+    private int boxLength; // calculated by the ratio of taskDuraion / timeFrame
+    private float timeFrame; 
     private int currentX2; // bottom right coords
-    private int currentY2;
+    private int currentY2; //
 
     public Gantt() {
         //default constructor

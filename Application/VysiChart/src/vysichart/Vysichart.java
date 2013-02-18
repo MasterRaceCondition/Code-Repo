@@ -79,9 +79,11 @@ public class Vysichart {
         //test1();
         test2();
         
+        // node, testN classes are debugging classes, they have no real implication
         
         
-        //GraphicalUserInterface.main(null); // run GUI
+        
+        GraphicalUserInterface.main(null); // run GUI
         
         long endTime = System.currentTimeMillis();
         System.out.println("Computation Time: " // check how fast it is

@@ -156,6 +156,7 @@ public class Task {
     }
 
     //--- 'Utility' methods ---
+    
     public void printOut() { // just a console printout for debugging
         System.out.println("Task Name: " + taskName);
         if (taskParent != null) {
@@ -182,19 +183,20 @@ public class Task {
     }
 
     public void addDependantNode(Task task) {
-        dependentNodes.add(task);
+        dependentNodes.add(task); // adds a node to the dependant node array
     }
 
     public void removeDependentNode(Task taskToRemove) {
-        dependentNodes.remove(taskToRemove);
+        dependentNodes.remove(taskToRemove); // removes a node from the dependant node aray
+        // this will need validation in future
     }
 
     public void addChild(Task task) {
-        children.add(task);
+        children.add(task); // adds a node to the child array
     }
 
     public void removeChild(Task taskToRemove) {
-        children.remove(taskToRemove);
+        children.remove(taskToRemove); // removes a child from the child array
     }
 
     public void changeParent(Task newParent) {

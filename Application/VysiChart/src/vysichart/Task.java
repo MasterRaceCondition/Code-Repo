@@ -5,8 +5,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Harry, Todd
-=======
+ * @author Harry, Todd =======
  * @author UP619902, OtherID1, OtherID2
  */
 public class Task {
@@ -19,7 +18,6 @@ public class Task {
     //An array of all nodes that need to be done before this task.
     private ArrayList<Task> dependentNodes;
     private ArrayList<Task> children; // tasks children
-    
     private Date startDate, endDate, lateStart, lateEnd;
     private float taskDuration, taskSlack;
     private boolean taskIsComplete;
@@ -28,24 +26,22 @@ public class Task {
         dependentNodes = new ArrayList<>();
         children = new ArrayList<>();
     } //Default constructor.
-    
-    public Task(String taskName){
+
+    public Task(String taskName) {
         this.taskName = taskName;
-        dependentNodes = new ArrayList<>();
-        children = new ArrayList<>();
-    }
-    
-    public Task(String taskName, Task taskParent){
-        this.taskName = taskName;
-        
-        this.taskParent = taskParent;
-        taskParent.addChild(this); // adds THIS as child to parent
-        
         dependentNodes = new ArrayList<>();
         children = new ArrayList<>();
     }
 
-  
+    public Task(String taskName, Task taskParent) {
+        this.taskName = taskName;
+
+        this.taskParent = taskParent;
+        initParent(); // adds THIS as child to parent
+
+        dependentNodes = new ArrayList<>();
+        children = new ArrayList<>();
+    }
 
     public Task(String taskName, Task taskParent,
             Date startDate, Date endDate) {
@@ -56,12 +52,12 @@ public class Task {
         this.children = new ArrayList<>(); // init
         this.startDate = startDate;
         this.endDate = endDate;
-        
+
         /*This method call is dangerous - 'this' may not have yet been init!*/
-        this.taskParent.addChild(this); // adds THIS as child to parent
+        initParent(); // adds THIS as child to parent
     }
-    
-      public Task(String taskName, Task taskParent, ArrayList<Task> dependentNodes,
+
+    public Task(String taskName, Task taskParent, ArrayList<Task> dependentNodes,
             Date startDate, Date endDate) {
 
         this.taskName = taskName;
@@ -70,9 +66,13 @@ public class Task {
         this.startDate = startDate;
         this.endDate = endDate;
         this.children = new ArrayList<>();
-        
+
         /*This method call is dangerous - 'this' may not have yet been init!*/
-        this.taskParent.addChild(this); // adds THIS as child to parent
+        initParent(); // adds THIS as child to parent
+    }
+    
+    public void initParent(){
+        this.taskParent.addChild(this); // fixes leakage
     }
 
     //Get methods for retrieving variable data
@@ -126,7 +126,7 @@ public class Task {
 
     //set methods for modifying class variables.
     public void setTaskName(String taskName) {
-    this.taskName = taskName;
+        this.taskName = taskName;
     }
 
     public void setTaskNumber(String taskNumber) {

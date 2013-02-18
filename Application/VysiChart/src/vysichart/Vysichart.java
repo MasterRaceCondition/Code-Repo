@@ -1,5 +1,7 @@
 package vysichart;
 
+import java.util.Calendar;
+
 /**
  *
  * @author UP612136, UP619902, [paddy's jupiter]
@@ -45,7 +47,12 @@ public class Vysichart {
         Project makeBreakfast = new Project("Breakfast Maker", "D:/Documents/MRC/Vysichart/Breakfast");
         
         Task makeBreak = new Task("Make Breakfast");
-        
+        Calendar startCal = Calendar.getInstance();
+        startCal.set(2011, 5, 12, 5, 25);
+        Calendar endCal = Calendar.getInstance();
+        endCal.set(2011, 5, 12, 5, 30);
+        makeBreak.setStartDate(startCal);
+        makeBreak.setEndDate(endCal);
         Task makeCerial = new Task("Make Cerial", makeBreak);
         Task makeJuice = new Task("Make Juice", makeBreak);
         Task eatBreakfast = new Task("Eat The Breakfast", makeBreak);

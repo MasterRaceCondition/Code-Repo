@@ -23,14 +23,16 @@ public class Task {
     private boolean taskIsComplete;
 
     public Task() {
-        dependentNodes = new ArrayList<>();
-        children = new ArrayList<>();
+        dependentNodes = new ArrayList<>(); // init
+        children = new ArrayList<>(); // init
+        taskIsComplete = false; // defaults
     } //Default constructor.
 
     public Task(String taskName) {
         this.taskName = taskName;
         dependentNodes = new ArrayList<>();
         children = new ArrayList<>();
+        taskIsComplete = false; // defaults
     }
 
     public Task(String taskName, Task taskParent) {
@@ -41,6 +43,8 @@ public class Task {
 
         dependentNodes = new ArrayList<>();
         children = new ArrayList<>();
+        
+        taskIsComplete = false; // defaults
     }
 
     public Task(String taskName, Task taskParent,
@@ -52,8 +56,9 @@ public class Task {
         this.children = new ArrayList<>(); // init
         this.startDate = startDate;
         this.endDate = endDate;
+        
+        taskIsComplete = false; // defaults
 
-        /*This method call is dangerous - 'this' may not have yet been init!*/
         initParent(); // adds THIS as child to parent
     }
 
@@ -67,7 +72,6 @@ public class Task {
         this.endDate = endDate;
         this.children = new ArrayList<>();
 
-        /*This method call is dangerous - 'this' may not have yet been init!*/
         initParent(); // adds THIS as child to parent
     }
     
@@ -152,7 +156,7 @@ public class Task {
     }
 
     //--- 'Utility' methods ---
-    public void printOut() {
+    public void printOut() { // just a console printout for debugging
         System.out.println("Task Name: " + taskName);
         if (taskParent != null) {
             System.out.println("Parent: " + taskParent.getName());

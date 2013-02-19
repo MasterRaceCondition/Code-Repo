@@ -13,13 +13,18 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     /**
      * Creates new form GraphicalUserInterface
      */
-    private Project project; //project to work off
+    private static Project project; //project to work off
     
     
-    public  GraphicalUserInterface(){
+    public GraphicalUserInterface(Project project){
         initComponents(); // default cons
         // project needs to be added
-        project = new Project("Empty Project", "No File Path"); // empty project
+        this.project = project;
+    }
+    
+    public GraphicalUserInterface(){
+        initComponents();
+        project = new Project("empty", "noDir");
     }
     
     public void setProject(Project project){
@@ -302,8 +307,12 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setText("Project:");
 
+        jLabel9.setText("-");
+
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setText("File Path:");
+
+        jLabel11.setText("-");
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -527,7 +536,7 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GraphicalUserInterface().setVisible(true);
+                new GraphicalUserInterface(project).setVisible(true);
             }
         });
     }

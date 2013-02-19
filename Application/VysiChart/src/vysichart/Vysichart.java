@@ -76,9 +76,13 @@ public class Vysichart {
         
         makeBreakfast.addTask(makeBreak);
         
-        makeBreakfast.printOut();
+        //makeBreakfast.printOut();
         
-        System.out.println(makeBreakfast.getString());
+        //System.out.println(makeBreakfast.getString());
+        
+        GraphicalUserInterface gui = new GraphicalUserInterface(makeBreakfast);
+        // no default contructor
+        gui.main(null);
         
     }
     
@@ -93,7 +97,7 @@ public class Vysichart {
         
         
         
-        GraphicalUserInterface.main(null); // run GUI
+        //GraphicalUserInterface.main(null); // run GUI
         
         long endTime = System.currentTimeMillis();
         System.out.println("Computation Time: " // check how fast it is

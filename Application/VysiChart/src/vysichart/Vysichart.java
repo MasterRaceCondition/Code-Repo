@@ -53,6 +53,7 @@ public class Vysichart {
         endCal.set(2011, 5, 12, 5, 30);
         makeBreak.setStartCalendar(startCal);
         makeBreak.setEndCalendar(endCal);
+        
         Task makeCerial = new Task("Make Cerial", makeBreak);
         Task makeJuice = new Task("Make Juice", makeBreak);
         Task eatBreakfast = new Task("Eat The Breakfast", makeBreak);

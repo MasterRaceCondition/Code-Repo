@@ -167,6 +167,7 @@ public class Task {
     
     public void printOut() { // just a console printout for debugging
         System.out.println("Task Name: " + taskName);
+        System.out.println("Duration(ms): " + calculateDuration());
         if (taskParent != null) {
             System.out.println("Parent: " + taskParent.getName());
         } else {

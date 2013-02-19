@@ -13,13 +13,18 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     /**
      * Creates new form GraphicalUserInterface
      */
-    private Project project; //project to work off
+    private static Project project; //project to work off
     
     
-    public  GraphicalUserInterface(){
-        initComponents(); // default cons
+    public GraphicalUserInterface(Project project){
         // project needs to be added
-        project = new Project("Empty Project", "No File Path"); // empty project
+        this.project = project;
+        initComponents(); // default cons
+    }
+    
+    public GraphicalUserInterface(){
+        project = new Project("empty", "noDir");
+        initComponents();
     }
     
     public void setProject(Project project){
@@ -42,13 +47,13 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         chartTabs = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
-        jPanel8 = new javax.swing.JPanel();
+        jPanel8 = new GanttRender(project.getGantt());
         jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jPanel9 = new javax.swing.JPanel();
+        jPanel9 = new PERTRender(project.getPERT());
         jLabel6 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jPanel10 = new javax.swing.JPanel();
+        jPanel10 = new WBTRender(project.getWBT());
         jLabel7 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -123,14 +128,14 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(jLabel5)
                 .addContainerGap(451, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         chartTabs.addTab("Gantt", jPanel1);
@@ -302,8 +307,12 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setText("Project:");
 
+        jLabel9.setText("-");
+
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setText("File Path:");
+
+        jLabel11.setText("-");
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -527,7 +536,7 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GraphicalUserInterface().setVisible(true);
+                new GraphicalUserInterface(project).setVisible(true);
             }
         });
     }

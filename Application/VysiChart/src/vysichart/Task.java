@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 /**
 *
-* @author Harry, Todd =======
 * @author UP619902, OtherID1, OtherID2
 */
 public class Task {

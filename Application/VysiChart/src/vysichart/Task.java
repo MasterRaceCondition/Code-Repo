@@ -75,7 +75,7 @@ public class Task {
         initParent(); // adds THIS as child to parent
     }
     
-    public void initParent(){
+    private void initParent(){
         this.taskParent.addChild(this); // fixes leakage
     }
 
@@ -228,7 +228,7 @@ public class Task {
         return (year + day + hour + minute + second);
     }
     
-    public long calculateDuration(){
+    private long calculateDuration(){
         return dateToMillisecond(endCalendar) - 
                 dateToMillisecond(startCalendar);
     }

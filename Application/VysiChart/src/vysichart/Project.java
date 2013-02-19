@@ -108,8 +108,8 @@ public class Project {
             System.out.println("Currently No Tasks");
         } else {
             System.out.println("---Task Overview---");
-            for (Task currentTask : tasks) {
-                currentTask.printOut();
+            for (int i = 0; i < tasks.size(); i++) {
+                tasks.get(i).printOut();
                 System.out.println("-------------");
             }
         }
@@ -159,8 +159,8 @@ public class Project {
     
     public float getTaskPercentage(Task task){
         long allTaskDuration = 0;
-        for(Task t : tasks){
-            allTaskDuration =+ t.getTaskDuration();
+        for(int i = 0; i < tasks.size(); i++){
+            allTaskDuration =+ tasks.get(i).getTaskDuration();
         }
         return (float)((task.getTaskDuration() / allTaskDuration) * 100);
     }

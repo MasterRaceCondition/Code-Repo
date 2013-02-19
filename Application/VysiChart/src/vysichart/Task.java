@@ -19,7 +19,7 @@ public class Task {
     private ArrayList<Task> dependentNodes;
     private ArrayList<Task> children; // tasks children
     private Calendar startCalendar, endCalendar, lateStart, lateEnd;
-    private float taskDuration, taskSlack;
+    private long taskDuration, taskSlack;
     private boolean taskIsComplete;
 
     public Task() {
@@ -124,7 +124,7 @@ public class Task {
         return lateEnd;
     }
 
-    public float getTaskDuration() {
+    public long getTaskDuration() {
         return taskDuration;
     }
 

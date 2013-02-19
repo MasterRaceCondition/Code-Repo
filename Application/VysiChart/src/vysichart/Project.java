@@ -156,4 +156,12 @@ public class Project {
         // save everything to the filePath
         // tasks saves as full tasks
     }
+    
+    public float getTaskPercentage(Task task){
+        long allTaskDuration = 0;
+        for(Task t : tasks){
+            allTaskDuration =+ t.getTaskDuration();
+        }
+        return (float)((task.getTaskDuration() / allTaskDuration) * 100);
+    }
 }

@@ -611,14 +611,14 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     
     
     public GraphicalUserInterface(Project project){
-        initComponents(); // default cons
         // project needs to be added
         this.project = project;
+        initComponents(); // default cons
     }
     
     public GraphicalUserInterface(){
-        initComponents();
         project = new Project("empty", "noDir");
+        initComponents();
     }
     
     public void setProject(Project project){
@@ -641,13 +641,13 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         chartTabs = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
-        jPanel8 = new javax.swing.JPanel();
+        jPanel8 = new GanttRender(project.getGantt());
         jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jPanel9 = new javax.swing.JPanel();
+        jPanel9 = new PERTRender(project.getPERT());
         jLabel6 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jPanel10 = new javax.swing.JPanel();
+        jPanel10 = new WBTRender(project.getWBT());
         jLabel7 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -722,14 +722,14 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(jLabel5)
                 .addContainerGap(451, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         chartTabs.addTab("Gantt", jPanel1);

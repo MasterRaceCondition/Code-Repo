@@ -17,14 +17,14 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     
     
     public GraphicalUserInterface(Project project){
-        initComponents(); // default cons
         // project needs to be added
         this.project = project;
+        initComponents(); // default cons
     }
     
     public GraphicalUserInterface(){
-        initComponents();
         project = new Project("empty", "noDir");
+        initComponents();
     }
     
     public void setProject(Project project){
@@ -47,13 +47,13 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         chartTabs = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
-        jPanel8 = new javax.swing.JPanel();
+        jPanel8 = new GanttRender(project.getGantt());
         jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jPanel9 = new javax.swing.JPanel();
+        jPanel9 = new PERTRender(project.getPERT());
         jLabel6 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jPanel10 = new javax.swing.JPanel();
+        jPanel10 = new WBTRender(project.getWBT());
         jLabel7 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();

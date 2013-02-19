@@ -287,6 +287,9 @@
                   </Border>
                 </Property>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new GanttRender(project.getGantt())"/>
+              </AuxValues>
 
               <Layout>
                 <DimensionLayout dim="0">
@@ -356,6 +359,9 @@
                   </Border>
                 </Property>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new PERTRender(project.getPERT())"/>
+              </AuxValues>
 
               <Layout>
                 <DimensionLayout dim="0">
@@ -425,6 +431,9 @@
                   </Border>
                 </Property>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new WBTRender(project.getWBT())"/>
+              </AuxValues>
 
               <Layout>
                 <DimensionLayout dim="0">

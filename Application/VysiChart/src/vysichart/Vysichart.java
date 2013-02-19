@@ -91,7 +91,7 @@ public class Vysichart {
         long startTime = System.currentTimeMillis();
 
         //test1();
-        //test2();
+        test2();
 
         // node, testN classes are debugging classes, they have no real implication
         

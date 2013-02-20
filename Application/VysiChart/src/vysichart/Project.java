@@ -164,4 +164,8 @@ public class Project {
         }
         return (float)((task.getTaskDuration() / allTaskDuration) * 100);
     }
+    
+    public int getNumberOfTasks(){
+        return tasks.size();
+    }
 }

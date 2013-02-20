@@ -14,10 +14,23 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
      * Creates new form GraphicalUserInterface
      */
     private static Project project;
-    
+
     public GraphicalUserInterface(Project project) {
         this.project = project;
         initComponents();
+        refresh();
+    }
+    
+    public GraphicalUserInterface(){
+        project = new Project("No Project Set", "No Filepath Set");
+        initComponents();
+        refresh();
+    }
+    
+    public void refresh(){
+        projectName.setText(project.getName());
+        projectPath.setText(project.getFilePath());
+        projectSize.setText(String.valueOf(project.getNumberOfTasks()));
     }
 
     /**
@@ -33,6 +46,20 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         ganttWrap = new GanttRender(project.getGantt());
         PERTWrap = new PERTRender(project.getPERT());
         WBTWrap = new WBTRender(project.getWBT());
+        toolbarHolder = new javax.swing.JPanel();
+        projectWrap = new javax.swing.JPanel();
+        lblProject = new javax.swing.JLabel();
+        pjName = new javax.swing.JLabel();
+        pjFP = new javax.swing.JLabel();
+        pjSize = new javax.swing.JLabel();
+        projectName = new javax.swing.JLabel();
+        projectPath = new javax.swing.JLabel();
+        projectSize = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        lblToolbars = new javax.swing.JLabel();
+        toolbarWrap = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         Files = new javax.swing.JMenu();
         filesOpen = new javax.swing.JMenuItem();
@@ -52,13 +79,15 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         tasksAdd = new javax.swing.JMenuItem();
         Toolbars = new javax.swing.JMenu();
         toolbarsAll = new javax.swing.JCheckBoxMenuItem();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
         toolbarsTask = new javax.swing.JCheckBoxMenuItem();
+        toolbarsTime = new javax.swing.JCheckBoxMenuItem();
         Settings = new javax.swing.JMenu();
         Help = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("VysiChart");
-        setPreferredSize(new java.awt.Dimension(1000, 650));
+        setPreferredSize(null);
         setResizable(false);
 
         tabbedRenderPane.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -69,11 +98,11 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         ganttWrap.setLayout(ganttWrapLayout);
         ganttWrapLayout.setHorizontalGroup(
             ganttWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 859, Short.MAX_VALUE)
+            .addGap(0, 855, Short.MAX_VALUE)
         );
         ganttWrapLayout.setVerticalGroup(
             ganttWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 475, Short.MAX_VALUE)
+            .addGap(0, 463, Short.MAX_VALUE)
         );
 
         tabbedRenderPane.addTab("Gannt Chart", ganttWrap);
@@ -84,11 +113,11 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         PERTWrap.setLayout(PERTWrapLayout);
         PERTWrapLayout.setHorizontalGroup(
             PERTWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 859, Short.MAX_VALUE)
+            .addGap(0, 855, Short.MAX_VALUE)
         );
         PERTWrapLayout.setVerticalGroup(
             PERTWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 475, Short.MAX_VALUE)
+            .addGap(0, 463, Short.MAX_VALUE)
         );
 
         tabbedRenderPane.addTab("PERT Chart", PERTWrap);
@@ -99,14 +128,108 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         WBTWrap.setLayout(WBTWrapLayout);
         WBTWrapLayout.setHorizontalGroup(
             WBTWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 859, Short.MAX_VALUE)
+            .addGap(0, 855, Short.MAX_VALUE)
         );
         WBTWrapLayout.setVerticalGroup(
             WBTWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 475, Short.MAX_VALUE)
+            .addGap(0, 463, Short.MAX_VALUE)
         );
 
         tabbedRenderPane.addTab("Work Breakdown Tree", WBTWrap);
+
+        javax.swing.GroupLayout toolbarHolderLayout = new javax.swing.GroupLayout(toolbarHolder);
+        toolbarHolder.setLayout(toolbarHolderLayout);
+        toolbarHolderLayout.setHorizontalGroup(
+            toolbarHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 38, Short.MAX_VALUE)
+        );
+        toolbarHolderLayout.setVerticalGroup(
+            toolbarHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 515, Short.MAX_VALUE)
+        );
+
+        lblProject.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblProject.setText("Project Information");
+
+        pjName.setText("Project Name:");
+
+        pjFP.setText("File Path:");
+
+        pjSize.setText("Number Of Tasks:");
+
+        projectName.setText("-");
+
+        projectPath.setText("-");
+
+        projectSize.setText("-");
+
+        javax.swing.GroupLayout projectWrapLayout = new javax.swing.GroupLayout(projectWrap);
+        projectWrap.setLayout(projectWrapLayout);
+        projectWrapLayout.setHorizontalGroup(
+            projectWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(projectWrapLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(projectWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblProject)
+                    .addGroup(projectWrapLayout.createSequentialGroup()
+                        .addGroup(projectWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pjName)
+                            .addComponent(pjFP)
+                            .addComponent(pjSize))
+                        .addGap(32, 32, 32)
+                        .addGroup(projectWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(projectSize, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, projectWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(projectPath, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                                .addComponent(projectName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap(285, Short.MAX_VALUE))
+        );
+        projectWrapLayout.setVerticalGroup(
+            projectWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(projectWrapLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblProject)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(projectWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(pjName)
+                    .addComponent(projectName))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(projectWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(pjFP)
+                    .addComponent(projectPath))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(projectWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(pjSize)
+                    .addComponent(projectSize))
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
+
+        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\U AMD\\Documents\\GitHub\\Documentation\\Progress\\LOGO.PNG")); // NOI18N
+
+        lblToolbars.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblToolbars.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblToolbars.setText("Toolbars");
+
+        jLabel1.setText("Task Manager");
+
+        jLabel2.setText("Timeframe Manager");
+
+        javax.swing.GroupLayout toolbarWrapLayout = new javax.swing.GroupLayout(toolbarWrap);
+        toolbarWrap.setLayout(toolbarWrapLayout);
+        toolbarWrapLayout.setHorizontalGroup(
+            toolbarWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        toolbarWrapLayout.setVerticalGroup(
+            toolbarWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toolbarWrapLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         menuBar.setPreferredSize(new java.awt.Dimension(181, 25));
 
@@ -118,6 +241,11 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
 
         filesNew.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         filesNew.setText("New");
+        filesNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filesNewActionPerformed(evt);
+            }
+        });
         Files.add(filesNew);
 
         filesSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
@@ -131,6 +259,11 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
 
         filesRefresh.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
         filesRefresh.setText("Refresh");
+        filesRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filesRefreshActionPerformed(evt);
+            }
+        });
         Files.add(filesRefresh);
 
         menuBar.add(Files);
@@ -189,11 +322,27 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
             }
         });
         Toolbars.add(toolbarsAll);
+        Toolbars.add(jSeparator3);
 
         toolbarsTask.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_MASK));
         toolbarsTask.setSelected(true);
         toolbarsTask.setText("Toggle Task Manager");
+        toolbarsTask.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                toolbarsTaskActionPerformed(evt);
+            }
+        });
         Toolbars.add(toolbarsTask);
+
+        toolbarsTime.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.ALT_MASK));
+        toolbarsTime.setSelected(true);
+        toolbarsTime.setText("Toggle Timeframe Manager");
+        toolbarsTime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                toolbarsTimeActionPerformed(evt);
+            }
+        });
+        Toolbars.add(toolbarsTime);
 
         menuBar.add(Toolbars);
 
@@ -209,16 +358,42 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(110, Short.MAX_VALUE)
-                .addComponent(tabbedRenderPane, javax.swing.GroupLayout.PREFERRED_SIZE, 880, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblToolbars, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(toolbarWrap, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(toolbarHolder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(35, 35, 35)
+                        .addComponent(tabbedRenderPane, javax.swing.GroupLayout.PREFERRED_SIZE, 876, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(projectWrap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(tabbedRenderPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(projectWrap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblToolbars)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(toolbarWrap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 19, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(toolbarHolder, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tabbedRenderPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
 
@@ -234,8 +409,36 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_editCopyActionPerformed
 
     private void toolbarsAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toolbarsAllActionPerformed
-        // TODO add your handling code here:
+        if (toolbarWrap.isVisible()) {
+            toolbarWrap.setVisible(false);
+        } else {
+            toolbarWrap.setVisible(true);
+        }
     }//GEN-LAST:event_toolbarsAllActionPerformed
+
+    private void toolbarsTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toolbarsTaskActionPerformed
+        if (jLabel1.isVisible()) {
+            jLabel1.setVisible(false);
+        } else {
+            jLabel1.setVisible(true);
+        }
+    }//GEN-LAST:event_toolbarsTaskActionPerformed
+
+    private void toolbarsTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toolbarsTimeActionPerformed
+        if (jLabel2.isVisible()) {
+            jLabel2.setVisible(false);
+        } else {
+            jLabel2.setVisible(true);
+        }
+    }//GEN-LAST:event_toolbarsTimeActionPerformed
+
+    private void filesRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filesRefreshActionPerformed
+        refresh();
+    }//GEN-LAST:event_filesRefreshActionPerformed
+
+    private void filesNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filesNewActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_filesNewActionPerformed
 
     /**
      * @param args the command line arguments
@@ -291,12 +494,28 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem filesSave;
     private javax.swing.JMenuItem filesSaveAs;
     private javax.swing.JPanel ganttWrap;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JLabel lblProject;
+    private javax.swing.JLabel lblToolbars;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JLabel pjFP;
+    private javax.swing.JLabel pjName;
+    private javax.swing.JLabel pjSize;
+    private javax.swing.JLabel projectName;
+    private javax.swing.JLabel projectPath;
+    private javax.swing.JLabel projectSize;
+    private javax.swing.JPanel projectWrap;
     private javax.swing.JTabbedPane tabbedRenderPane;
     private javax.swing.JMenuItem tasksAdd;
+    private javax.swing.JPanel toolbarHolder;
+    private javax.swing.JPanel toolbarWrap;
     private javax.swing.JCheckBoxMenuItem toolbarsAll;
     private javax.swing.JCheckBoxMenuItem toolbarsTask;
+    private javax.swing.JCheckBoxMenuItem toolbarsTime;
     // End of variables declaration//GEN-END:variables
 }

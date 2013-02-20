@@ -229,7 +229,7 @@ public class Task {
      * Useful for pipelining conversions to other methods which display
      * timeframes to users.
      */
-    public int millisecondToOtherFormat(long duration, String conversionSwitch){
+    private int millisecondToOtherFormat(long duration, String conversionSwitch){
         switch(conversionSwitch){
             case("year")    :   return (int)(duration/31556952000L);
             case("month")   :   return (int)(duration/2629746000L);
@@ -239,6 +239,18 @@ public class Task {
             case("minute")  :   return (int)(duration/60000);
             default         :   return (int)(duration/1000); //returns in seconds
         }
+    }
+    public int[] returnTotalTime(){
+        int[] totalTime = new int[7];
+        long currentDuration = taskDuration;
+        String[] timeFrames = {"year", "month", "week", "day", "hour", 
+                                "minute", "second"};
+        for(int i = 0; i < timeFrames.length; i++){
+            totalTime[i] = millisecondToOtherFormat
+                    (currentDuration, timeFrames[i]);
+            currentDuration -= (currentDuration / totalTime[i]);
+        }
+        return totalTime;
     }
     private long calculateDuration(){
         return dateToMillisecond(endCalendar) - 

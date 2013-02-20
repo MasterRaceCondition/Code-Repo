@@ -24,7 +24,7 @@ public class WBTRender extends JPanel {
     public WBTRender(Chart wbt) // set up graphics window
     {
         super();
-        setBackground(Color.WHITE);
+        //setBackground(Color.WHITE);
         this.wbt = wbt;
     }
 
@@ -37,7 +37,9 @@ public class WBTRender extends JPanel {
 
         super.paintComponent(g);
         
-        // Render Code Goes Here
+        
+        g.drawRect(43, 54, 99, 55);
+        g.drawString("WBT RENDER", 150, 150);
     }
     
      public void run() {

@@ -24,7 +24,7 @@ public class GanttRender extends JPanel {
     public GanttRender(Chart gantt) // set up graphics window
     {
         super();
-        setBackground(Color.WHITE);
+        //setBackground(Color.WHITE);
         this.gantt = gantt;
     }
 
@@ -37,10 +37,11 @@ public class GanttRender extends JPanel {
 
         super.paintComponent(g);
         
-        // Render Code Goes Here
+        g.drawLine(50, 200, 250, 200);
+        g.drawString("GANTT CHART RENDER", 150, 150);
     }
     
-     public void run() {
+     public void run() { // for debug
         GanttRender panel = new GanttRender(gantt);                            // window for drawing
         JFrame application = new JFrame();                            // the program itself
 

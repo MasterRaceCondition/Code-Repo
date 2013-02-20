@@ -47,6 +47,12 @@ public class Vysichart {
         Project makeBreakfast = new Project("Breakfast Maker", "D:/Documents/MRC/Vysichart/Breakfast");
 
         Task makeBreak = new Task("Make Breakfast");
+        Calendar startCal = Calendar.getInstance();
+        startCal.set(2011, 5, 12, 5, 25);
+        Calendar endCal = Calendar.getInstance();
+        endCal.set(2011, 5, 12, 5, 30);
+        makeBreak.setStartCalendar(startCal);
+        makeBreak.setEndCalendar(endCal);
 
         Task makeCerial = new Task("Make Cerial", makeBreak);
         Task makeJuice = new Task("Make Juice", makeBreak);
@@ -75,6 +81,8 @@ public class Vysichart {
         //System.out.println(makeBreakfast.getString());
 
         GraphicalUserInterface gui = new GraphicalUserInterface(makeBreakfast);
+        
+        
         // no default contructor
         gui.main(null);
 

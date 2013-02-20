@@ -18,7 +18,7 @@ import java.awt.BorderLayout;
 import java.util.*; //for arraylists
 
 public class WBTRender extends JPanel {
-    
+
     private Chart wbt; // the gantt to render
 
     public WBTRender(Chart wbt) // set up graphics window
@@ -38,11 +38,22 @@ public class WBTRender extends JPanel {
         super.paintComponent(g);
         
         
-        g.drawRect(43, 54, 99, 55);
-        g.drawString("WBT RENDER", 150, 150);
+        drawNode(g, 100, 100);
+
+
+        
     }
-    
-     public void run() {
+
+    public void drawNode(Graphics g, int x, int y) {
+        g.drawRect(x, y, 120, 80); // default node size
+        g.drawString("WBT task", x + 30, y + 20);
+    }
+
+    public void drawChart(Graphics g) {
+        //TODO
+    }
+
+    public void run() {
         WBTRender panel = new WBTRender(wbt);                            // window for drawing
         JFrame application = new JFrame();                            // the program itself
 

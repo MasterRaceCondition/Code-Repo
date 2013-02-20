@@ -43,20 +43,17 @@ public abstract class Chart {
         return isValid; // only accessor, no mutator, as it's calculated
     }
 
-    public int getCurrentX1() {
+    public int getCurrentX() {
         return currentX;
     }
 
-    public int getCurrentY1() {
+    public int getCurrentY() {
         return currentY;
     }
 
-    public int getCurrentX2() {
-        return currentX;
-    }
-
-    public int getCurrentY2() {
-        return currentY;
+    
+    public float getTimeFrame(){
+        return 0; // for Gantt
     }
 
     // --- Mutators ---
@@ -64,32 +61,27 @@ public abstract class Chart {
         this.tasks = tasks;
     }
 
-    public void setCurrentX1(int newX) {
+    public void setCurrentX(int newX) {
         currentX = newX;
     }
 
-    public void setCurrentY1(int newY) {
+    public void setCurrentY(int newY) {
         currentY = newY;
     }
 
-    public void setCurrentX2(int newX) {
-        currentX = newX;
-    }
-
-    public void setCurrentY2(int newY) {
-        currentY = newY;
-    }
 
     public void setCoords(int newX, int newY) {
         currentX = newX;
         currentY = newY;
         // x2 and y2 calculated respectivley
     }
+    
+    public void setTimeFrame(float timeFrame){
+        // empty method for override
+    }
 
-    // --- Abstract Methods ---
-    protected abstract void drawNode();
-
-    protected abstract void drawChart();
+    
+    //--- Utility Methods ---
     
     protected String getString(){
         // string interpretation of class

@@ -38,19 +38,91 @@ public class WBTRender extends JPanel {
         super.paintComponent(g);
         
         
-        drawNode(g, 100, 100);
+        drawChart(g);
 
 
         
     }
 
-    public void drawNode(Graphics g, int x, int y) {
-        g.drawRect(x, y, 120, 80); // default node size
-        g.drawString("WBT task", x + 30, y + 20);
+    public void drawNode(Graphics g, int x, int y, Task task) {
+        g.drawRect(x, y, 120, 50); // default node size
+        g.drawString(task.getName(), x + 15, y + 25);
+    }
+    
+    public void drawTree(Graphics g, Task current, int x, int y){
+        // recursivley draws tree
+        
+        drawNode(g, x, y, current);
+        
+        
+        ArrayList<Task> childs = current.getChildren();
+            int len = childs.size();
+            
+            y += 50; // move down
+            x += 60; // centre
+        
+        if (childs.isEmpty() == false){
+                g.drawLine(x, y, x, y + 20);
+                
+                y += 20; // move down
+                
+                // size of break = (l-1)(b + g), where b = box width (120) and g = gap size (40)
+                
+                int lineLen = (len - 1) * (160); // 160 = 120 + 40
+                
+                g.drawLine(x - lineLen / 2, y, x + lineLen / 2, y);
+                
+                x -= lineLen / 2;
+                for (int i = 0; i < len; i++){
+                    g.drawLine(x, y, x, y + 20);
+                    drawTree(g, childs.get(i), x - 60, y + 20);
+                    // draw node for x
+                    x += 160;
+                }
+            } // else do nothing
+        
     }
 
     public void drawChart(Graphics g) {
-        //TODO
+        if (wbt.getTasks().isEmpty() == false){
+            // init vars, draw first child
+            
+            int x = 400; // centre (ish)
+            int y = 40; // near the top
+            Task currentTask = wbt.getTasks().get(0); // root node
+            drawNode(g, x, y, currentTask); // draw current node
+            
+            ArrayList<Task> childs = currentTask.getChildren();
+            int len = childs.size();
+            
+            y += 50; // move down
+            x += 60; // centre
+            
+            if (childs.isEmpty() == false){
+                g.drawLine(x, y, x, y + 20);
+                
+                y += 20; // move down
+                
+                // size of break = (l-1)(b + g), where b = box width (120) and g = gap size (40)
+                
+                int lineLen = (len - 1) * (160); // 160 = 120 + 40
+                
+                g.drawLine(x - lineLen / 2, y, x + lineLen / 2, y);
+                
+                x -= lineLen / 2;
+                for (int i = 0; i < len; i++){
+                    g.drawLine(x, y, x, y + 20);
+                    drawTree(g, childs.get(i), x - 60, y + 20);
+                    // draw node for x
+                    x += 160;
+                }
+            } // else do nothing
+            
+            
+            
+        } else {
+            g.drawString("No Tasks Found", 200, 200); // leave error message
+        }
     }
 
     public void run() {

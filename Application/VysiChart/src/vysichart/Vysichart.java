@@ -59,11 +59,10 @@ public class Vysichart {
         Task eatBreakfast = new Task("Eat The Breakfast", makeBreak);
 
         Task getBowl = new Task("Get Bowl", makeCerial);
-        Task pourCerial = new Task("Pour Cerial Into Bowl", makeCerial);
+        Task pourCerial = new Task("Pour Cerial", makeCerial);
         Task addMilk = new Task("Add Milk To Cerial", makeCerial);
 
-        Task getGlass = new Task("Get Glass", makeJuice);
-        Task addJuice = new Task("Pour Juice", makeJuice);
+
 
         eatBreakfast.addDependantNode(makeCerial);
         eatBreakfast.addDependantNode(makeJuice);
@@ -71,7 +70,6 @@ public class Vysichart {
         pourCerial.addDependantNode(getBowl);
         addMilk.addDependantNode(pourCerial);
 
-        addJuice.addDependantNode(getGlass);
 
 
         makeBreakfast.addTask(makeBreak);

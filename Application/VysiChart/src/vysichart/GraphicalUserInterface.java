@@ -31,9 +31,9 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         projectName.setText(project.getName());
         projectPath.setText(project.getFilePath());
         projectSize.setText(String.valueOf(project.getNumberOfTasks()));
-        ganttWrap = new GanttRender(project.getGantt()); //
-        PERTWrap = new PERTRender(project.getPERT());    // Refreshes Render Panels
-        WBTWrap = new WBTRender(project.getWBT());       //
+        ganttWrap.repaint(); //
+        PERTWrap.repaint();    // Refreshes Render Panels
+        WBTWrap.repaint();       //
     }
 
     /**

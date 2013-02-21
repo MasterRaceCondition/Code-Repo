@@ -416,10 +416,8 @@
                           <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                               <Component id="projectSize" pref="34" max="32767" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="projectPath" pref="34" max="32767" attributes="0"/>
-                                  <Component id="projectName" alignment="1" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="projectPath" pref="34" max="32767" attributes="0"/>
+                              <Component id="projectName" alignment="1" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -494,11 +492,6 @@
       </SubComponents>
     </Container>
     <Component class="javax.swing.JLabel" name="jLabel5">
-      <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\U AMD\Documents\GitHub\Documentation\Progress\LOGO.PNG"/>
-        </Property>
-      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblToolbars">
       <Properties>

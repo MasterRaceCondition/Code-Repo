@@ -182,9 +182,8 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
                         .addGap(32, 32, 32)
                         .addGroup(projectWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(projectSize, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, projectWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(projectPath, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
-                                .addComponent(projectName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                            .addComponent(projectPath, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                            .addComponent(projectName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(285, Short.MAX_VALUE))
         );
         projectWrapLayout.setVerticalGroup(
@@ -206,8 +205,6 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
                     .addComponent(projectSize))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
-
-        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\U AMD\\Documents\\GitHub\\Documentation\\Progress\\LOGO.PNG")); // NOI18N
 
         lblToolbars.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblToolbars.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

@@ -61,6 +61,9 @@ public class Vysichart {
         Task getBowl = new Task("Get Bowl", makeCerial);
         Task pourCerial = new Task("Pour Cerial", makeCerial);
         Task addMilk = new Task("Add Milk To Cerial", makeCerial);
+        
+        Task eatCerial = new Task("Eat Cerial", eatBreakfast);
+        Task drinkJuice = new Task("Drink Juice", eatBreakfast);
 
 
 

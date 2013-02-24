@@ -98,6 +98,9 @@ public class Project {
         for (Task currentTask : newTask.getChildren()) {
             addTask(currentTask);
         }
+        wbt.setTasks(tasks); // updates wbt
+        gantt.setTasks(tasks); // updates pert
+        pert.setTasks(tasks); // updates gantt
     }
 
     public void printOut() { // print out function

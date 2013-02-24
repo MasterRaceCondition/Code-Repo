@@ -215,7 +215,6 @@ public class Task {
         //setTaskParent automatically adds THIS as child
     }
 	
-	/*throws NPE, but works okay? fix if you can!*/
     public long dateToMillisecond(Calendar date){
         
         long year = date.get(Calendar.YEAR) * 31556952000L;
@@ -226,7 +225,33 @@ public class Task {
         
         return (year + day + hour + minute + second);
     }
-    
+    /* This method converts back to other date formats.
+     * Useful for pipelining conversions to other methods which display
+     * timeframes to users.
+     */
+    private int millisecondToOtherFormat(long duration, String conversionSwitch){
+        switch(conversionSwitch){
+            case("year")    :   return (int)(duration/31556952000L);
+            case("month")   :   return (int)(duration/2629746000L);
+            case("week")    :   return (int)(duration/604800000);
+            case("day")     :   return (int)(duration/86400000);
+            case("hour")    :   return (int)(duration/3600000);
+            case("minute")  :   return (int)(duration/60000);
+            default         :   return (int)(duration/1000); //returns in seconds
+        }
+    }
+    public int[] returnTotalTime(){
+        int[] totalTime = new int[7];
+        long currentDuration = taskDuration;
+        String[] timeFrames = {"year", "month", "week", "day", "hour", 
+                                "minute", "second"};
+        for(int i = 0; i < timeFrames.length; i++){
+            totalTime[i] = millisecondToOtherFormat
+                    (currentDuration, timeFrames[i]);
+            currentDuration -= (currentDuration / totalTime[i]);
+        }
+        return totalTime;
+    }
     private long calculateDuration(){
         return dateToMillisecond(endCalendar) - 
                 dateToMillisecond(startCalendar);

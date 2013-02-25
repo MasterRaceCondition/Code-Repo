@@ -90,7 +90,6 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("VysiChart");
-        setPreferredSize(null);
         setResizable(false);
 
         tabbedRenderPane.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -307,6 +306,11 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
 
         tasksAdd.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.CTRL_MASK));
         tasksAdd.setText("Add New Task");
+        tasksAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tasksAddActionPerformed(evt);
+            }
+        });
         Tasks.add(tasksAdd);
 
         menuBar.add(Tasks);
@@ -439,6 +443,11 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     private void filesNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filesNewActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_filesNewActionPerformed
+
+    private void tasksAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tasksAddActionPerformed
+        TaskInput ti = new TaskInput();
+        ti.main(null);
+    }//GEN-LAST:event_tasksAddActionPerformed
 
     /**
      * @param args the command line arguments

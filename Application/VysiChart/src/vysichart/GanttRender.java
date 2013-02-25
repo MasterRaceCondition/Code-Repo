@@ -27,7 +27,8 @@ public class GanttRender extends JPanel {
         //setBackground(Color.WHITE);
         this.gantt = gantt;
     }
-
+    
+    @Override
     public void paintComponent(Graphics g) // draw graphics in the panel
     {
         int width = getWidth();             // width of window in pixels
@@ -38,10 +39,16 @@ public class GanttRender extends JPanel {
         super.paintComponent(g);
 
         initAxis(g);
-
-        drawNode(g, 50, 50, 80);
-        drawNode(g, 100, 80, 300);
-        drawNode(g, 160, 110, 100);
+        int yCoord;
+        //for(Task t : Gantt.getTasks())
+            //Calculate percentage
+            /* Calculate task start percentage by:
+             * find task start time (t.getStartDate())
+             * find project start time (first parent task start time)
+             * find project end time (last child task end time)
+             */
+            //drawNode(g, xCoord, yCoord, taskWidth);
+            //yCoord += 30;
 
     }
 
@@ -52,17 +59,21 @@ public class GanttRender extends JPanel {
         g.drawString("y", 10, 450);
     }
 
-    public void drawNode(Graphics g, int x, int y, int width) {
+    public void drawNode(Graphics g, int x, int y, int width, String taskName) {
         // draw an individual node
         // box height = 20
         // test boxWidth = 120
         g.drawRect(x, y, width, 30);
-        g.drawString("Gantt Task", x + 10, y + 17);
+        g.drawString(taskName, x + 10, y + 17);
 
 
     }
 
     public void drawChart(Graphics g) {
+        //TODO
+    }
+    
+    public void sortTasks(){
         //TODO
     }
 

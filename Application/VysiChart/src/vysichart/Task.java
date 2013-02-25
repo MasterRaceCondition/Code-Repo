@@ -33,6 +33,17 @@ public class Task {
         children = new ArrayList<>();
         taskIsComplete = false; // defaults
     }
+    /*
+     * FOR TEST PURPOSES ONLY
+     */
+    public Task (String taskName, Calendar startCalendar, Calendar endCalendar){
+        this.taskName = taskName;
+        dependentNodes = new ArrayList<>();
+        children = new ArrayList<>();
+        this.startCalendar = startCalendar;
+        this.endCalendar = endCalendar;
+        taskDuration = calculateDuration();
+    }   
 
     public Task(String taskName, Task taskParent) {
         this.taskName = taskName;
@@ -55,6 +66,7 @@ public class Task {
         this.children = new ArrayList<>(); // init
         this.startCalendar = startCalendar;
         this.endCalendar = endCalendar;
+        taskDuration = calculateDuration();
         
         taskIsComplete = false; // defaults
 
@@ -69,6 +81,7 @@ public class Task {
         this.dependentNodes = dependentNodes; // no need to init
         this.startCalendar = startCalendar;
         this.endCalendar = endCalendar;
+        taskDuration = calculateDuration();
         this.children = new ArrayList<>();
 
         initParent(); // adds THIS as child to parent
@@ -215,14 +228,14 @@ public class Task {
         //setTaskParent automatically adds THIS as child
     }
 	
-    public long dateToMillisecond(Calendar date){
+    public long calendarToMillisecond(Calendar date){
         
         long year = date.get(Calendar.YEAR) * 31556952000L;
         long day = date.get(Calendar.DAY_OF_YEAR) * 86400000;
         long hour = date.get(Calendar.HOUR_OF_DAY) * 3600000;
         long minute = date.get(Calendar.MINUTE) * 60000;
         long second = date.get(Calendar.SECOND) * 1000;
-        
+        System.out.println("cTM: " + (year + day + hour + minute + second));
         return (year + day + hour + minute + second);
     }
     /* This method converts back to other date formats.
@@ -240,21 +253,26 @@ public class Task {
             default         :   return (int)(duration/1000); //returns in seconds
         }
     }
-    public int[] returnTotalTime(){
+    //Everything works flawlessly, except the months value - it's miscalculating!
+    public int[] getTotalTime(){
         int[] totalTime = new int[7];
         long currentDuration = taskDuration;
-        String[] timeFrames = {"year", "month", "week", "day", "hour", 
+        String[] timeFrameNames = {"year", "month", "week", "day", "hour", 
                                 "minute", "second"};
-        for(int i = 0; i < timeFrames.length; i++){
+        long[] timeFrames = {31556952000L, 2629746000L, 604800000, 86400000,
+                            3600000, 60000, 1000};
+        for(int i = 0; i < timeFrameNames.length; i++){
             totalTime[i] = millisecondToOtherFormat
-                    (currentDuration, timeFrames[i]);
-            currentDuration -= (currentDuration / totalTime[i]);
+                    (currentDuration, timeFrameNames[i]);
+            if(totalTime[i] != 0){
+                currentDuration -= (totalTime[i] * timeFrames[i]);
+            }
         }
         return totalTime;
     }
     private long calculateDuration(){
-        return dateToMillisecond(endCalendar) - 
-                dateToMillisecond(startCalendar);
+        return calendarToMillisecond(endCalendar) - 
+                calendarToMillisecond(startCalendar);
     }
     
     public String getString(){

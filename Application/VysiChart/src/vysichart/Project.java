@@ -19,6 +19,7 @@ public class Project {
     private String name; //name of project
     private String filePath; // file path for save/load
     private float timeFrame; //total timeframe (in hrs), calculated from tasks (used to be in Chart)
+    private long startProject, endProject; //start and end times of project
 
     public Project() {
         // default constructor
@@ -28,7 +29,8 @@ public class Project {
         tasks = new ArrayList<>(); // init
         gantt = new Gantt(tasks, timeFrame); // init  \
         pert = new PERT(tasks); // init    | all have no tasks, they all start empty
-        wbt = new WBT(tasks); // init      /
+        wbt = new WBT(tasks); // init  /
+        
 
         this.name = name; // read in
         this.filePath = filePath; // read in
@@ -168,6 +170,32 @@ public class Project {
         return (float)((task.getTaskDuration() / allTaskDuration) * 100);
     }
     
+    /*
+     * Finds the project start/end times.
+     * Used when rendering gantt charts.
+     */
+    public long findProjectStartOrEnd(char startOrEnd){
+        long currentTaskTime;
+        long returnTaskTime = 0;
+        //calculates the project
+        if(startOrEnd == 's'){
+            for(Task t: tasks){
+                currentTaskTime = t.calendarToMillisecond(t.getStartCalendar());
+                if(currentTaskTime < returnTaskTime){
+                    returnTaskTime = currentTaskTime;
+                }
+            }
+        }
+        else{
+            for(Task t: tasks){
+                currentTaskTime = t.calendarToMillisecond(t.getStartCalendar());
+                if(currentTaskTime > returnTaskTime){
+                    returnTaskTime = currentTaskTime;
+                }
+            }
+        }
+        return returnTaskTime;
+    }
     public int getNumberOfTasks(){
         return tasks.size();
     }

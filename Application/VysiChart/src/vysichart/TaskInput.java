@@ -13,7 +13,11 @@ public class TaskInput extends javax.swing.JFrame {
     /**
      * Creates new form taskInput
      */
-    public TaskInput() {
+    
+    private static GraphicalUserInterface gui;
+    
+    public TaskInput(GraphicalUserInterface gui) {
+        this.gui = gui;
         initComponents();
     }
 
@@ -53,7 +57,7 @@ public class TaskInput extends javax.swing.JFrame {
 
         lblParent.setText("Task Parent");
 
-        taskParent.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Task 1", "Task 2", "Task 3", "Task 4" }));
+        taskParent.setModel(new javax.swing.DefaultComboBoxModel(gui.getProject().getTasksAsStringArray()));
 
         lblStartDate.setText("Start Date");
 
@@ -119,10 +123,15 @@ public class TaskInput extends javax.swing.JFrame {
                     .addComponent(lblEndDate)
                     .addComponent(endYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(endMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         submit.setText("Submit");
+        submit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitActionPerformed(evt);
+            }
+        });
 
         cancel.setText("Cancel");
         cancel.addActionListener(new java.awt.event.ActionListener() {
@@ -169,7 +178,7 @@ public class TaskInput extends javax.swing.JFrame {
                 .addComponent(title)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(inputWrap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonWrap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -180,6 +189,13 @@ public class TaskInput extends javax.swing.JFrame {
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
         this.dispose(); // close form
     }//GEN-LAST:event_cancelActionPerformed
+
+    private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
+        // Build a Task From The Data Input
+        
+        Task newTask = new Task(taskName.getText());
+        // init task
+    }//GEN-LAST:event_submitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -211,7 +227,7 @@ public class TaskInput extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TaskInput().setVisible(true);
+                new TaskInput(gui).setVisible(true);
             }
         });
     }

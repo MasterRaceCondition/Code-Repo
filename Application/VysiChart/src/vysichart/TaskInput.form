@@ -41,7 +41,7 @@
               <Component id="title" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="inputWrap" max="32767" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="buttonWrap" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -126,7 +126,7 @@
                       <Component id="endYear" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="endMonth" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="25" max="32767" attributes="0"/>
+                  <EmptySpace pref="37" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -146,13 +146,8 @@
         </Component>
         <Component class="javax.swing.JComboBox" name="taskParent">
           <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Task 1"/>
-                <StringItem index="1" value="Task 2"/>
-                <StringItem index="2" value="Task 3"/>
-                <StringItem index="3" value="Task 4"/>
-              </StringArray>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="new javax.swing.DefaultComboBoxModel(gui.getProject().getTasksAsStringArray())" type="code"/>
             </Property>
           </Properties>
         </Component>
@@ -264,6 +259,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Submit"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="submitActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="cancel">
           <Properties>

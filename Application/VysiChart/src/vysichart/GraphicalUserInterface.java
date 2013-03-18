@@ -27,6 +27,10 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         refresh();
     }
     
+    public Project getProject(){
+        return project;
+    }
+    
     public void refresh(){
         projectName.setText(project.getName());
         projectPath.setText(project.getFilePath());
@@ -445,7 +449,7 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_filesNewActionPerformed
 
     private void tasksAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tasksAddActionPerformed
-        TaskInput ti = new TaskInput();
+        TaskInput ti = new TaskInput(this);
         ti.main(null);
     }//GEN-LAST:event_tasksAddActionPerformed
 

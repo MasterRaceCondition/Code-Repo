@@ -43,6 +43,26 @@ public class Project {
     public ArrayList<Task> getTasks() {
         return tasks;
     }
+    
+    public Task[] getTasksAsArray() {
+        // returns an Array of tasks
+        Task[] t = {};
+        t = tasks.toArray(t);
+        return t;
+    }
+    
+    public String[] getTasksAsStringArray() {
+        // retuns tasks as an array of strings
+        ArrayList<String> taskStringAL = new ArrayList<String>();
+        for (Task current : tasks){
+            taskStringAL.add(current.getName());
+        }
+        String[] taskStringA = {};
+        taskStringA = taskStringAL.toArray(taskStringA);
+        return taskStringA;
+        
+        
+    }
 
     public Chart getGantt() {
         return gantt;

@@ -8,6 +8,9 @@ package vysichart;
  *
  * @author Todd Perry
  */
+import java.util.ArrayList;
+import java.util.Calendar;
+
 public class TaskInput extends javax.swing.JFrame {
 
     /**
@@ -77,15 +80,15 @@ public class TaskInput extends javax.swing.JFrame {
             inputWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(inputWrapLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(inputWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(inputWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(inputWrapLayout.createSequentialGroup()
                         .addGroup(inputWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTaskName)
                             .addComponent(lblParent))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(inputWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(taskName)
-                            .addComponent(taskParent, 0, 80, Short.MAX_VALUE)))
+                        .addGroup(inputWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(taskName, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(taskParent, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(inputWrapLayout.createSequentialGroup()
                         .addGroup(inputWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblEndDate)
@@ -195,6 +198,13 @@ public class TaskInput extends javax.swing.JFrame {
         
         Task newTask = new Task(taskName.getText());
         // init task
+        
+        int index = taskParent.getSelectedIndex();
+        ArrayList<Task> tasks = gui.getProject().getTasks();
+        Task parent = tasks.get(index);
+        newTask.setTaskParent(parent); // set parent
+        
+        
     }//GEN-LAST:event_submitActionPerformed
 
     /**

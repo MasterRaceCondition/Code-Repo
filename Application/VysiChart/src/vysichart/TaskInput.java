@@ -45,6 +45,8 @@ public class TaskInput extends javax.swing.JFrame {
         endYear = new javax.swing.JComboBox();
         startMonth = new javax.swing.JComboBox();
         endMonth = new javax.swing.JComboBox();
+        startDay = new javax.swing.JComboBox();
+        endDay = new javax.swing.JComboBox();
         buttonWrap = new javax.swing.JPanel();
         submit = new javax.swing.JButton();
         cancel = new javax.swing.JButton();
@@ -70,9 +72,13 @@ public class TaskInput extends javax.swing.JFrame {
 
         endYear.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2010", "2011", "2012", "2013", "2014" }));
 
-        startMonth.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" }));
+        startMonth.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
 
-        endMonth.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" }));
+        endMonth.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+
+        startDay.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+
+        endDay.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
 
         javax.swing.GroupLayout inputWrapLayout = new javax.swing.GroupLayout(inputWrap);
         inputWrap.setLayout(inputWrapLayout);
@@ -80,30 +86,32 @@ public class TaskInput extends javax.swing.JFrame {
             inputWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(inputWrapLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(inputWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(inputWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(inputWrapLayout.createSequentialGroup()
                         .addGroup(inputWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTaskName)
                             .addComponent(lblParent))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(inputWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(taskName, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(taskParent, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(taskParent, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(taskName))
+                        .addGap(69, 69, 69))
                     .addGroup(inputWrapLayout.createSequentialGroup()
                         .addGroup(inputWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblEndDate)
-                            .addComponent(lblStartDate))
+                            .addComponent(lblStartDate)
+                            .addComponent(lblEndDate))
                         .addGap(18, 18, 18)
-                        .addGroup(inputWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(inputWrapLayout.createSequentialGroup()
-                                .addComponent(startMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(startYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(inputWrapLayout.createSequentialGroup()
-                                .addComponent(endMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(endYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(60, Short.MAX_VALUE))
+                        .addGroup(inputWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(startDay, 0, 52, Short.MAX_VALUE)
+                            .addComponent(endDay, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(inputWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(startMonth, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(endMonth, 0, 53, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(inputWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(startYear, 0, 63, Short.MAX_VALUE)
+                            .addComponent(endYear, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
         );
         inputWrapLayout.setVerticalGroup(
             inputWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,12 +128,14 @@ public class TaskInput extends javax.swing.JFrame {
                 .addGroup(inputWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblStartDate)
                     .addComponent(startYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(startMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(startMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(startDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(inputWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEndDate)
                     .addComponent(endYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(endMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(endMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(endDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
 
@@ -171,7 +181,9 @@ public class TaskInput extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(buttonWrap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(inputWrap, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(inputWrap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -204,7 +216,23 @@ public class TaskInput extends javax.swing.JFrame {
         Task parent = tasks.get(index);
         newTask.setTaskParent(parent); // set parent
         
+        // now to do dates
+        Calendar start = Calendar.getInstance();
+        Calendar end = Calendar.getInstance();
+        start.set(Integer.parseInt(String.valueOf(startYear.getSelectedItem()))
+                , Integer.parseInt(String.valueOf(startMonth.getSelectedItem()))
+                , Integer.parseInt(String.valueOf(startDay.getSelectedItem())));
+        end.set(Integer.parseInt(String.valueOf(endYear.getSelectedItem()))
+                , Integer.parseInt(String.valueOf(endMonth.getSelectedItem()))
+                , Integer.parseInt(String.valueOf(endDay.getSelectedItem())));
         
+        newTask.setStartCalendar(start);
+        newTask.setEndCalendar(end);
+        
+        gui.getProject().addTask(newTask); // add the task
+        
+        this.dispose();
+   
     }//GEN-LAST:event_submitActionPerformed
 
     /**
@@ -244,6 +272,7 @@ public class TaskInput extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel buttonWrap;
     private javax.swing.JButton cancel;
+    private javax.swing.JComboBox endDay;
     private javax.swing.JComboBox endMonth;
     private javax.swing.JComboBox endYear;
     private javax.swing.JPanel inputWrap;
@@ -251,6 +280,7 @@ public class TaskInput extends javax.swing.JFrame {
     private javax.swing.JLabel lblParent;
     private javax.swing.JLabel lblStartDate;
     private javax.swing.JLabel lblTaskName;
+    private javax.swing.JComboBox startDay;
     private javax.swing.JComboBox startMonth;
     private javax.swing.JComboBox startYear;
     private javax.swing.JButton submit;

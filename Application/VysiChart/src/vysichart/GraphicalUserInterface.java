@@ -31,10 +31,47 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         return project;
     }
     
+    public void reRender(){
+        // re renders panels
+        this.remove(ganttWrap);
+        ganttWrap = new GanttRender(project.getGantt());
+        this.add(ganttWrap);
+        
+        // re-instate gantt object
+        
+        this.invalidate();
+        ganttWrap.repaint();
+        
+        
+        this.remove(PERTWrap);
+        PERTWrap = new PERTRender(project.getPERT());
+        this.add(PERTWrap);
+        
+        // re-instate PERT object
+        
+        this.invalidate();
+        PERTWrap.repaint();
+        
+        
+        
+        this.remove(WBTWrap);
+        WBTWrap = new WBTRender(project.getWBT());
+        this.add(WBTWrap);
+        
+        // re-instate WBT object
+        
+        this.invalidate();
+        WBTWrap.repaint();
+        
+        
+        
+    }
+    
     public void refresh(){
         projectName.setText(project.getName());
         projectPath.setText(project.getFilePath());
         projectSize.setText(String.valueOf(project.getNumberOfTasks()));
+        reRender();
         ganttWrap.repaint(); //
         PERTWrap.repaint();    // Refreshes Render Panels
         WBTWrap.repaint();       //

@@ -31,6 +31,10 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         return project;
     }
     
+    public void setProject(Project newProject){
+        this.project = newProject;
+    }
+    
     public void reRender(){
         // re renders panels
         this.remove(ganttWrap);

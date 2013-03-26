@@ -230,6 +230,7 @@ public class TaskInput extends javax.swing.JFrame {
         newTask.setEndCalendar(end);
         
         gui.getProject().addTask(newTask); // add the task
+        gui.refresh(); // FRESHEN UP
         
         this.dispose();
    

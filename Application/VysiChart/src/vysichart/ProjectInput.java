@@ -8,6 +8,8 @@ package vysichart;
  *
  * @author U AMD
  */
+import java.util.Calendar;
+
 public class ProjectInput extends javax.swing.JFrame {
 
     /**
@@ -238,13 +240,43 @@ public class ProjectInput extends javax.swing.JFrame {
     }//GEN-LAST:event_projNameKeyReleased
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
+        
         /*
          * Create New Project Object
          * Create New (Parentless) Task Object
          * Add The Task To The Project
+         * Add The New Project To The GUI
          * ????
          * Profit
          */
+        
+        Project newProject = new Project(projName.getText(), filePath.getText()); // Create New Project Object
+        
+        Task newTask = new Task(taskName.getText()); // Create New (Parentless) Task Object
+        
+        Calendar start = Calendar.getInstance(); // Allocate Task Dates
+        Calendar end = Calendar.getInstance();
+        start.set(Integer.parseInt(String.valueOf(startYear.getSelectedItem()))
+                , Integer.parseInt(String.valueOf(startMonth.getSelectedItem()))
+                , Integer.parseInt(String.valueOf(startDay.getSelectedItem())));
+        end.set(Integer.parseInt(String.valueOf(endYear.getSelectedItem()))
+                , Integer.parseInt(String.valueOf(endMonth.getSelectedItem()))
+                , Integer.parseInt(String.valueOf(endDay.getSelectedItem())));
+        
+        newTask.setStartCalendar(start);
+        newTask.setEndCalendar(end);
+        
+        newProject.addTask(newTask); // Add The Task To The Project
+        
+        gui.setProject(newProject); // port project onto GUI
+        gui.refresh(); // FRESHEN UP
+        
+        this.dispose(); // ???, Profit
+        
+        
+        
+        
+        
     }//GEN-LAST:event_submitActionPerformed
 
     /**

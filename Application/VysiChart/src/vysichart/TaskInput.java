@@ -54,9 +54,9 @@ public class TaskInput extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("VysiChart - Add Task");
 
-        title.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        title.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        title.setText("Add New Task");
+        title.setText("New Task");
 
         lblTaskName.setText("Task Name:");
 
@@ -136,7 +136,7 @@ public class TaskInput extends javax.swing.JFrame {
                     .addComponent(endYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(endMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(endDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         submit.setText("Submit");

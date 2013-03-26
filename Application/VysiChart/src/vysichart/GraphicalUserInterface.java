@@ -482,7 +482,10 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_filesRefreshActionPerformed
 
     private void filesNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filesNewActionPerformed
-        // TODO add your handling code here:
+        // Launch Project Adder
+        
+        ProjectInput pi = new ProjectInput(this);
+        pi.main(null);
     }//GEN-LAST:event_filesNewActionPerformed
 
     private void tasksAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tasksAddActionPerformed

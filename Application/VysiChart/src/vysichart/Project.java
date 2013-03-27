@@ -304,7 +304,8 @@ public class Project {
         for (Task currentTask : taskParent.getChildren()) { // error happens here
             if (currentTask == taskToRemove) {
                 taskParent.getChildren().remove(taskToRemove);
-                break;
+                break; // break out of loop, if don't break loop then concurrency error
+                // *loops round tasks*, *deletes task*, 'wait, my loop material has changed, better throw a concurrency error'
             }
         }
     }

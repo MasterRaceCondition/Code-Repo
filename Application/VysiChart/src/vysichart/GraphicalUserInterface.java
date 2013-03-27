@@ -20,21 +20,156 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         initComponents();
         refresh();
     }
-    
-    public GraphicalUserInterface(){
+
+    public GraphicalUserInterface() {
         project = new Project("No Project Set", "No Filepath Set");
         initComponents();
         refresh();
     }
-    
-    public Project getProject(){
+
+    public Project getProject() {
         return project;
     }
-    
-    public void refresh(){
+
+    public void setProject(Project newProject) {
+        this.project = newProject;
+    }
+
+    public void reRender() {
+
+        // reinstate tabbed render pane
+        this.remove(tabbedRenderPane);
+        tabbedRenderPane = new javax.swing.JTabbedPane();
+        this.add(tabbedRenderPane);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(lblToolbars, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(toolbarWrap, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(toolbarHolder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(35, 35, 35)
+                .addComponent(tabbedRenderPane, javax.swing.GroupLayout.PREFERRED_SIZE, 876, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(projectWrap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap()));
+        layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(projectWrap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel5))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                .addComponent(lblToolbars)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(toolbarWrap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 19, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(toolbarHolder, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tabbedRenderPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap()));
+
+        tabbedRenderPane.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        tabbedRenderPane.repaint();
+
+
+        // re renders panels
+        this.remove(ganttWrap);
+        ganttWrap = new GanttRender(project.getGantt());
+        this.add(ganttWrap);
+
+        // re-instate gantt object
+
+        ganttWrap.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gantt", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.black));
+
+        javax.swing.GroupLayout ganttWrapLayout = new javax.swing.GroupLayout(ganttWrap);
+        ganttWrap.setLayout(ganttWrapLayout);
+        ganttWrapLayout.setHorizontalGroup(
+                ganttWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(0, 855, Short.MAX_VALUE));
+        ganttWrapLayout.setVerticalGroup(
+                ganttWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(0, 463, Short.MAX_VALUE));
+
+        tabbedRenderPane.addTab("Gannt Chart", ganttWrap);
+
+
+
+        this.invalidate();
+        ganttWrap.repaint();
+
+
+        this.remove(PERTWrap);
+        PERTWrap = new PERTRender(project.getPERT());
+        this.add(PERTWrap);
+
+        // re-instate PERT object
+        PERTWrap.setBorder(javax.swing.BorderFactory.createTitledBorder("PERT"));
+
+        javax.swing.GroupLayout PERTWrapLayout = new javax.swing.GroupLayout(PERTWrap);
+        PERTWrap.setLayout(PERTWrapLayout);
+        PERTWrapLayout.setHorizontalGroup(
+                PERTWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(0, 855, Short.MAX_VALUE));
+        PERTWrapLayout.setVerticalGroup(
+                PERTWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(0, 463, Short.MAX_VALUE));
+
+        tabbedRenderPane.addTab("PERT Chart", PERTWrap);
+
+
+        this.invalidate();
+        PERTWrap.repaint();
+
+
+
+        this.remove(WBTWrap);
+        WBTWrap = new WBTRender(project.getWBT());
+        this.add(WBTWrap);
+
+        // re-instate WBT object
+        WBTWrap.setBorder(javax.swing.BorderFactory.createTitledBorder("WBT"));
+
+        javax.swing.GroupLayout WBTWrapLayout = new javax.swing.GroupLayout(WBTWrap);
+        WBTWrap.setLayout(WBTWrapLayout);
+        WBTWrapLayout.setHorizontalGroup(
+                WBTWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(0, 855, Short.MAX_VALUE));
+        WBTWrapLayout.setVerticalGroup(
+                WBTWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(0, 463, Short.MAX_VALUE));
+
+        tabbedRenderPane.addTab("Work Breakdown Tree", WBTWrap);
+
+        this.invalidate();
+        WBTWrap.repaint();
+
+
+        // TODO reset tab
+
+
+    }
+
+    public void refresh() {
         projectName.setText(project.getName());
         projectPath.setText(project.getFilePath());
         projectSize.setText(String.valueOf(project.getNumberOfTasks()));
+        reRender();
         ganttWrap.repaint(); //
         PERTWrap.repaint();    // Refreshes Render Panels
         WBTWrap.repaint();       //
@@ -445,7 +580,10 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_filesRefreshActionPerformed
 
     private void filesNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filesNewActionPerformed
-        // TODO add your handling code here:
+        // Launch Project Adder
+
+        ProjectInput pi = new ProjectInput(this);
+        pi.main(null);
     }//GEN-LAST:event_filesNewActionPerformed
 
     private void tasksAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tasksAddActionPerformed

@@ -73,9 +73,9 @@ public class Project {
         for (Task current : tasks) {
             taskStringAL.add(current.getName());
         }
-        
+
         finalAL.addAll(taskStringAL); // add new
-        
+
         String[] taskStringA = {};
         taskStringA = finalAL.toArray(taskStringA);
 
@@ -276,5 +276,41 @@ public class Project {
 
     public int getNumberOfTasks() {
         return tasks.size();
+    }
+
+    private void removeFromTasks(Task taskToRemove) {
+        // delete a task, recurse through it's children and delete them
+
+
+        for (Task currentTask : taskToRemove.getChildren()) {
+            // recursivley delete children
+            removeFromTasks(currentTask);
+        }
+
+
+        // possibly go through all nodes that depend, and delete this task from their dependantNodes arrays
+
+        tasks.remove(taskToRemove); // do the deleting
+
+    }
+
+    private void removeFromParent(Task taskToRemove) {
+        // cut ties with parent
+
+        // this method throws errors! (sometimes)
+
+        Task taskParent = taskToRemove.getTaskParent();
+
+        for (Task currentTask : taskParent.getChildren()) { // error happens here
+            if (currentTask == taskToRemove) {
+                taskParent.getChildren().remove(taskToRemove);
+                break;
+            }
+        }
+    }
+
+    public void deleteTask(Task taskToRemove) {
+        removeFromParent(taskToRemove);
+        removeFromTasks(taskToRemove);
     }
 }

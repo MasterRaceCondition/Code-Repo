@@ -8,6 +8,8 @@ package vysichart;
  *
  * @author U AMD
  */
+import java.util.ArrayList;
+
 public class EditTask extends javax.swing.JFrame {
 
     /**
@@ -62,6 +64,11 @@ public class EditTask extends javax.swing.JFrame {
 
         delTask.setBackground(new java.awt.Color(255, 0, 51));
         delTask.setText("Delete");
+        delTask.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                delTaskActionPerformed(evt);
+            }
+        });
 
         newParent.setModel(new javax.swing.DefaultComboBoxModel(gui.getProject().getTasksAsStringArray("Don't Change Parent")));
 
@@ -181,6 +188,21 @@ public class EditTask extends javax.swing.JFrame {
         // remove message
         newName.setText("");
     }//GEN-LAST:event_newNameMouseClicked
+
+    private void delTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delTaskActionPerformed
+        // Delete current task
+        
+        // get task from index
+        int index = taskSelector.getSelectedIndex();
+        Task taskToDelete = gui.getProject().getTasks().get(index);
+        gui.getProject().deleteTask(taskToDelete);
+        gui.refresh(); // FRESHEN UP
+        this.dispose();
+        
+        
+        
+        //gui.getProject().deleteTask()
+    }//GEN-LAST:event_delTaskActionPerformed
 
     /**
      * @param args the command line arguments

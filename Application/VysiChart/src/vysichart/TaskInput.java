@@ -16,7 +16,7 @@ public class TaskInput extends javax.swing.JFrame {
     /**
      * Creates new form taskInput
      */
-    int currentTab; //The currently selected tab within tabbedRenderPane.
+    private int currentTab; //The currently selected tab within tabbedRenderPane.
     
     private static GraphicalUserInterface gui;
     

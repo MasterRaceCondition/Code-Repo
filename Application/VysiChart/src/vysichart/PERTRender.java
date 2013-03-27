@@ -38,7 +38,30 @@ public class PERTRender extends JPanel {
         super.paintComponent(g);
         
         
-        drawNode(g, 100, 100);
+        //drawNode(g, 100, 100);
+        drawStartOrEnd(g, true, 30); // start
+        drawStartOrEnd(g, false, 700); // end
+    }
+    
+    public void drawStartOrEnd(Graphics g, boolean isStart, int x){
+        // need to make a diamond shape for the beggining and end
+        int y = 250; // always 250
+        
+        g.drawLine(x, y, x + 25, y - 25); // left 'diamond' edge
+        g.drawLine(x, y, x + 25, y + 25); // 
+        g.drawLine(x + 25, y + 25, x + 100, y + 25); // top
+        g.drawLine(x + 25, y - 25,  x + 100, y - 25); // bottom
+        g.drawLine(x + 100, y + 25, x + 125, y); // right diamond edge
+        g.drawLine(x + 100, y  - 25, x + 125, y); //
+        
+        if (isStart){
+            g.drawString("START", x + 45, y);
+        } else {
+            g.drawString("END", x + 45, y);
+        }
+        
+        
+        
     }
     
     public void drawNode(Graphics g, int x, int y){

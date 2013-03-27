@@ -10,7 +10,6 @@ import java.util.ArrayList;
 public class Task {
 
     private String taskName, taskNumber;
-    private int taskId;
     //The level of the task in the tree (the parent's level plus one).
     private int taskLevel;
     private Task taskParent;
@@ -109,10 +108,6 @@ public class Task {
 
     public String getTaskNumber() {
         return taskNumber;
-    }
-
-    public int getTaskId() {
-        return taskId;
     }
 
     public int getTaskLevel() {

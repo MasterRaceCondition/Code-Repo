@@ -210,10 +210,11 @@ public class Project {
             //System.out.println("task name: " + tasks.get(i).getName());
             //System.out.println(tasks.get(i).getChildren());
             if (tasks.get(i).getChildren().isEmpty()) {
+                System.out.println(tasks.get(i).getName() + " - " + tasks.get(i).getTaskDuration());
                 allTaskDuration += tasks.get(i).getTaskDuration();
             }
         }
-        //System.out.println(allTaskDuration);
+        System.out.println("Task duration: " + allTaskDuration);
         return (((float) task.getTaskDuration() / (float) allTaskDuration) * 100);
     }
 

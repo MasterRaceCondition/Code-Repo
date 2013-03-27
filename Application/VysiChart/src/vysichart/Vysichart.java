@@ -57,26 +57,26 @@ public class Vysichart {
                                 "minute", "second"};
         endCal.set(2010, 5, 11, 6, 26);
         Task makeCerial = new Task("Make Cerial", makeBreak, startCal, endCal);
+        startCal.set(2010, 5, 11, 6, 26);
+        endCal.set(2010, 5, 11, 6, 27);
+        Task makeJuice = new Task("Make Juice", makeBreak, startCal, endCal);
         startCal.set(2010, 5, 11, 6, 27);
         endCal.set(2010, 5, 11, 6, 28);
-        Task makeJuice = new Task("Make Juice", makeBreak, startCal, endCal);
+        Task eatBreakfast = new Task("Eat The Breakfast", makeBreak, startCal, endCal);
         startCal.set(2010, 5, 11, 6, 28);
         endCal.set(2010, 5, 11, 6, 29);
-        Task eatBreakfast = new Task("Eat The Breakfast", makeBreak, startCal, endCal);
+        Task getBowl = new Task("Get Bowl", makeCerial, startCal, endCal);
         startCal.set(2010, 5, 11, 6, 29);
         endCal.set(2010, 5, 11, 6, 30);
-        Task getBowl = new Task("Get Bowl", makeCerial, startCal, endCal);
+        Task pourCerial = new Task("Pour Cerial", makeCerial, startCal, endCal);
         startCal.set(2010, 5, 11, 6, 30);
         endCal.set(2010, 5, 11, 6, 31);
-        Task pourCerial = new Task("Pour Cerial", makeCerial, startCal, endCal);
-        startCal.set(2010, 5, 11, 6, 31);
-        endCal.set(2010, 5, 11, 6, 32);
         Task addMilk = new Task("Add Milk To Cerial", makeCerial, startCal, endCal);
         
-        startCal.set(2010, 5, 11, 6, 32);
-        endCal.set(2010, 5, 11, 6, 38);
+        startCal.set(2010, 5, 11, 6, 31);
+        endCal.set(2010, 5, 11, 6, 37);
         Task eatCerial = new Task("Eat Cerial", eatBreakfast, startCal, endCal);
-        startCal.set(2010, 5, 11, 6, 38);
+        startCal.set(2010, 5, 11, 6, 37);
         endCal.set(2010, 5, 11, 6, 45);
         Task drinkJuice = new Task("Drink Juice", eatBreakfast, startCal, endCal);
 
@@ -86,8 +86,7 @@ public class Vysichart {
         pourCerial.addDependantNode(getBowl);
         addMilk.addDependantNode(pourCerial);
 
-        //System.out.println("Percentage: " + Project.getTaskPercentage(makeCerial));
-        System.out.println("number of levels: " + Project.calculateLevels());
+        System.out.println("Percentage: " + Project.getTaskPercentage(makeCerial));
 
         //makeBreakfast.printOut();
 

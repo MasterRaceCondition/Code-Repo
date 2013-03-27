@@ -474,6 +474,11 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
 
         editTask.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
         editTask.setText("Edit Task");
+        editTask.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editTaskActionPerformed(evt);
+            }
+        });
         Tasks.add(editTask);
 
         menuBar.add(Tasks);
@@ -619,9 +624,18 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_filesNewActionPerformed
 
     private void tasksAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tasksAddActionPerformed
+        // Launch Task Adder
+        
         TaskInput ti = new TaskInput(this);
         ti.main(null);
     }//GEN-LAST:event_tasksAddActionPerformed
+
+    private void editTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editTaskActionPerformed
+        // Launch Task Editor
+        
+        EditTask et = new EditTask(this);
+        et.main(null);
+    }//GEN-LAST:event_editTaskActionPerformed
 
     /**
      * @param args the command line arguments

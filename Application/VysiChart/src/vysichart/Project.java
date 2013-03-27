@@ -30,7 +30,7 @@ public class Project {
         gantt = new Gantt(tasks, timeFrame); // init  \
         pert = new PERT(tasks); // init    | all have no tasks, they all start empty
         wbt = new WBT(tasks); // init  /
-        
+
 
         this.name = name; // read in
         this.filePath = filePath; // read in
@@ -43,25 +43,44 @@ public class Project {
     public static ArrayList<Task> getTasks() {
         return tasks;
     }
-    
+
     public Task[] getTasksAsArray() {
         // returns an Array of tasks
         Task[] t = {};
         t = tasks.toArray(t);
         return t;
     }
-    
+
     public String[] getTasksAsStringArray() {
         // retuns tasks as an array of strings
         ArrayList<String> taskStringAL = new ArrayList<String>();
-        for (Task current : tasks){
+        for (Task current : tasks) {
             taskStringAL.add(current.getName());
         }
         String[] taskStringA = {};
         taskStringA = taskStringAL.toArray(taskStringA);
         return taskStringA;
+    }
+
+    public String[] getTasksAsStringArray(String message) {
+        // same name, different method
+        // appends the message to the beggininng
+
+        ArrayList<String> finalAL = new ArrayList<String>();
+        finalAL.add(message); // first element
+
+        ArrayList<String> taskStringAL = new ArrayList<String>();
+        for (Task current : tasks) {
+            taskStringAL.add(current.getName());
+        }
         
+        finalAL.addAll(taskStringAL); // add new
         
+        String[] taskStringA = {};
+        taskStringA = finalAL.toArray(taskStringA);
+
+        return taskStringA;
+
     }
 
     public Chart getGantt() {
@@ -117,7 +136,7 @@ public class Project {
     public static void addTask(Task newTask) {
         // not only adds newTask, but also all it's children
         tasks.add(newTask);
-        if(newTask.getChildren() != null){
+        if (newTask.getChildren() != null) {
             for (Task currentTask : newTask.getChildren()) {
                 addTask(currentTask);
             }
@@ -154,14 +173,14 @@ public class Project {
     public String getString() {
         // String representation of the project
         String tasksStr = "";
-        
+
         for (Task current : tasks) {
             System.out.println(current.getName());
 
             tasksStr += current.getString();
             tasksStr += "\n"; // net line between each
         }
-        
+
 
         //String ganttStr = gantt.getString();
         //String pertStr = pert.getString();
@@ -183,56 +202,55 @@ public class Project {
         // save everything to the filePath
         // tasks saves as full tasks
     }
-    
+
     //Needs fixing - inaccurate due to counting children wrong
-    public static float getTaskPercentage(Task task){
+    public static float getTaskPercentage(Task task) {
         long allTaskDuration = 0;
-        for(int i = 0; i < tasks.size(); i++){
+        for (int i = 0; i < tasks.size(); i++) {
             //System.out.println("task name: " + tasks.get(i).getName());
             //System.out.println(tasks.get(i).getChildren());
-            if(tasks.get(i).getChildren().isEmpty()){
+            if (tasks.get(i).getChildren().isEmpty()) {
                 allTaskDuration += tasks.get(i).getTaskDuration();
             }
         }
         //System.out.println(allTaskDuration);
-        return (((float)task.getTaskDuration() / (float)allTaskDuration) * 100);
+        return (((float) task.getTaskDuration() / (float) allTaskDuration) * 100);
     }
-    
+
     /*
      * Finds the project start/end times.
      * Used when rendering gantt charts.
      * Needs redoing.
      */
-    public static long findProjectStartOrEnd(char startOrEnd){
+    public static long findProjectStartOrEnd(char startOrEnd) {
         long currentTaskTime;
         long returnTaskTime = 0;
         //calculates the project
-        if(startOrEnd == 's'){
-            for(Task t: tasks){
+        if (startOrEnd == 's') {
+            for (Task t : tasks) {
                 currentTaskTime = t.calendarToMillisecond(t.getStartCalendar());
-                if(currentTaskTime < returnTaskTime){
+                if (currentTaskTime < returnTaskTime) {
                     returnTaskTime = currentTaskTime;
                 }
             }
-        }
-        else{
-            for(Task t: tasks){
+        } else {
+            for (Task t : tasks) {
                 currentTaskTime = t.calendarToMillisecond(t.getStartCalendar());
-                if(currentTaskTime > returnTaskTime){
+                if (currentTaskTime > returnTaskTime) {
                     returnTaskTime = currentTaskTime;
                 }
             }
         }
         return returnTaskTime;
     }
-    
+
     /*
      * Counts the number of parents of a specific task - 
      * is this redundant?
      */
-    public static int countParents(Task task){
+    public static int countParents(Task task) {
         int parentCount = 0;
-        if(task.getTaskParent() != null){
+        if (task.getTaskParent() != null) {
             parentCount++;
             parentCount += countParents(task.getTaskParent());
         }
@@ -241,21 +259,22 @@ public class Project {
     /*
      * Calculates the number of levels in the project.
      */
-    public static int calculateLevels(){
+
+    public static int calculateLevels() {
         int previousLevelCount = 0;
-        for(int i = 0; i < tasks.size(); i++){
+        for (int i = 0; i < tasks.size(); i++) {
             Task currentTask = tasks.get(i);
-            if(currentTask.getChildren() != null){ //skips those without children 
+            if (currentTask.getChildren() != null) { //skips those without children 
                 int currentLevelCount = countParents(tasks.get(i));
-                if(currentLevelCount > previousLevelCount){
+                if (currentLevelCount > previousLevelCount) {
                     previousLevelCount = currentLevelCount;
                 }
             }
         }
         return previousLevelCount + 1; //previous levels + current level
     }
-    
-    public int getNumberOfTasks(){
+
+    public int getNumberOfTasks() {
         return tasks.size();
     }
 }

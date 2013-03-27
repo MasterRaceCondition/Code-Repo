@@ -236,6 +236,9 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         editPaste = new javax.swing.JMenuItem();
         Tasks = new javax.swing.JMenu();
         tasksAdd = new javax.swing.JMenuItem();
+        editTask = new javax.swing.JMenuItem();
+        charts = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         Toolbars = new javax.swing.JMenu();
         toolbarsAll = new javax.swing.JCheckBoxMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
@@ -469,7 +472,19 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         });
         Tasks.add(tasksAdd);
 
+        editTask.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
+        editTask.setText("Edit Task");
+        Tasks.add(editTask);
+
         menuBar.add(Tasks);
+
+        charts.setText("Charts");
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.SHIFT_MASK));
+        jMenuItem1.setText("Configure PERT");
+        charts.add(jMenuItem1);
+
+        menuBar.add(charts);
 
         Toolbars.setText("Toolbars");
 
@@ -651,10 +666,12 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     private javax.swing.JMenu Tasks;
     private javax.swing.JMenu Toolbars;
     private javax.swing.JPanel WBTWrap;
+    private javax.swing.JMenu charts;
     private javax.swing.JMenuItem editCopy;
     private javax.swing.JMenuItem editCut;
     private javax.swing.JMenuItem editPaste;
     private javax.swing.JMenuItem editRedo;
+    private javax.swing.JMenuItem editTask;
     private javax.swing.JMenuItem editUndo;
     private javax.swing.JMenuItem filesNew;
     private javax.swing.JMenuItem filesOpen;
@@ -665,6 +682,7 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;

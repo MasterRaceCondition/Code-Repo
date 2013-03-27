@@ -41,6 +41,8 @@ public class PERTRender extends JPanel {
         //drawNode(g, 100, 100);
         drawStartOrEnd(g, true, 30); // start
         drawStartOrEnd(g, false, 700); // end
+        
+        g.drawLine(155, 250, 700, 250); // if no tasks?
     }
     
     public void drawStartOrEnd(Graphics g, boolean isStart, int x){

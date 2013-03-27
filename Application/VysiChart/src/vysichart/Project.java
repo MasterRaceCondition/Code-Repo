@@ -12,10 +12,10 @@ import java.util.ArrayList;
 
 public class Project {
 
-    private ArrayList<Task> tasks; //ALL the tasks, they're fed through to Chart
-    private Chart gantt;//    \
-    private Chart pert;//     |  ALL the charts
-    private Chart wbt;//      /
+    private static ArrayList<Task> tasks; //ALL the tasks, they're fed through to Chart
+    private static Chart gantt;//    \
+    private static Chart pert;//     |  ALL the charts
+    private static Chart wbt;//      /
     private String name; //name of project
     private String filePath; // file path for save/load
     private float timeFrame; //total timeframe (in hrs), calculated from tasks (used to be in Chart)
@@ -40,7 +40,7 @@ public class Project {
     }
 
     // --- accessors ---
-    public ArrayList<Task> getTasks() {
+    public static ArrayList<Task> getTasks() {
         return tasks;
     }
     
@@ -114,11 +114,13 @@ public class Project {
     }
 
     //--- 'Utility' methods ---
-    public void addTask(Task newTask) {
+    public static void addTask(Task newTask) {
         // not only adds newTask, but also all it's children
         tasks.add(newTask);
-        for (Task currentTask : newTask.getChildren()) {
-            addTask(currentTask);
+        if(newTask.getChildren() != null){
+            for (Task currentTask : newTask.getChildren()) {
+                addTask(currentTask);
+            }
         }
         wbt.setTasks(tasks); // updates wbt
         gantt.setTasks(tasks); // updates pert
@@ -182,19 +184,25 @@ public class Project {
         // tasks saves as full tasks
     }
     
-    public float getTaskPercentage(Task task){
+    //Needs fixing - inaccurate due to counting children wrong
+    public static float getTaskPercentage(Task task){
         long allTaskDuration = 0;
         for(int i = 0; i < tasks.size(); i++){
-            allTaskDuration =+ tasks.get(i).getTaskDuration();
+            //System.out.println("task name: " + tasks.get(i).getName());
+            //System.out.println(tasks.get(i).getChildren());
+            if(tasks.get(i).getChildren().isEmpty()){
+                allTaskDuration += tasks.get(i).getTaskDuration();
+            }
         }
-        return (float)((task.getTaskDuration() / allTaskDuration) * 100);
+        //System.out.println(allTaskDuration);
+        return (((float)task.getTaskDuration() / (float)allTaskDuration) * 100);
     }
     
     /*
      * Finds the project start/end times.
      * Used when rendering gantt charts.
      */
-    public long findProjectStartOrEnd(char startOrEnd){
+    public static long findProjectStartOrEnd(char startOrEnd){
         long currentTaskTime;
         long returnTaskTime = 0;
         //calculates the project

@@ -43,6 +43,7 @@ public class Task {
         this.startCalendar = startCalendar;
         this.endCalendar = endCalendar;
         taskDuration = calculateDuration();
+        addToTasks();
     }   
 
     public Task(String taskName, Task taskParent) {
@@ -55,6 +56,8 @@ public class Task {
         children = new ArrayList<>();
         
         taskIsComplete = false; // defaults
+        initParent();
+        addToTasks();
     }
 
     public Task(String taskName, Task taskParent,
@@ -71,6 +74,7 @@ public class Task {
         taskIsComplete = false; // defaults
 
         initParent(); // adds THIS as child to parent
+        addToTasks(); //adds THIS to the main Task list in Project.
     }
 
     public Task(String taskName, Task taskParent, ArrayList<Task> dependentNodes,
@@ -85,10 +89,17 @@ public class Task {
         this.children = new ArrayList<>();
 
         initParent(); // adds THIS as child to parent
+        addToTasks();
     }
     
     private void initParent(){
         this.taskParent.addChild(this); // fixes leakage
+    }
+    /*
+     * Adds to project task list upon construction.
+     */
+    private void addToTasks(){
+        Project.addTask(this);
     }
 
     //Get methods for retrieving variable data
@@ -235,7 +246,7 @@ public class Task {
         long hour = date.get(Calendar.HOUR_OF_DAY) * 3600000;
         long minute = date.get(Calendar.MINUTE) * 60000;
         long second = date.get(Calendar.SECOND) * 1000;
-        System.out.println("cTM: " + (year + day + hour + minute + second));
+        //System.out.println("cTM: " + (year + day + hour + minute + second));
         return (year + day + hour + minute + second);
     }
     /* This method converts back to other date formats.

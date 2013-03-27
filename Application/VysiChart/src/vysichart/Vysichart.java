@@ -55,17 +55,30 @@ public class Vysichart {
         int[] cal = makeBreak.getTotalTime();
         String[] timeFrames = {"year", "month", "week", "day", "hour", 
                                 "minute", "second"};
-
-        Task makeCerial = new Task("Make Cerial", makeBreak);
-        Task makeJuice = new Task("Make Juice", makeBreak);
-        Task eatBreakfast = new Task("Eat The Breakfast", makeBreak);
-
-        Task getBowl = new Task("Get Bowl", makeCerial);
-        Task pourCerial = new Task("Pour Cerial", makeCerial);
-        Task addMilk = new Task("Add Milk To Cerial", makeCerial);
+        endCal.set(2010, 5, 11, 6, 26);
+        Task makeCerial = new Task("Make Cerial", startCal, endCal);
+        startCal.set(2010, 5, 11, 6, 27);
+        endCal.set(2010, 5, 11, 6, 28);
+        Task makeJuice = new Task("Make Juice", makeBreak, startCal, endCal);
+        startCal.set(2010, 5, 11, 6, 28);
+        endCal.set(2010, 5, 11, 6, 29);
+        Task eatBreakfast = new Task("Eat The Breakfast", makeBreak, startCal, endCal);
+        startCal.set(2010, 5, 11, 6, 29);
+        endCal.set(2010, 5, 11, 6, 30);
+        Task getBowl = new Task("Get Bowl", makeCerial, startCal, endCal);
+        startCal.set(2010, 5, 11, 6, 30);
+        endCal.set(2010, 5, 11, 6, 31);
+        Task pourCerial = new Task("Pour Cerial", makeCerial, startCal, endCal);
+        startCal.set(2010, 5, 11, 6, 31);
+        endCal.set(2010, 5, 11, 6, 32);
+        Task addMilk = new Task("Add Milk To Cerial", makeCerial, startCal, endCal);
         
-        Task eatCerial = new Task("Eat Cerial", eatBreakfast);
-        Task drinkJuice = new Task("Drink Juice", eatBreakfast);
+        startCal.set(2010, 5, 11, 6, 32);
+        endCal.set(2010, 5, 11, 6, 38);
+        Task eatCerial = new Task("Eat Cerial", eatBreakfast, startCal, endCal);
+        startCal.set(2010, 5, 11, 6, 38);
+        endCal.set(2010, 5, 11, 6, 45);
+        Task drinkJuice = new Task("Drink Juice", eatBreakfast, startCal, endCal);
 
         eatBreakfast.addDependantNode(makeCerial);
         eatBreakfast.addDependantNode(makeJuice);
@@ -73,9 +86,8 @@ public class Vysichart {
         pourCerial.addDependantNode(getBowl);
         addMilk.addDependantNode(pourCerial);
 
+        System.out.println(Project.getTaskPercentage(makeCerial));
 
-
-        makeBreakfast.addTask(makeBreak);
 
         //makeBreakfast.printOut();
 

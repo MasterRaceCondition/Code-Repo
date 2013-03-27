@@ -43,11 +43,15 @@ public class GanttRender extends JPanel {
         //for(Task t : Gantt.getTasks())
             //Calculate percentage
             /* Calculate task start percentage by:
-             * find task start time (t.getStartDate())
-             * find project start time (first parent task start time)
-             * find project end time (last child task end time)
+             * taskPercentage = Project.getTaskPercentage(t);
+             * 
+             * render this bar in window (1% in pixels * taskPercentage)
+             * store the length of the task (in pixels as lengthOfTask)
+             * ???
+             * profit!
              */
             //drawNode(g, xCoord, yCoord, taskWidth);
+            //xCoord += lengthOfTask;
             //yCoord += 30;
 
     }

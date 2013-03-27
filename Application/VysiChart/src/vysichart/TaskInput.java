@@ -16,11 +16,13 @@ public class TaskInput extends javax.swing.JFrame {
     /**
      * Creates new form taskInput
      */
+    int currentTab; //The currently selected tab within tabbedRenderPane.
     
     private static GraphicalUserInterface gui;
     
     public TaskInput(GraphicalUserInterface gui) {
         this.gui = gui;
+        currentTab = gui.getCurrentTab();
         initComponents();
     }
 
@@ -231,6 +233,10 @@ public class TaskInput extends javax.swing.JFrame {
         
         gui.getProject().addTask(newTask); // add the task
         gui.refresh(); // FRESHEN UP
+        gui.setTab(currentTab); //offsets the action of refresh and selects
+                                //the currently selected tab.
+
+        
         
         this.dispose();
    

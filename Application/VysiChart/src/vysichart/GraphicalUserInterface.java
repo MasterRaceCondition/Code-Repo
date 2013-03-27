@@ -174,6 +174,23 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         PERTWrap.repaint();    // Refreshes Render Panels
         WBTWrap.repaint();       //
     }
+    
+    public int getCurrentTab(){
+        return tabbedRenderPane.getSelectedIndex();
+    }
+    /*
+     * setTab switches the current focussed tab to that passed through the
+     * parameter.
+     * e.g. setTab(0) - Gantt Chart tab is now selected.
+     *      setTab(1) - PERT Chart tab is now selected.
+     *      setTab(2) - WBT tab is now selected.
+     * 
+     * can be swapped for a more user-friendly String-based switch at the cost
+     * of efficiency.
+     */
+    public void setTab(int tab){
+        tabbedRenderPane.setSelectedIndex(tab);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

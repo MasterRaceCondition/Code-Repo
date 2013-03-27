@@ -40,8 +40,8 @@ public class GanttRender extends JPanel {
 
         initAxis(g);
         int yCoord;
+        //Calculate project percentage
         //for(Task t : Gantt.getTasks())
-            //Calculate percentage
             /* Calculate task start percentage by:
              * taskPercentage = Project.getTaskPercentage(t);
              * 

@@ -31,6 +31,7 @@ public class Task {
         dependentNodes = new ArrayList<>();
         children = new ArrayList<>();
         taskIsComplete = false; // defaults
+        this.taskParent = null;
     }
     /*
      * FOR TEST PURPOSES ONLY
@@ -42,6 +43,7 @@ public class Task {
         this.startCalendar = startCalendar;
         this.endCalendar = endCalendar;
         taskDuration = calculateDuration();
+        this.taskParent = null;
         addToTasks();
     }   
 

@@ -86,8 +86,8 @@ public class Vysichart {
         pourCerial.addDependantNode(getBowl);
         addMilk.addDependantNode(pourCerial);
 
-        System.out.println(Project.getTaskPercentage(makeCerial));
-
+        //System.out.println("Percentage: " + Project.getTaskPercentage(makeCerial));
+        System.out.println("number of levels: " + Project.calculateLevels());
 
         //makeBreakfast.printOut();
 

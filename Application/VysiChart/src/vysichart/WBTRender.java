@@ -27,7 +27,7 @@ public class WBTRender extends JPanel {
         //setBackground(Color.WHITE);
         this.wbt = wbt;
     }
-
+    @Override
     public void paintComponent(Graphics g) // draw graphics in the panel
     {
         int width = getWidth();             // width of window in pixels
@@ -42,9 +42,9 @@ public class WBTRender extends JPanel {
         
         // levels have not been set up yet
         // for now use 3
-        drawLevelBrace(g, 1);
-        drawLevelBrace(g, 2);
-        drawLevelBrace(g, 3);
+        for(int i = 0; i <= Project.calculateLevels(); i++){
+            drawLevelBrace(g, i);
+        }
 
 
         

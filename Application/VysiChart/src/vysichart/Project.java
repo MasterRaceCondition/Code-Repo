@@ -201,6 +201,7 @@ public class Project {
     /*
      * Finds the project start/end times.
      * Used when rendering gantt charts.
+     * Needs redoing.
      */
     public static long findProjectStartOrEnd(char startOrEnd){
         long currentTaskTime;
@@ -224,6 +225,36 @@ public class Project {
         }
         return returnTaskTime;
     }
+    
+    /*
+     * Counts the number of parents of a specific task - 
+     * is this redundant?
+     */
+    public static int countParents(Task task){
+        int parentCount = 0;
+        if(task.getTaskParent() != null){
+            parentCount++;
+            parentCount += countParents(task.getTaskParent());
+        }
+        return parentCount;
+    }
+    /*
+     * Calculates the number of levels in the project.
+     */
+    public static int calculateLevels(){
+        int previousLevelCount = 0;
+        for(int i = 0; i < tasks.size(); i++){
+            Task currentTask = tasks.get(i);
+            if(currentTask.getChildren() != null){ //skips those without children 
+                int currentLevelCount = countParents(tasks.get(i));
+                if(currentLevelCount > previousLevelCount){
+                    previousLevelCount = currentLevelCount;
+                }
+            }
+        }
+        return previousLevelCount + 1; //previous levels + current level
+    }
+    
     public int getNumberOfTasks(){
         return tasks.size();
     }

@@ -88,14 +88,13 @@ public abstract class Chart {
         
         // tasks already stored in Project, not needed to be stored
         
-        String currentTaskStr = String.valueOf(currentTask.getTaskId());
         
         
         String validStr = String.valueOf(isValid);
         String curXStr = String.valueOf(currentX);
         String curYStr = String.valueOf(currentY);
         
-        String str = currentTaskStr + "\n" +  validStr + "\n" + curXStr + "\n" + curYStr;
+        String str = validStr + "\n" + curXStr + "\n" + curYStr;
         
         return str;
         

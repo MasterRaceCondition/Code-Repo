@@ -56,7 +56,7 @@ public class Vysichart {
         String[] timeFrames = {"year", "month", "week", "day", "hour", 
                                 "minute", "second"};
         endCal.set(2010, 5, 11, 6, 26);
-        Task makeCerial = new Task("Make Cerial", startCal, endCal);
+        Task makeCerial = new Task("Make Cerial", makeBreak, startCal, endCal);
         startCal.set(2010, 5, 11, 6, 27);
         endCal.set(2010, 5, 11, 6, 28);
         Task makeJuice = new Task("Make Juice", makeBreak, startCal, endCal);
@@ -107,6 +107,13 @@ public class Vysichart {
 
         //test1();
         test2();
+        
+        //Project welcome = new Project("Welcome To Vysichart", "/Projects/Welcome");
+        //Task useVysi = new Task("Use VysiChart");
+        //Task addTasks = new Task("Add Tasks");
+        //Task make
+        
+        
 
         // node, testN classes are debugging classes, they have no real implication
         

@@ -22,8 +22,8 @@ public class TaskInput extends javax.swing.JFrame {
     
     public TaskInput(GraphicalUserInterface gui) {
         this.gui = gui;
-        currentTab = gui.getCurrentTab();
         initComponents();
+        currentTab = gui.getCurrentTab();
     }
 
     /**

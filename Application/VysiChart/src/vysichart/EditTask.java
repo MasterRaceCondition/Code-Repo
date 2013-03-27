@@ -16,10 +16,13 @@ public class EditTask extends javax.swing.JFrame {
      * Creates new form EditTask
      */
     private static GraphicalUserInterface gui;
+    private int currentTab; //Used for storing the index of the selected tab.
     
     public EditTask(GraphicalUserInterface gui) {
         this.gui = gui;
+        currentTab = gui.getCurrentTab();
         initComponents();
+        
     }
 
     /**
@@ -197,6 +200,8 @@ public class EditTask extends javax.swing.JFrame {
         Task taskToDelete = gui.getProject().getTasks().get(index);
         gui.getProject().deleteTask(taskToDelete);
         gui.refresh(); // FRESHEN UP
+        gui.setTab(currentTab); //offsets the action of refresh and selects
+                                //the currently selected tab.
         this.dispose();
         
         

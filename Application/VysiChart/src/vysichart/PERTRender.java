@@ -20,6 +20,7 @@ import java.util.*; //for arraylists
 public class PERTRender extends JPanel {
     
     private Chart pert; // the gantt to render
+    private Task breakdown; // we are currently showing a breakdown of:
 
     public PERTRender(Chart pert) // set up graphics window
     {

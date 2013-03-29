@@ -9,6 +9,7 @@ package vysichart;
  * @author U AMD
  */
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class EditTask extends javax.swing.JFrame {
 
@@ -64,6 +65,11 @@ public class EditTask extends javax.swing.JFrame {
         taskSelector.setModel(new javax.swing.DefaultComboBoxModel(gui.getProject().getTasksAsStringArray()));
 
         editTask.setText("Edit");
+        editTask.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editTaskActionPerformed(evt);
+            }
+        });
 
         delTask.setBackground(new java.awt.Color(255, 0, 51));
         delTask.setText("Delete");
@@ -83,6 +89,11 @@ public class EditTask extends javax.swing.JFrame {
         newName.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 newNameMouseClicked(evt);
+            }
+        });
+        newName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newNameActionPerformed(evt);
             }
         });
 
@@ -202,12 +213,78 @@ public class EditTask extends javax.swing.JFrame {
         gui.refresh(); // FRESHEN UP
         gui.setTab(currentTab); //offsets the action of refresh and selects
                                 //the currently selected tab.
-        this.dispose();
         
-        
-        
-        //gui.getProject().deleteTask()
+        this.dispose();  
     }//GEN-LAST:event_delTaskActionPerformed
+
+    private void editTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editTaskActionPerformed
+        // Edit the tasks
+        
+        int index = taskSelector.getSelectedIndex();
+        Task taskToEdit = gui.getProject().getTasks().get(index);
+        
+        String newTaskName = newName.getText(); // if newTaskName = "" or default message then no nothing
+        
+        // get changed parent
+        index = newParent.getSelectedIndex();  // get new parent, if index = 0 then no new parent
+        
+        
+        if (String.valueOf(startYear.getSelectedItem()).equals("_") == false &&
+                String.valueOf(startMonth.getSelectedItem()).equals("_") == false &&
+                String.valueOf(startDay.getSelectedItem()).equals("_") == false){ // only if a valid date in enetred will this work
+            Calendar newStart = Calendar.getInstance();
+            newStart.set(Integer.parseInt(String.valueOf(startYear.getSelectedItem()))
+                    , Integer.parseInt(String.valueOf(startMonth.getSelectedItem()))
+                    , Integer.parseInt(String.valueOf(startDay.getSelectedItem())));
+            
+            taskToEdit.setStartCalendar(newStart); // update calendar
+        
+        }
+        
+        if (String.valueOf(endYear.getSelectedItem()).equals("_") == false &&
+                String.valueOf(endMonth.getSelectedItem()).equals("_") == false &&
+                String.valueOf(endDay.getSelectedItem()).equals("_") == false){ // only if a valid date in enetred will this work
+            Calendar newEnd = Calendar.getInstance();
+            newEnd.set(Integer.parseInt(String.valueOf(endYear.getSelectedItem()))
+                    , Integer.parseInt(String.valueOf(endMonth.getSelectedItem()))
+                    , Integer.parseInt(String.valueOf(endDay.getSelectedItem())));
+            
+            taskToEdit.setEndCalendar(newEnd); // update end calendar
+        }
+        
+        if (newTaskName.equals("") == false && newTaskName.equals("blank = no edit") == false){
+            taskToEdit.setTaskName(newTaskName); // set new name
+        }
+        
+        // now to set new parent, the hard bit
+        if (index != 0){ // 0 is don't change
+            // when changing parent, we need to de-refrerence the old parent
+            
+            gui.getProject().removeFromParent(taskToEdit);
+            
+            
+            Task newTaskParent = gui.getProject().getTasks().get(index - 1); // cause of the extra index
+            taskToEdit.setTaskParent(newTaskParent); // set new parent
+            
+        }
+        
+        
+        
+        gui.refresh(); // FRESHEN UP
+        gui.setTab(currentTab); //offsets the action of refresh and selects
+                                //the currently selected tab.
+        
+        this.dispose();  
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_editTaskActionPerformed
+
+    private void newNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_newNameActionPerformed
 
     /**
      * @param args the command line arguments

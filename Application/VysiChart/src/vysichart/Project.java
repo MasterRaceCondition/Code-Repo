@@ -295,7 +295,7 @@ public class Project {
 
     }
 
-    private void removeFromParent(Task taskToRemove) {
+    public void removeFromParent(Task taskToRemove) {
         // cut ties with parent
 
         // this method throws errors! (sometimes)

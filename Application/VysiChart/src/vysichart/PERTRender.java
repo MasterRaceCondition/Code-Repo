@@ -18,15 +18,24 @@ import java.awt.BorderLayout;
 import java.util.*; //for arraylists
 
 public class PERTRender extends JPanel {
-    
+
     private Chart pert; // the gantt to render
     private Task breakdown; // we are currently showing a breakdown of:
 
-    public PERTRender(Chart pert) // set up graphics window
+    public PERTRender(Chart pert, Task breakdown) // set up graphics window
     {
         super();
         //setBackground(Color.WHITE);
         this.pert = pert;
+        this.breakdown = breakdown;
+    }
+
+    public void setBreakdown(Task breakdown) {
+        this.breakdown = breakdown;
+    }
+
+    public Task getBreakdown() {
+        return breakdown;
     }
 
     public void paintComponent(Graphics g) // draw graphics in the panel
@@ -37,50 +46,56 @@ public class PERTRender extends JPanel {
 
 
         super.paintComponent(g);
+
         
-        
+        if (this.breakdown == null){
+            g.drawString("PERT Is Not Configured", 10, 30);
+        } else {
+            g.drawString("Viewing Sub-Task Breakdown Of: " + breakdown.getName(), 10, 30);
+        }
+
         //drawNode(g, 100, 100);
         drawStartOrEnd(g, true, 30); // start
         drawStartOrEnd(g, false, 700); // end
-        
-        g.drawLine(155, 250, 700, 250); // if no tasks?
+        if (this.breakdown == null) {
+            g.drawLine(155, 250, 700, 250); // if no tasks
+        } // else <add rendering code here>
     }
-    
-    public void drawStartOrEnd(Graphics g, boolean isStart, int x){
+
+    public void drawStartOrEnd(Graphics g, boolean isStart, int x) {
         // need to make a diamond shape for the beggining and end
         int y = 250; // always 250
-        
+
         g.drawLine(x, y, x + 25, y - 25); // left 'diamond' edge
         g.drawLine(x, y, x + 25, y + 25); // 
         g.drawLine(x + 25, y + 25, x + 100, y + 25); // top
-        g.drawLine(x + 25, y - 25,  x + 100, y - 25); // bottom
+        g.drawLine(x + 25, y - 25, x + 100, y - 25); // bottom
         g.drawLine(x + 100, y + 25, x + 125, y); // right diamond edge
-        g.drawLine(x + 100, y  - 25, x + 125, y); //
-        
-        if (isStart){
+        g.drawLine(x + 100, y - 25, x + 125, y); //
+
+        if (isStart) {
             g.drawString("START", x + 45, y);
         } else {
             g.drawString("END", x + 45, y);
         }
-        
-        
-        
+
+
+
     }
-    
-    public void drawNode(Graphics g, int x, int y){
+
+    public void drawNode(Graphics g, int x, int y) {
         g.drawRect(x, y, 120, 80); // default node size
         g.drawString("PERT task", x + 30, y + 20);
         g.drawString("Task 3.7", x + 30, y + 40);
     }
-    
 
-    public void drawChart(Graphics g){
+    public void drawChart(Graphics g) {
         // All 'next node' calculations are handled in here
         //TODO
     }
-    
-     public void run() {
-        PERTRender panel = new PERTRender(pert);                            // window for drawing
+
+    public void run() {
+        PERTRender panel = new PERTRender(pert, breakdown);                            // window for drawing
         JFrame application = new JFrame();                            // the program itself
 
         application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   // set frame to exit

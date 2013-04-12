@@ -47,6 +47,8 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     public void reRender() {
         
         // attempt at dynamic width
+        
+        
 
         // reinstate tabbed render pane
         this.remove(tabbedRenderPane);
@@ -143,15 +145,20 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
 
         // re-instate WBT object
         WBTWrap.setBorder(javax.swing.BorderFactory.createTitledBorder("WBT"));
+        
+        int height = WBTWrap.getRenderHeight();
+        int width = WBTWrap.getRenderWidth();
 
         javax.swing.GroupLayout WBTWrapLayout = new javax.swing.GroupLayout(WBTWrap);
         WBTWrap.setLayout(WBTWrapLayout);
         WBTWrapLayout.setHorizontalGroup(
                 WBTWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGap(0, 855, Short.MAX_VALUE));
+                .addGap(0, 801, Short.MAX_VALUE));
         WBTWrapLayout.setVerticalGroup(
                 WBTWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGap(0, 463, Short.MAX_VALUE));
+                .addGap(0, 469, Short.MAX_VALUE));
+        
+        WBTWrap.setPreferredSize(new java.awt.Dimension(width, height));
 
         wbtScroll.setViewportView(WBTWrap);
 

@@ -20,13 +20,27 @@ import java.util.*; //for arraylists
 public class WBTRender extends JPanel {
 
     private Chart wbt; // the gantt to render
+    private int width;
+    private int height;
 
     public WBTRender(Chart wbt) // set up graphics window
     {
         super();
         //setBackground(Color.WHITE);
+        width = 801;
+        height = Project.calculateLevels() * 100;
         this.wbt = wbt;
     }
+    
+    
+    public int getRenderHeight(){
+        return this.height;
+    }
+    
+    public int getRenderWidth(){
+        return this.width;
+    }
+    
     @Override
     public void paintComponent(Graphics g) // draw graphics in the panel
     {
@@ -45,6 +59,8 @@ public class WBTRender extends JPanel {
         for(int i = 0; i <= Project.calculateLevels(); i++){
             drawLevelBrace(g, i);
         }
+        
+        this.height = Project.calculateLevels() * 100;
 
 
         
@@ -158,7 +174,7 @@ public class WBTRender extends JPanel {
         application.add(panel);
 
 
-        application.setSize(801, 469);         // window is 801 pixels wide, 469 high (size of panel in GUI)
+        application.setSize(width, height);         // window is 801 pixels wide, 469 high (size of panel in GUI)
         application.setVisible(true);
 
     }

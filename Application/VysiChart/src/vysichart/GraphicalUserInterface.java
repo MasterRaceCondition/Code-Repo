@@ -98,7 +98,9 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
                 ganttWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGap(0, 463, Short.MAX_VALUE));
 
-        tabbedRenderPane.addTab("Gannt Chart", ganttWrap);
+        ganttScroll.setViewportView(ganttWrap);
+
+        tabbedRenderPane.addTab("Gantt Chart", ganttScroll);
 
 
 
@@ -122,7 +124,9 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
                 PERTWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGap(0, 463, Short.MAX_VALUE));
 
-        tabbedRenderPane.addTab("PERT Chart", PERTWrap);
+        pertScroll.setViewportView(PERTWrap);
+
+        tabbedRenderPane.addTab("PERT Chart", pertScroll);
 
 
         this.invalidate();
@@ -146,7 +150,9 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
                 WBTWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGap(0, 463, Short.MAX_VALUE));
 
-        tabbedRenderPane.addTab("Work Breakdown Tree", WBTWrap);
+        wbtScroll.setViewportView(WBTWrap);
+
+        tabbedRenderPane.addTab("Work Breakdown Tree", wbtScroll);
 
         this.invalidate();
         WBTWrap.repaint();
@@ -195,8 +201,11 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     private void initComponents() {
 
         tabbedRenderPane = new javax.swing.JTabbedPane();
-        PERTWrap = new PERTRender(project.getPERT(), pertBreakdownTask);
+        wbtScroll = new javax.swing.JScrollPane();
         WBTWrap = new WBTRender(project.getWBT());
+        pertScroll = new javax.swing.JScrollPane();
+        PERTWrap = new PERTRender(project.getPERT(), pertBreakdownTask);
+        ganttScroll = new javax.swing.JScrollPane();
         ganttWrap = new GanttRender(project.getGantt());
         projectWrap = new javax.swing.JPanel();
         lblProject = new javax.swing.JLabel();
@@ -237,23 +246,7 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         setResizable(false);
 
         tabbedRenderPane.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        tabbedRenderPane.setMinimumSize(null);
         tabbedRenderPane.setRequestFocusEnabled(false);
-
-        PERTWrap.setBorder(javax.swing.BorderFactory.createTitledBorder("PERT"));
-
-        javax.swing.GroupLayout PERTWrapLayout = new javax.swing.GroupLayout(PERTWrap);
-        PERTWrap.setLayout(PERTWrapLayout);
-        PERTWrapLayout.setHorizontalGroup(
-            PERTWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 887, Short.MAX_VALUE)
-        );
-        PERTWrapLayout.setVerticalGroup(
-            PERTWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 382, Short.MAX_VALUE)
-        );
-
-        tabbedRenderPane.addTab("PERT Chart", PERTWrap);
 
         WBTWrap.setBorder(javax.swing.BorderFactory.createTitledBorder("WBT"));
 
@@ -268,7 +261,26 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
             .addGap(0, 382, Short.MAX_VALUE)
         );
 
-        tabbedRenderPane.addTab("Work Breakdown Tree", WBTWrap);
+        wbtScroll.setViewportView(WBTWrap);
+
+        tabbedRenderPane.addTab("Work Breakdown Tree", wbtScroll);
+
+        PERTWrap.setBorder(javax.swing.BorderFactory.createTitledBorder("PERT"));
+
+        javax.swing.GroupLayout PERTWrapLayout = new javax.swing.GroupLayout(PERTWrap);
+        PERTWrap.setLayout(PERTWrapLayout);
+        PERTWrapLayout.setHorizontalGroup(
+            PERTWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 887, Short.MAX_VALUE)
+        );
+        PERTWrapLayout.setVerticalGroup(
+            PERTWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 382, Short.MAX_VALUE)
+        );
+
+        pertScroll.setViewportView(PERTWrap);
+
+        tabbedRenderPane.addTab("PERT Chart", pertScroll);
 
         ganttWrap.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gantt", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.black));
 
@@ -283,7 +295,9 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
             .addGap(0, 382, Short.MAX_VALUE)
         );
 
-        tabbedRenderPane.addTab("Gannt Chart", ganttWrap);
+        ganttScroll.setViewportView(ganttWrap);
+
+        tabbedRenderPane.addTab("Gantt Chart", ganttScroll);
 
         lblProject.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblProject.setText("Project Information");
@@ -596,11 +610,13 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem filesRefresh;
     private javax.swing.JMenuItem filesSave;
     private javax.swing.JMenuItem filesSaveAs;
+    private javax.swing.JScrollPane ganttScroll;
     private javax.swing.JPanel ganttWrap;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JLabel lblProject;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JScrollPane pertScroll;
     private javax.swing.JLabel pjFP;
     private javax.swing.JLabel pjName;
     private javax.swing.JLabel pjSize;
@@ -612,5 +628,6 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem tasksAdd;
     private javax.swing.JLabel uoplogo;
     private javax.swing.JLabel vysilogo;
+    private javax.swing.JScrollPane wbtScroll;
     // End of variables declaration//GEN-END:variables
 }

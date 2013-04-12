@@ -45,6 +45,8 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     }
 
     public void reRender() {
+        
+        // attempt at dynamic width
 
         // reinstate tabbed render pane
         this.remove(tabbedRenderPane);
@@ -300,6 +302,8 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
 
         tabbedRenderPane.addTab("Gantt Chart", ganttScroll);
 
+        projectWrap.setRequestFocusEnabled(false);
+
         lblProject.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblProject.setText("Project Information");
 
@@ -329,9 +333,7 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
                 .addComponent(vysilogo, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(projectWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(projectWrapLayout.createSequentialGroup()
-                        .addComponent(lblProject)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblProject)
                     .addGroup(projectWrapLayout.createSequentialGroup()
                         .addGroup(projectWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(pjName)
@@ -593,10 +595,10 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     private javax.swing.JMenu Edit;
     private javax.swing.JMenu Files;
     private javax.swing.JMenu Help;
-    private javax.swing.JPanel PERTWrap;
+    private PERTRender PERTWrap;
     private javax.swing.JMenu Settings;
     private javax.swing.JMenu Tasks;
-    private javax.swing.JPanel WBTWrap;
+    private WBTRender WBTWrap;
     private javax.swing.JMenu charts;
     private javax.swing.JMenuItem configDependancies;
     private javax.swing.JMenuItem configPERT;
@@ -612,7 +614,7 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem filesSave;
     private javax.swing.JMenuItem filesSaveAs;
     private javax.swing.JScrollPane ganttScroll;
-    private javax.swing.JPanel ganttWrap;
+    private GanttRender ganttWrap;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JLabel lblProject;

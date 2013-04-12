@@ -368,6 +368,9 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="projectWrap">
+      <Properties>
+        <Property name="requestFocusEnabled" type="boolean" value="false"/>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">

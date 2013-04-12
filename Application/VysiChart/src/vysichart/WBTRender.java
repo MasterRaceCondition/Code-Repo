@@ -33,7 +33,7 @@ public class WBTRender extends JPanel {
         int width = getWidth();             // width of window in pixels
         int height = getHeight();           // height of window in pixels
 
-
+        
 
         super.paintComponent(g);
         

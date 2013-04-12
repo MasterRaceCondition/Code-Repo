@@ -15,18 +15,12 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
      */
     private static Project project;
     private Task pertBreakdownTask;
-    private int ganttHeight;
-    private int ganttWidth; // dimenstions for dynamic render size
-    private int pertHeight;
-    private int pertWidth;
-    private int wbtHeight;
-    private int wbtWidth;
+
 
     public GraphicalUserInterface(Project project) {
         this.project = project;
         pertBreakdownTask = null;
         initComponents();
-        updateRenderDimensions();
         refresh();
     }
 
@@ -35,15 +29,6 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         pertBreakdownTask = null;
         initComponents();
         refresh();
-    }
-    
-    private void updateRenderDimensions(){
-        ganttHeight = ganttWrap.getHeight();
-        ganttWidth = ganttWrap.getWidth();
-        wbtHeight = WBTWrap.getHeight();
-        wbtWidth = WBTWrap.getWidth();
-        pertHeight = PERTWrap.getHeight();
-        pertWidth = PERTWrap.getWidth();
     }
 
     public void setPERTBreakdown(Task breakdown) {
@@ -60,9 +45,6 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     }
 
     public void reRender() {
-        
-        
-        updateRenderDimensions(); // has anything changed?
 
         // reinstate tabbed render pane
         this.remove(tabbedRenderPane);
@@ -112,10 +94,10 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         ganttWrap.setLayout(ganttWrapLayout);
         ganttWrapLayout.setHorizontalGroup(
                 ganttWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGap(0, ganttWidth, Short.MAX_VALUE));
+                .addGap(0, 855, Short.MAX_VALUE));
         ganttWrapLayout.setVerticalGroup(
                 ganttWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGap(0, ganttHeight, Short.MAX_VALUE));
+                .addGap(0, 463, Short.MAX_VALUE));
 
         ganttScroll.setViewportView(ganttWrap);
 
@@ -138,10 +120,10 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         PERTWrap.setLayout(PERTWrapLayout);
         PERTWrapLayout.setHorizontalGroup(
                 PERTWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGap(0, pertWidth, Short.MAX_VALUE));
+                .addGap(0, 855, Short.MAX_VALUE));
         PERTWrapLayout.setVerticalGroup(
                 PERTWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGap(0, pertHeight, Short.MAX_VALUE));
+                .addGap(0, 463, Short.MAX_VALUE));
 
         pertScroll.setViewportView(PERTWrap);
 
@@ -164,10 +146,10 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         WBTWrap.setLayout(WBTWrapLayout);
         WBTWrapLayout.setHorizontalGroup(
                 WBTWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGap(0, wbtWidth, Short.MAX_VALUE));
+                .addGap(0, 855, Short.MAX_VALUE));
         WBTWrapLayout.setVerticalGroup(
                 WBTWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGap(0, wbtHeight, Short.MAX_VALUE));
+                .addGap(0, 463, Short.MAX_VALUE));
 
         wbtScroll.setViewportView(WBTWrap);
 

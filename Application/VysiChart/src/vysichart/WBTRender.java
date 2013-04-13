@@ -29,7 +29,13 @@ public class WBTRender extends JPanel {
         //setBackground(Color.WHITE);
 
         this.wbt = wbt;
-        width = getLeftMostPoint();
+        int left = getLeftMostPoint();
+        int right = getRightMostPoint();
+        if (left > right) {
+            width = getLeftMostPoint();
+        } else {
+            width = getRightMostPoint();
+        }
         height = Project.calculateLevels() * 100;
     }
 
@@ -40,8 +46,8 @@ public class WBTRender extends JPanel {
         int leftTasks = getLeftMost(wbt.getTasks().get(0), 0);
 
         // do the maths and work out some numbers
-        leftTasks *= 70; // block size + gap size
-        leftTasks -= (70 * firstChilds); // making room for top later
+        leftTasks *= 80; // block size + gap size
+        leftTasks -= (80 * firstChilds); // making room for top later
         leftTasks += (220 * firstChilds); // top brace
         leftTasks += 100; // bug on rendering one task
 
@@ -61,6 +67,33 @@ public class WBTRender extends JPanel {
             return getLeftMost(nextChild, currentTaskDensity);
         }
 
+    }
+
+    private int getRightMostPoint() {
+
+        int lastChilds = wbt.getTasks().get(0).getChildren().size(); // the number of children the parent has
+        // this is important as the gaps are bigger for this level
+        int rightTasks = getLeftMost(wbt.getTasks().get(0), 0);
+
+        // do the maths and work out some numbers
+        rightTasks *= 80; // block size + gap size
+        rightTasks -= (80 * lastChilds); // making room for top later
+        rightTasks += (220 * lastChilds); // top brace
+        rightTasks += 200; // bug on rendering many tasks
+
+        return rightTasks;
+    }
+
+    private int getRightMost(Task current, int currentTaskDensity) {
+        ArrayList<Task> tasks = current.getChildren();
+        int numberOfChildren = tasks.size();
+        currentTaskDensity += numberOfChildren;
+        if (numberOfChildren == 0) { // recursive end state
+            return currentTaskDensity;
+        } else {
+            Task nextChild = tasks.get(tasks.size() - 1); // right most
+            return getLeftMost(nextChild, currentTaskDensity);
+        }
     }
 
     public int getRenderHeight() {

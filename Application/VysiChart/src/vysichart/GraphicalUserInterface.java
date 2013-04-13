@@ -15,7 +15,9 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
      */
     private static Project project;
     private Task pertBreakdownTask;
-
+    private PERTRender PERTWrap;
+    private WBTRender WBTWrap;
+    private GanttRender ganttWrap;
 
     public GraphicalUserInterface(Project project) {
         this.project = project;
@@ -45,10 +47,10 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     }
 
     public void reRender() {
-        
+
         // attempt at dynamic width
-        
-        
+
+
 
         // reinstate tabbed render pane
         this.remove(tabbedRenderPane);
@@ -145,7 +147,7 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
 
         // re-instate WBT object
         WBTWrap.setBorder(javax.swing.BorderFactory.createTitledBorder("WBT"));
-        
+
         int height = WBTWrap.getRenderHeight();
         int width = WBTWrap.getRenderWidth();
 
@@ -157,7 +159,7 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         WBTWrapLayout.setVerticalGroup(
                 WBTWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGap(0, 469, Short.MAX_VALUE));
-        
+
         WBTWrap.setPreferredSize(new java.awt.Dimension(width, height)); // set dimenstions
         wbtScroll.setViewportView(WBTWrap);
 
@@ -597,6 +599,7 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
             }
         });
     }
+    /*
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Edit;
     private javax.swing.JMenu Files;
@@ -638,9 +641,47 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     private javax.swing.JLabel uoplogo;
     private javax.swing.JLabel vysilogo;
     private javax.swing.JScrollPane wbtScroll;
+
+     */ // #tricked
+	 
+	 
     // End of variables declaration//GEN-END:variables
 	
-    private PERTRender PERTWrap;
-    private WBTRender WBTWrap;
-    private GanttRender ganttWrap;
+    private javax.swing.JMenu Edit;
+    private javax.swing.JMenu Files;
+    private javax.swing.JMenu Help;
+    private javax.swing.JMenu Settings;
+    private javax.swing.JMenu Tasks;
+    private javax.swing.JMenu charts;
+    private javax.swing.JMenuItem configDependancies;
+    private javax.swing.JMenuItem configPERT;
+    private javax.swing.JMenuItem editCopy;
+    private javax.swing.JMenuItem editCut;
+    private javax.swing.JMenuItem editPaste;
+    private javax.swing.JMenuItem editRedo;
+    private javax.swing.JMenuItem editTask;
+    private javax.swing.JMenuItem editUndo;
+    private javax.swing.JMenuItem filesNew;
+    private javax.swing.JMenuItem filesOpen;
+    private javax.swing.JMenuItem filesRefresh;
+    private javax.swing.JMenuItem filesSave;
+    private javax.swing.JMenuItem filesSaveAs;
+    private javax.swing.JScrollPane ganttScroll;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JLabel lblProject;
+    private javax.swing.JMenuBar menuBar;
+    private javax.swing.JScrollPane pertScroll;
+    private javax.swing.JLabel pjFP;
+    private javax.swing.JLabel pjName;
+    private javax.swing.JLabel pjSize;
+    private javax.swing.JLabel projectName;
+    private javax.swing.JLabel projectPath;
+    private javax.swing.JLabel projectSize;
+    private javax.swing.JPanel projectWrap;
+    private javax.swing.JTabbedPane tabbedRenderPane;
+    private javax.swing.JMenuItem tasksAdd;
+    private javax.swing.JLabel uoplogo;
+    private javax.swing.JLabel vysilogo;
+    private javax.swing.JScrollPane wbtScroll;
 }

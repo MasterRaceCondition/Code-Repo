@@ -515,8 +515,8 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addComponent(projectWrap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tabbedRenderPane, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)
+                .addComponent(tabbedRenderPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -597,14 +597,14 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
             }
         });
     }
-    // Variables declaration - do not modify
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Edit;
     private javax.swing.JMenu Files;
     private javax.swing.JMenu Help;
-    private PERTRender PERTWrap;
+    private javax.swing.JPanel PERTWrap;
     private javax.swing.JMenu Settings;
     private javax.swing.JMenu Tasks;
-    private WBTRender WBTWrap;
+    private javax.swing.JPanel WBTWrap;
     private javax.swing.JMenu charts;
     private javax.swing.JMenuItem configDependancies;
     private javax.swing.JMenuItem configPERT;
@@ -620,7 +620,7 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem filesSave;
     private javax.swing.JMenuItem filesSaveAs;
     private javax.swing.JScrollPane ganttScroll;
-    private GanttRender ganttWrap;
+    private javax.swing.JPanel ganttWrap;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JLabel lblProject;
@@ -638,5 +638,9 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     private javax.swing.JLabel uoplogo;
     private javax.swing.JLabel vysilogo;
     private javax.swing.JScrollPane wbtScroll;
-    // End of variables declaration
+    // End of variables declaration//GEN-END:variables
+	
+    private PERTRender PERTWrap;
+    private WBTRender WBTWrap;
+    private GanttRender ganttWrap;
 }

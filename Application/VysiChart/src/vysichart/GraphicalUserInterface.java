@@ -158,8 +158,7 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
                 WBTWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGap(0, 469, Short.MAX_VALUE));
         
-        WBTWrap.setPreferredSize(new java.awt.Dimension(width, height));
-
+        WBTWrap.setPreferredSize(new java.awt.Dimension(width, height)); // set dimenstions
         wbtScroll.setViewportView(WBTWrap);
 
         tabbedRenderPane.addTab("Work Breakdown Tree", wbtScroll);

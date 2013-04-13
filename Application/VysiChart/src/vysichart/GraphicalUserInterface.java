@@ -474,6 +474,11 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
 
         configDependancies.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_MASK));
         configDependancies.setText("Configure Dependancies");
+        configDependancies.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                configDependanciesActionPerformed(evt);
+            }
+        });
         Tasks.add(configDependancies);
 
         menuBar.add(Tasks);
@@ -565,6 +570,13 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         cp.main(null);
     }//GEN-LAST:event_configPERTActionPerformed
 
+    private void configDependanciesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configDependanciesActionPerformed
+        // Launch Dependancy Config
+        
+        ConfigureDependants cd = new ConfigureDependants(this);
+        cd.main(null);
+    }//GEN-LAST:event_configDependanciesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -641,12 +653,9 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     private javax.swing.JLabel uoplogo;
     private javax.swing.JLabel vysilogo;
     private javax.swing.JScrollPane wbtScroll;
-
-     */ // #tricked
-	 
-	 
     // End of variables declaration//GEN-END:variables
 	
+        */ // #tricked
     private javax.swing.JMenu Edit;
     private javax.swing.JMenu Files;
     private javax.swing.JMenu Help;

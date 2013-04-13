@@ -597,7 +597,7 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
             }
         });
     }
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify
     private javax.swing.JMenu Edit;
     private javax.swing.JMenu Files;
     private javax.swing.JMenu Help;
@@ -638,5 +638,5 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     private javax.swing.JLabel uoplogo;
     private javax.swing.JLabel vysilogo;
     private javax.swing.JScrollPane wbtScroll;
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration
 }

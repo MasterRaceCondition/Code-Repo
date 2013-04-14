@@ -59,7 +59,7 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
 
         int renderPos = tabbedRenderPane.getSelectedIndex();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane()); // set up layout
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -67,8 +67,8 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                .addComponent(tabbedRenderPane, javax.swing.GroupLayout.PREFERRED_SIZE, 908, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(tabbedRenderPane, javax.swing.GroupLayout.PREFERRED_SIZE, 950, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))                    // the number after PREFERRED_SIZE is horizontal width
                 .addComponent(projectWrap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap()));
         layout.setVerticalGroup(
@@ -78,7 +78,13 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
                 .addComponent(projectWrap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tabbedRenderPane, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap()));
+                .addContainerGap()));                     // the number after PREFERRED_SIZE is vertical height
+        
+
+
+
+
+
 
 
         tabbedRenderPane.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -104,8 +110,11 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         ganttWrapLayout.setVerticalGroup(
                 ganttWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGap(0, 463, Short.MAX_VALUE));
-
+        
+        this.remove(ganttScroll);
+        ganttScroll = new javax.swing.JScrollPane();
         ganttScroll.setViewportView(ganttWrap);
+        ganttScroll.repaint();
 
         tabbedRenderPane.addTab("Gantt Chart", ganttScroll);
 
@@ -130,8 +139,11 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         PERTWrapLayout.setVerticalGroup(
                 PERTWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGap(0, 463, Short.MAX_VALUE));
-
+        
+        this.remove(pertScroll);
+        pertScroll = new javax.swing.JScrollPane();
         pertScroll.setViewportView(PERTWrap);
+        pertScroll.repaint();
 
         tabbedRenderPane.addTab("PERT Chart", pertScroll);
 
@@ -161,7 +173,11 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
                 .addGap(0, 469, Short.MAX_VALUE));
 
         WBTWrap.setPreferredSize(new java.awt.Dimension(width, height)); // set dimenstions
+        
+        this.remove(wbtScroll);
+        wbtScroll = new javax.swing.JScrollPane();
         wbtScroll.setViewportView(WBTWrap);
+        wbtScroll.repaint();
 
         tabbedRenderPane.addTab("Work Breakdown Tree", wbtScroll);
 
@@ -265,7 +281,7 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         WBTWrap.setLayout(WBTWrapLayout);
         WBTWrapLayout.setHorizontalGroup(
             WBTWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 887, Short.MAX_VALUE)
+            .addGap(0, 915, Short.MAX_VALUE)
         );
         WBTWrapLayout.setVerticalGroup(
             WBTWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -282,7 +298,7 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         PERTWrap.setLayout(PERTWrapLayout);
         PERTWrapLayout.setHorizontalGroup(
             PERTWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 887, Short.MAX_VALUE)
+            .addGap(0, 915, Short.MAX_VALUE)
         );
         PERTWrapLayout.setVerticalGroup(
             PERTWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -299,7 +315,7 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         ganttWrap.setLayout(ganttWrapLayout);
         ganttWrapLayout.setHorizontalGroup(
             ganttWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 887, Short.MAX_VALUE)
+            .addGap(0, 915, Short.MAX_VALUE)
         );
         ganttWrapLayout.setVerticalGroup(
             ganttWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -349,7 +365,7 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
                             .addComponent(pjSize))
                         .addGap(17, 17, 17)
                         .addGroup(projectWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(projectName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(projectName, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
                             .addComponent(projectPath, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(projectSize, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(28, 28, 28)
@@ -512,10 +528,8 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(tabbedRenderPane, javax.swing.GroupLayout.PREFERRED_SIZE, 908, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(projectWrap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(projectWrap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tabbedRenderPane))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -656,7 +670,7 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     private javax.swing.JScrollPane wbtScroll;
     // End of variables declaration//GEN-END:variables
 	
-        */ // #tricked
+     */ // #tricked
     private javax.swing.JMenu Edit;
     private javax.swing.JMenu Files;
     private javax.swing.JMenu Help;

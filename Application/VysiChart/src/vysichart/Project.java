@@ -116,6 +116,24 @@ public class Project {
         return taskStringA;
 
     }
+    
+    public boolean isTaskFromString(String taskName){
+        for (Task current : tasks){
+            if (current.getName().equals(taskName)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public Task getTaskFromString(String taskName){
+        for (Task current : tasks){
+            if (current.getName().equals(taskName)){
+                return current;
+            }
+        }
+        return new Task("NULL"); // return NULL (invalid) task
+    }
 
     public Chart getGantt() {
         return gantt;

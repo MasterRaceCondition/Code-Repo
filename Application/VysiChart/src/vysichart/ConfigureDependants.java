@@ -8,15 +8,16 @@ package vysichart;
  *
  * @author Todd Perry
  */
+import java.util.ArrayList;
+
 public class ConfigureDependants extends javax.swing.JFrame {
 
     /**
      * Creates new form ConfigureDependants
      */
-    
     private static GraphicalUserInterface gui;
     private Task selectedTask;
-    
+
     public ConfigureDependants(GraphicalUserInterface gui) {
         this.gui = gui;
         selectedTask = gui.getProject().getTasks().get(0);
@@ -69,14 +70,29 @@ public class ConfigureDependants extends javax.swing.JFrame {
         lblDep.setText("Dependant Tasks:");
 
         btnRem.setText("Remove");
+        btnRem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemActionPerformed(evt);
+            }
+        });
 
         lblRest.setText("Non-Dependant Tasks:");
 
         btnAdd.setText("Add");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         currentNon.setModel((new javax.swing.DefaultComboBoxModel(gui.getProject().taskListToArray(gui.getProject().getPlausableDependantTasks(selectedTask)))));
 
         btnClr.setText("Clear All");
+        btnClr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClrActionPerformed(evt);
+            }
+        });
 
         btnClose.setText("Close");
 
@@ -168,14 +184,74 @@ public class ConfigureDependants extends javax.swing.JFrame {
 
     private void currentTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_currentTaskActionPerformed
         // change selected task
-        
+
         int index = currentTask.getSelectedIndex();
         selectedTask = gui.getProject().getTasks().get(index); //update
-        
+
         //update other combo boxes
         currentNon.setModel(new javax.swing.DefaultComboBoxModel(gui.getProject().taskListToArray(gui.getProject().getPlausableDependantTasks(selectedTask))));
         currentDependant.setModel(new javax.swing.DefaultComboBoxModel(gui.getProject().taskListToArray(gui.getProject().getDependantTasks(selectedTask))));
     }//GEN-LAST:event_currentTaskActionPerformed
+
+    private void btnClrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClrActionPerformed
+        // clear every dependant node the selectedTask has
+
+        ArrayList<Task> tasksToLoop = new ArrayList<Task>();
+        // can't make a refrerence, need to copy a whole new list
+        // avoids threading errors
+
+        ArrayList<Task> selectedDependants = selectedTask.getDependentNodes();
+        for (Task current : selectedDependants) {
+            tasksToLoop.add(current);
+        }
+
+        // now we have the corrent array to loop
+        for (Task current : tasksToLoop) {
+            selectedTask.removeDependentNode(current);
+        }
+        // all finished
+
+        // refresh comboboxes
+        currentNon.setModel(new javax.swing.DefaultComboBoxModel(gui.getProject().taskListToArray(gui.getProject().getPlausableDependantTasks(selectedTask))));
+        currentDependant.setModel(new javax.swing.DefaultComboBoxModel(gui.getProject().taskListToArray(gui.getProject().getDependantTasks(selectedTask))));
+
+    }//GEN-LAST:event_btnClrActionPerformed
+
+    private void btnRemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemActionPerformed
+        // get task from name, remove task from dependant tasks, refresh boxes
+
+        String taskQuery = String.valueOf(currentDependant.getSelectedItem());
+
+        if (gui.getProject().isTaskFromString(taskQuery)) {
+            // if exists, get
+            Task taskToRemove = gui.getProject().getTaskFromString(taskQuery);
+            selectedTask.removeDependentNode(taskToRemove);
+        }
+        
+        // refresh comboboxes
+        currentNon.setModel(new javax.swing.DefaultComboBoxModel(gui.getProject().taskListToArray(gui.getProject().getPlausableDependantTasks(selectedTask))));
+        currentDependant.setModel(new javax.swing.DefaultComboBoxModel(gui.getProject().taskListToArray(gui.getProject().getDependantTasks(selectedTask))));
+
+
+    }//GEN-LAST:event_btnRemActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // get task from string, add task to selected, update boxes
+        
+        String taskQuery = String.valueOf(currentNon.getSelectedItem());
+        System.out.println(taskQuery);
+
+        if (gui.getProject().isTaskFromString(taskQuery)) {
+            // if exists, get
+            Task taskToAdd = gui.getProject().getTaskFromString(taskQuery);
+            selectedTask.addDependantNode(taskToAdd);
+        }
+        
+        // refresh comboboxes
+        currentNon.setModel(new javax.swing.DefaultComboBoxModel(gui.getProject().taskListToArray(gui.getProject().getPlausableDependantTasks(selectedTask))));
+        currentDependant.setModel(new javax.swing.DefaultComboBoxModel(gui.getProject().taskListToArray(gui.getProject().getDependantTasks(selectedTask))));
+
+    }//GEN-LAST:event_btnAddActionPerformed
 
     /**
      * @param args the command line arguments

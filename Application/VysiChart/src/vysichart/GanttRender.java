@@ -20,12 +20,17 @@ import java.util.*; //for arraylists
 public class GanttRender extends JPanel {
 
     private Chart gantt; // the gantt to render
+    //Width in pixels is used to define one percent of the project in pixel width.
+    private int xCoord, yCoord, pixelToPercent;
 
     public GanttRender(Chart gantt) // set up graphics window
     {
         super();
         //setBackground(Color.WHITE);
         this.gantt = gantt;
+        xCoord =0;
+        yCoord = 0;
+        pixelToPercent = 5; //Default for debugging.
     }
     
     @Override
@@ -39,10 +44,14 @@ public class GanttRender extends JPanel {
         super.paintComponent(g);
 
         initAxis(g);
-        int yCoord;
+        
+        //debug value
+        int pixelToPercent = 5;
         //Calculate project percentage
         //for(Task t : Gantt.getTasks())
-            /* Calculate task start percentage by:
+            /*
+             * 
+             * Calculate task start percentage by:
              * taskPercentage = Project.getTaskPercentage(t);
              * 
              * render this bar in window (1% in pixels * taskPercentage)
@@ -53,7 +62,61 @@ public class GanttRender extends JPanel {
             //drawNode(g, xCoord, yCoord, taskWidth);
             //xCoord += lengthOfTask;
             //yCoord += 30;
+        
+        //**PROTOTYPE**
+        //a large arraylist will need to have a count stored instead.
+        ArrayList<Task> tasks = gantt.getTasks();
+        int sizeOfTasks = tasks.size();
+        
+        double taskPercentage = 0;
+        int taskWidth = 0; //The task width in pixels when rendered.
+        long timeDifference = 0; //The time difference between tasks.
+        for(int i=0; i < sizeOfTasks; i++){
+            if(i > 1){
+                timeDifference = tasks.get(i).
+                        calendarToMillisecond(tasks.get(i).getStartCalendar()) - 
+                        tasks.get(i-1).
+                        calendarToMillisecond(tasks.get(i).getEndCalendar());
+            }
+            taskPercentage = Project.getTaskPercentage(tasks.get(i));
+            taskWidth = pixelToPercent * (int)taskPercentage; //needs rouding
+            drawNode(g, xCoord, yCoord, taskWidth, tasks.get(i).getName());
+            if(!tasks.get(i).getChildren().isEmpty()){
+                Task parent = tasks.get(i);
+                renderChildren(parent, g);
+            }
+        }
 
+    }
+    
+    public void renderChildren(Task task, Graphics g){
+        if(!task.getChildren().isEmpty()){
+         
+            ArrayList<Task> children = task.getChildren();
+            int noOfChildren = children.size();
+            long timeDifference = 0;
+            for(int i = 0; i < noOfChildren; i++){
+                if(i > 1){
+                        timeDifference = children.get(i).
+                        calendarToMillisecond(children.get(i).getStartCalendar()) - 
+                        children.get(i).
+                        calendarToMillisecond(children.get(i).getEndCalendar());
+                }
+                int taskWidthInPixels = renderTask(task, g);
+                if(!children.get(i).getChildren().isEmpty()){
+                    renderChildren(children.get(i), g);
+                }
+                xCoord += taskWidthInPixels + timeDifference;
+                yCoord += 30;
+            }
+        }
+    }
+    
+    public int renderTask(Task task, Graphics g){
+        double taskPercentage = Project.getTaskPercentage(task);
+        int taskWidthInPixels = (int)taskPercentage * pixelToPercent;
+        drawNode(g, xCoord, yCoord, taskWidthInPixels, task.getName());
+        return taskWidthInPixels;
     }
 
     public void initAxis(Graphics g) {

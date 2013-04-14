@@ -239,17 +239,27 @@ public class Project {
 
     //Needs fixing - inaccurate due to counting children wrong
     public static float getTaskPercentage(Task task) {
-        long allTaskDuration = 0;
-        for (int i = 0; i < tasks.size(); i++) {
-            //System.out.println("task name: " + tasks.get(i).getName());
-            //System.out.println(tasks.get(i).getChildren());
-            if (tasks.get(i).getChildren().isEmpty()) {
-                System.out.println(tasks.get(i).getName() + " - " + tasks.get(i).getTaskDuration());
-                allTaskDuration += tasks.get(i).getTaskDuration();
+        return ((float) task.getTaskDuration() / (float) getProjectDuration()) * 100;
+    }
+    
+    //retutns the percentage of given whitespace time in the project.
+    public static float getWhitespacePercentage(long duration){
+        return ((float)duration / (float) getProjectDuration()) * 100;
+    }
+    
+    /*
+     * Returns the total duration of the project.
+     *
+     */
+    public static long getProjectDuration(){
+        int tasksSize = tasks.size();
+        int taskDuration = 0;
+        for(int i = 0; i < tasksSize; i++){
+            if(tasks.get(i).getChildren().isEmpty()){
+                taskDuration += tasks.get(i).getTaskDuration();
             }
         }
-        System.out.println("Task duration: " + allTaskDuration);
-        return (((float) task.getTaskDuration() / (float) allTaskDuration) * 100);
+        return taskDuration;
     }
 
     /*

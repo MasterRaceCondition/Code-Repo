@@ -28,8 +28,8 @@ public class GanttRender extends JPanel {
         super();
         //setBackground(Color.WHITE);
         this.gantt = gantt;
-        xCoord =0;
-        yCoord = 0;
+        xCoord = 10;
+        yCoord = 30;
         pixelToPercent = 5; //Default for debugging.
     }
     
@@ -63,6 +63,9 @@ public class GanttRender extends JPanel {
             //xCoord += lengthOfTask;
             //yCoord += 30;
         
+        
+        System.out.println("X-COORD: " + xCoord + "     Y-COORD:" + yCoord);
+        
         //**PROTOTYPE**
         //a large arraylist will need to have a count stored instead.
         ArrayList<Task> tasks = gantt.getTasks();
@@ -86,10 +89,14 @@ public class GanttRender extends JPanel {
                 renderChildren(parent, g);
             }
         }
+        xCoord = 10;
+        yCoord = 30;
+        //reset
 
     }
     
     public void renderChildren(Task task, Graphics g){
+        System.out.println("X-COORD: " + xCoord + "     Y-COORD:" + yCoord);
         if(!task.getChildren().isEmpty()){
          
             ArrayList<Task> children = task.getChildren();
@@ -106,10 +113,11 @@ public class GanttRender extends JPanel {
                 if(!children.get(i).getChildren().isEmpty()){
                     renderChildren(children.get(i), g);
                 }
-                xCoord += taskWidthInPixels + timeDifference;
+                xCoord += (taskWidthInPixels + timeDifference); // this is where it goes long, time difference is a MASSIVE number
                 yCoord += 30;
             }
         }
+        
     }
     
     public int renderTask(Task task, Graphics g){

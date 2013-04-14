@@ -147,16 +147,14 @@
               <Connection code="new javax.swing.DefaultComboBoxModel(gui.getProject().getTasksAsStringArray())" type="code"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="currentTaskActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="currentDependant">
           <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
-              </StringArray>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="new javax.swing.DefaultComboBoxModel(gui.getProject().taskListToArray(gui.getProject().getDependantTasks(selectedTask)))" type="code"/>
             </Property>
           </Properties>
         </Component>
@@ -184,13 +182,8 @@
         </Component>
         <Component class="javax.swing.JComboBox" name="currentNon">
           <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
-              </StringArray>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="(new javax.swing.DefaultComboBoxModel(gui.getProject().taskListToArray(gui.getProject().getPlausableDependantTasks(selectedTask))))" type="code"/>
             </Property>
           </Properties>
         </Component>

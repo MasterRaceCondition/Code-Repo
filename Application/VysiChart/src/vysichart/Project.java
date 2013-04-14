@@ -51,6 +51,40 @@ public class Project {
         return t;
     }
 
+    public String[] taskListToArray(ArrayList<Task> taskList) {
+        // generic, converts any arrayList into string[]
+        ArrayList<String> taskStringAL = new ArrayList<String>();
+        for (Task current : taskList) {
+            taskStringAL.add(current.getName());
+        }
+        String[] taskStringA = {};
+        taskStringA = taskStringAL.toArray(taskStringA);
+        return taskStringA;
+    }
+
+    public ArrayList<Task> getDependantTasks(Task task) {
+        return task.getDependentNodes();
+    }
+
+    public ArrayList<Task> getPlausableDependantTasks(Task task) {
+        ArrayList<Task> tasksToReturn = new ArrayList<Task>();
+        ArrayList<Task> dependantNodes = task.getDependentNodes();
+        for (Task currentTask : tasks) {
+            if (task.isSibling(currentTask)) {
+                // task is subling
+                if (dependantNodes.contains(currentTask) == false) {
+                    // not currently a dependant node
+                    if ((task == currentTask) == false) {
+                        // if not self
+                        tasksToReturn.add(currentTask);
+                    }
+                }
+
+            }
+        }
+        return tasksToReturn;
+    }
+
     public String[] getTasksAsStringArray() {
         // retuns tasks as an array of strings
         ArrayList<String> taskStringAL = new ArrayList<String>();

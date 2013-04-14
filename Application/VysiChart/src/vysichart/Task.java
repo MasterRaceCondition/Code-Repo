@@ -4,9 +4,9 @@ import java.util.Calendar;
 import java.util.ArrayList;
 
 /**
-*
-* @author UP619902, OtherID1, OtherID2
-*/
+ *
+ * @author UP619902, OtherID1, OtherID2
+ */
 public class Task {
 
     private String taskName, taskNumber;
@@ -36,7 +36,8 @@ public class Task {
     /*
      * FOR TEST PURPOSES ONLY
      */
-    public Task (String taskName, Calendar startCalendar, Calendar endCalendar){
+
+    public Task(String taskName, Calendar startCalendar, Calendar endCalendar) {
         this.taskName = taskName;
         dependentNodes = new ArrayList<>();
         children = new ArrayList<>();
@@ -45,7 +46,7 @@ public class Task {
         taskDuration = calculateDuration();
         this.taskParent = null;
         addToTasks();
-    }   
+    }
 
     public Task(String taskName, Task taskParent) {
         this.taskName = taskName;
@@ -55,7 +56,7 @@ public class Task {
 
         dependentNodes = new ArrayList<>();
         children = new ArrayList<>();
-        
+
         taskIsComplete = false; // defaults
         initParent();
         addToTasks();
@@ -71,7 +72,7 @@ public class Task {
         this.startCalendar = startCalendar;
         this.endCalendar = endCalendar;
         taskDuration = calculateDuration();
-        
+
         taskIsComplete = false; // defaults
 
         initParent(); // adds THIS as child to parent
@@ -92,14 +93,15 @@ public class Task {
         initParent(); // adds THIS as child to parent
         addToTasks();
     }
-    
-    private void initParent(){
+
+    private void initParent() {
         this.taskParent.addChild(this); // fixes leakage
     }
     /*
      * Adds to project task list upon construction.
      */
-    private void addToTasks(){
+
+    private void addToTasks() {
         Project.addTask(this);
     }
 
@@ -174,17 +176,16 @@ public class Task {
     public void setTaskIsComplete(boolean taskIsComplete) {
         this.taskIsComplete = taskIsComplete;
     }
-    
-    public void setStartCalendar(Calendar startCalendar){
+
+    public void setStartCalendar(Calendar startCalendar) {
         this.startCalendar = startCalendar;
     }
-    
-    public void setEndCalendar(Calendar endCalendar){
+
+    public void setEndCalendar(Calendar endCalendar) {
         this.endCalendar = endCalendar;
     }
 
     //--- 'Utility' methods ---
-    
     public void printOut() { // just a console printout for debugging
         System.out.println("Task Name: " + taskName);
         System.out.println("Duration(ms): " + calculateDuration());
@@ -216,8 +217,13 @@ public class Task {
     }
 
     public void removeDependentNode(Task taskToRemove) {
-        dependentNodes.remove(taskToRemove); // removes a node from the dependant node aray
-        // this will need validation in future
+        if (isDependentNode(taskToRemove)) {
+            dependentNodes.remove(taskToRemove); // removes a node from the dependant node aray
+        }
+    }
+
+    public boolean isDependentNode(Task taskToCheck) {
+        return dependentNodes.contains(taskToCheck);
     }
 
     public void addChild(Task task) {
@@ -235,9 +241,22 @@ public class Task {
         setTaskParent(newParent);
         //setTaskParent automatically adds THIS as child
     }
-	
-    public long calendarToMillisecond(Calendar date){
-        
+
+    public boolean isSibling(Task taskToCheck) {
+        try {
+            Task parent = this.getTaskParent();
+            ArrayList<Task> siblings = parent.getChildren();
+            if (siblings.contains(taskToCheck)) {
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            return false; // for root node, has no parent
+        }
+    }
+
+    public long calendarToMillisecond(Calendar date) {
+
         long year = date.get(Calendar.YEAR) * 31556952000L;
         long day = date.get(Calendar.DAY_OF_YEAR) * 86400000;
         long hour = date.get(Calendar.HOUR_OF_DAY) * 3600000;
@@ -250,40 +269,49 @@ public class Task {
      * Useful for pipelining conversions to other methods which display
      * timeframes to users.
      */
-    private int millisecondToOtherFormat(long duration, String conversionSwitch){
-        switch(conversionSwitch){
-            case("year")    :   return (int)(duration/31556952000L);
-            case("month")   :   return (int)(duration/2629746000L);
-            case("week")    :   return (int)(duration/604800000);
-            case("day")     :   return (int)(duration/86400000);
-            case("hour")    :   return (int)(duration/3600000);
-            case("minute")  :   return (int)(duration/60000);
-            default         :   return (int)(duration/1000); //returns in seconds
+
+    private int millisecondToOtherFormat(long duration, String conversionSwitch) {
+        switch (conversionSwitch) {
+            case ("year"):
+                return (int) (duration / 31556952000L);
+            case ("month"):
+                return (int) (duration / 2629746000L);
+            case ("week"):
+                return (int) (duration / 604800000);
+            case ("day"):
+                return (int) (duration / 86400000);
+            case ("hour"):
+                return (int) (duration / 3600000);
+            case ("minute"):
+                return (int) (duration / 60000);
+            default:
+                return (int) (duration / 1000); //returns in seconds
         }
     }
     //Everything works flawlessly, except the months value - it's miscalculating!
-    public int[] getTotalTime(){
+
+    public int[] getTotalTime() {
         int[] totalTime = new int[7];
         long currentDuration = taskDuration;
-        String[] timeFrameNames = {"year", "month", "week", "day", "hour", 
-                                "minute", "second"};
+        String[] timeFrameNames = {"year", "month", "week", "day", "hour",
+            "minute", "second"};
         long[] timeFrames = {31556952000L, 2629746000L, 604800000, 86400000,
-                            3600000, 60000, 1000};
-        for(int i = 0; i < timeFrameNames.length; i++){
-            totalTime[i] = millisecondToOtherFormat
-                    (currentDuration, timeFrameNames[i]);
-            if(totalTime[i] != 0){
+            3600000, 60000, 1000};
+        for (int i = 0; i < timeFrameNames.length; i++) {
+            totalTime[i] = millisecondToOtherFormat(currentDuration, timeFrameNames[i]);
+            if (totalTime[i] != 0) {
                 currentDuration -= (totalTime[i] * timeFrames[i]);
             }
         }
         return totalTime;
     }
-    private long calculateDuration(){
-        return calendarToMillisecond(endCalendar) - 
-                calendarToMillisecond(startCalendar);
+
+    private long calculateDuration() {
+        return calendarToMillisecond(endCalendar)
+                - calendarToMillisecond(startCalendar);
     }
-    
-    public String getString(){
+
+    public String getString() {
         // string interpretation of task
         //taskname, taskNumber already string
         //String idStr = String.valueOf(taskId);
@@ -295,29 +323,29 @@ public class Task {
         // dependentStr += String.valueOf(currentTask.getTaskId()); // stores IDs
         // dependentStr += " "; // seperated by spaces
         //}
-        
+
         //String childStr = "";
         //for (Task currentTask : children){
         // childStr += String.valueOf(currentTask.getTaskId()); // stores IDs
         // childStr += " "; // seperated by spaces
         //}
-        
+
         //String strtStr = String.valueOf(startCalendar);
         //String endStr = String.valueOf(endCalendar);
         //String lateStartStr = String.valueOf(lateStart);
         //String lateEndStr = String.valueOf(lateEnd);
-        
+
         //String durationStr = String.valueOf(taskDuration);
         //String slackStr = String.valueOf(taskSlack);
-        
+
         //String completeStr = String.valueOf(taskIsComplete);
-        
-        
+
+
         //String str = taskName + "\n" + taskNumber + "\n" + idStr + "\n" + levelStr +
         // "\n" + parentStr + "\n" + dependentStr + "\n" + childStr + "\n" + strtStr +
         // "\n" + endStr + "\n" + lateStartStr + "\n" + lateEndStr + "\n" +
         // durationStr + "\n" + slackStr + "\n" + completeStr;
-        
+
         String str = taskName;
         return str;
     }

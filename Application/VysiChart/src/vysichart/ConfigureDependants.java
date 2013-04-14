@@ -15,8 +15,11 @@ public class ConfigureDependants extends javax.swing.JFrame {
      */
     
     private static GraphicalUserInterface gui;
+    private Task selectedTask;
+    
     public ConfigureDependants(GraphicalUserInterface gui) {
         this.gui = gui;
+        selectedTask = gui.getProject().getTasks().get(0);
         initComponents();
     }
 
@@ -55,8 +58,13 @@ public class ConfigureDependants extends javax.swing.JFrame {
         lblTask.setText("Task:");
 
         currentTask.setModel(new javax.swing.DefaultComboBoxModel(gui.getProject().getTasksAsStringArray()));
+        currentTask.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                currentTaskActionPerformed(evt);
+            }
+        });
 
-        currentDependant.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        currentDependant.setModel(new javax.swing.DefaultComboBoxModel(gui.getProject().taskListToArray(gui.getProject().getDependantTasks(selectedTask))));
 
         lblDep.setText("Dependant Tasks:");
 
@@ -66,7 +74,7 @@ public class ConfigureDependants extends javax.swing.JFrame {
 
         btnAdd.setText("Add");
 
-        currentNon.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        currentNon.setModel((new javax.swing.DefaultComboBoxModel(gui.getProject().taskListToArray(gui.getProject().getPlausableDependantTasks(selectedTask)))));
 
         btnClr.setText("Clear All");
 
@@ -157,6 +165,17 @@ public class ConfigureDependants extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void currentTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_currentTaskActionPerformed
+        // change selected task
+        
+        int index = currentTask.getSelectedIndex();
+        selectedTask = gui.getProject().getTasks().get(index); //update
+        
+        //update other combo boxes
+        currentNon.setModel(new javax.swing.DefaultComboBoxModel(gui.getProject().taskListToArray(gui.getProject().getPlausableDependantTasks(selectedTask))));
+        currentDependant.setModel(new javax.swing.DefaultComboBoxModel(gui.getProject().taskListToArray(gui.getProject().getDependantTasks(selectedTask))));
+    }//GEN-LAST:event_currentTaskActionPerformed
 
     /**
      * @param args the command line arguments

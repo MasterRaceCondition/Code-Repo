@@ -217,11 +217,8 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="tabbedRenderPane" min="-2" pref="908" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
                   <Component id="projectWrap" max="32767" attributes="0"/>
+                  <Component id="tabbedRenderPane" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -278,7 +275,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="887" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="915" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -316,7 +313,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="887" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="915" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -356,7 +353,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="887" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="915" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -392,7 +389,7 @@
                           </Group>
                           <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="projectName" max="32767" attributes="0"/>
+                              <Component id="projectName" pref="433" max="32767" attributes="0"/>
                               <Component id="projectPath" max="32767" attributes="0"/>
                               <Component id="projectSize" max="32767" attributes="0"/>
                           </Group>

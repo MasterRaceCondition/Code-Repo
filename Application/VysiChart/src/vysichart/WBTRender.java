@@ -20,13 +20,90 @@ import java.util.*; //for arraylists
 public class WBTRender extends JPanel {
 
     private Chart wbt; // the gantt to render
+    private int width;
+    private int height;
 
     public WBTRender(Chart wbt) // set up graphics window
     {
         super();
         //setBackground(Color.WHITE);
+
         this.wbt = wbt;
+        int left = getLeftMostPoint();
+        int right = getRightMostPoint();
+        if (left > right) {
+            width = getLeftMostPoint();
+        } else {
+            width = getRightMostPoint();
+        }
+        height = Project.calculateLevels() * 100;
     }
+
+    private int getLeftMostPoint() {
+
+        int firstChilds = wbt.getTasks().get(0).getChildren().size(); // the number of children the parent has
+        // this is important as the gaps are bigger for this level
+        int leftTasks = getLeftMost(wbt.getTasks().get(0), 0);
+
+        // do the maths and work out some numbers
+        leftTasks *= 80; // block size + gap size
+        leftTasks -= (80 * firstChilds); // making room for top later
+        leftTasks += (220 * firstChilds); // top brace
+        leftTasks += 100; // bug on rendering one task
+
+        return leftTasks;
+
+
+    }
+
+    private int getLeftMost(Task current, int currentTaskDensity) {
+        ArrayList<Task> tasks = current.getChildren();
+        int numberOfChildren = tasks.size();
+        currentTaskDensity += numberOfChildren;
+        if (numberOfChildren == 0) { // recursive end state
+            return currentTaskDensity;
+        } else {
+            Task nextChild = tasks.get(0);
+            return getLeftMost(nextChild, currentTaskDensity);
+        }
+
+    }
+
+    private int getRightMostPoint() {
+
+        int lastChilds = wbt.getTasks().get(0).getChildren().size(); // the number of children the parent has
+        // this is important as the gaps are bigger for this level
+        int rightTasks = getLeftMost(wbt.getTasks().get(0), 0);
+
+        // do the maths and work out some numbers
+        rightTasks *= 80; // block size + gap size
+        rightTasks -= (80 * lastChilds); // making room for top later
+        rightTasks += (220 * lastChilds); // top brace
+        rightTasks += 200; // bug on rendering many tasks
+
+        return rightTasks;
+    }
+
+    private int getRightMost(Task current, int currentTaskDensity) {
+        ArrayList<Task> tasks = current.getChildren();
+        int numberOfChildren = tasks.size();
+        currentTaskDensity += numberOfChildren;
+        if (numberOfChildren == 0) { // recursive end state
+            return currentTaskDensity;
+        } else {
+            Task nextChild = tasks.get(tasks.size() - 1); // right most
+            return getLeftMost(nextChild, currentTaskDensity);
+        }
+    }
+
+    public int getRenderHeight() {
+        return this.height;
+    }
+
+    public int getRenderWidth() {
+        return this.width;
+    }
+
     @Override
     public void paintComponent(Graphics g) // draw graphics in the panel
     {
@@ -36,26 +113,36 @@ public class WBTRender extends JPanel {
 
 
         super.paintComponent(g);
-        
-        
-        drawChart(g);
-        
+
+
+
+
         // levels have not been set up yet
         // for now use 3
-        for(int i = 0; i <= Project.calculateLevels(); i++){
+        for (int i = 0; i <= Project.calculateLevels(); i++) {
             drawLevelBrace(g, i);
         }
 
+        // calculate height
+        this.height = Project.calculateLevels() * 100;
 
-        
+        //calculate width
+        ArrayList<Task> tasks = wbt.getTasks(); // get mosts tasks on a single layer
+
+        this.width = getLeftMostPoint();
+
+
+        drawChart(g, (this.width / 2));
+
+
     }
 
     public void drawNode(Graphics g, int x, int y, Task task) {
         g.drawRect(x, y, 120, 50); // default node size
         g.drawString(task.getName(), x + 15, y + 25);
     }
-    
-    public void drawLevelBrace(Graphics g, int level){
+
+    public void drawLevelBrace(Graphics g, int level) {
         // get y from level
         // '1' is 40 - 90
         // 40 gap between all
@@ -69,81 +156,80 @@ public class WBTRender extends JPanel {
         g.drawLine(x, y + 50, x + 5, y + 50);
         // render level number
         g.drawString("lv " + String.valueOf(level), 10, y + 25);
-        
-    }
-    
-    public void drawTree(Graphics g, Task current, int x, int y){
-        // recursivley draws tree
-        
-        drawNode(g, x, y, current);
-        
-        
-        ArrayList<Task> childs = current.getChildren();
-            int len = childs.size();
-            
-            y += 50; // move down
-            x += 60; // centre
-        if (childs.isEmpty() == false){
-                g.drawLine(x, y, x, y + 20);
-                
-                y += 20; // move down
-                
-                // size of break = (l-1)(b + g), where b = box width (120) and g = gap size (40)
-                
-                int lineLen = (len - 1) * (140); // 140 = 120 + 20
-                
-                g.drawLine(x - lineLen / 2, y, x + lineLen / 2, y);
-                
-                x -= lineLen / 2;
-                for (int i = 0; i < len; i++){
-                    g.drawLine(x, y, x, y + 20);
-                    drawTree(g, childs.get(i), x - 60, y + 20);
-                    // draw node for x
-                    x += 140;
-                }
-                
-            } // else do nothing
-        
+
     }
 
-    public void drawChart(Graphics g) {
-        if (wbt.getTasks().isEmpty() == false){
+    public void drawTree(Graphics g, Task current, int x, int y) {
+        // recursivley draws tree
+
+        drawNode(g, x, y, current);
+
+
+        ArrayList<Task> childs = current.getChildren();
+        int len = childs.size();
+
+        y += 50; // move down
+        x += 60; // centre
+        if (childs.isEmpty() == false) {
+            g.drawLine(x, y, x, y + 20);
+
+            y += 20; // move down
+
+            // size of break = (l-1)(b + g), where b = box width (120) and g = gap size (40)
+
+            int lineLen = (len - 1) * (140); // 140 = 120 + 20
+
+            g.drawLine(x - lineLen / 2, y, x + lineLen / 2, y);
+
+            x -= lineLen / 2;
+            for (int i = 0; i < len; i++) {
+                g.drawLine(x, y, x, y + 20);
+                drawTree(g, childs.get(i), x - 60, y + 20);
+                // draw node for x
+                x += 140;
+            }
+
+        } // else do nothing
+
+    }
+
+    public void drawChart(Graphics g, int x) {
+        if (wbt.getTasks().isEmpty() == false) {
             // init vars, draw first child
-            
-            int x = 420; // centre (ish)
+
             int y = 40; // near the top
             Task currentTask = wbt.getTasks().get(0); // root node
             drawNode(g, x, y, currentTask); // draw current node
-            
+
             ArrayList<Task> childs = currentTask.getChildren();
             int len = childs.size();
-            
+
             y += 50; // move down
             x += 60; // centre
-            
-            if (childs.isEmpty() == false){
+
+            if (childs.isEmpty() == false) {
                 g.drawLine(x, y, x, y + 20);
-                
+
                 y += 20; // move down
-                
+
                 // size of break = (l-1)(b + g), where b = box width (120) and g = gap size (80)
-                
+
                 int lineLen = (len - 1) * (220); // 220 = 120 + 100
                 // top layer has bigger gaps
-                
+
                 g.drawLine(x - lineLen / 2, y, x + lineLen / 2, y);
-                
+
                 x -= lineLen / 2;
-                for (int i = 0; i < len; i++){
+                for (int i = 0; i < len; i++) {
                     g.drawLine(x, y, x, y + 20);
                     drawTree(g, childs.get(i), x - 60, y + 20);
                     // draw node for x
                     x += 220;
                 }
             } // else do nothing
-            
-            
-            
+
+
+
         } else {
             g.drawString("No Tasks Found", 200, 200); // leave error message
         }
@@ -158,7 +244,7 @@ public class WBTRender extends JPanel {
         application.add(panel);
 
 
-        application.setSize(801, 469);         // window is 801 pixels wide, 469 high (size of panel in GUI)
+        application.setSize(width, height);
         application.setVisible(true);
 
     }

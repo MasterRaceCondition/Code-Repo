@@ -95,6 +95,11 @@ public class ConfigureDependants extends javax.swing.JFrame {
         });
 
         btnClose.setText("Close");
+        btnClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCloseActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout contentWrapLayout = new javax.swing.GroupLayout(contentWrap);
         contentWrap.setLayout(contentWrapLayout);
@@ -252,6 +257,14 @@ public class ConfigureDependants extends javax.swing.JFrame {
         currentDependant.setModel(new javax.swing.DefaultComboBoxModel(gui.getProject().taskListToArray(gui.getProject().getDependantTasks(selectedTask))));
 
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
+        // dispose & refresh
+        int tab = gui.getCurrentTab();
+        gui.refresh();
+        gui.setTab(tab);
+        this.dispose();
+    }//GEN-LAST:event_btnCloseActionPerformed
 
     /**
      * @param args the command line arguments

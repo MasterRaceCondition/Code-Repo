@@ -51,8 +51,7 @@ public abstract class Chart {
         return currentY;
     }
 
-    
-    public float getTimeFrame(){
+    public float getTimeFrame() {
         return 0; // for Gantt
     }
 
@@ -69,34 +68,41 @@ public abstract class Chart {
         currentY = newY;
     }
 
-
     public void setCoords(int newX, int newY) {
         currentX = newX;
         currentY = newY;
         // x2 and y2 calculated respectivley
     }
-    
-    public void setTimeFrame(float timeFrame){
+
+    public void setTimeFrame(float timeFrame) {
         // empty method for override
     }
 
-    
     //--- Utility Methods ---
-    
-    protected String getString(){
+    protected String getString() {
         // string interpretation of class
-        
+
         // tasks already stored in Project, not needed to be stored
-        
-        
-        
+
+
+
         String validStr = String.valueOf(isValid);
         String curXStr = String.valueOf(currentX);
         String curYStr = String.valueOf(currentY);
-        
+
         String str = validStr + "\n" + curXStr + "\n" + curYStr;
-        
+
         return str;
-        
+
+    }
+
+    public ArrayList<Task> getNodesThatDepend(Task t) {
+        ArrayList<Task> nodesThatDepend = new ArrayList<Task>();
+        for (Task current : tasks) {
+            if (current.getDependentNodes().contains(t)) {
+                nodesThatDepend.add(current);
+            }
+        }
+        return nodesThatDepend;
     }
 }

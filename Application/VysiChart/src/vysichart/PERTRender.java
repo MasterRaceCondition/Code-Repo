@@ -137,10 +137,24 @@ public class PERTRender extends JPanel {
             for (Task current : firstLayer) {
                 // draw brace
                 g.drawLine(startX, y, startX + 20, y);
-                drawNode(g, startX + 20, y - 20, current); // render task
+                drawNode(g, startX + 20, y - 20, current); // render task     
+                // check if no nodes that depend
+                ArrayList<Task> nodesThatDepend = pert.getNodesThatDepend(current);
+                if (nodesThatDepend.isEmpty()){
+                    // draw a line from the task to the end
+                    g.drawLine(startX + 140, y, 700, y);
+                    g.drawLine(700, y, 700, startY);
+                    
+                }
+                
+                
                 if (n != 1) {
                     y += (l / (n - 1)); // l is distance between tasks
                 } // else no need to increase
+                
+
+                
+                
             }
             startX += 140; // add on len, startY is still centre
             renderLayer(g, children, nextLayer, startX, startY);
@@ -215,6 +229,7 @@ public class PERTRender extends JPanel {
 
                     g.drawLine(xCoord, yCoord, xCoord + 20, yCoord);
                     g.drawLine(xCoord + 20, yCoord, xCoord + 20, y);
+                    
                 }
             }
 

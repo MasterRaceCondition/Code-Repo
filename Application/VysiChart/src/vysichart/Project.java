@@ -377,4 +377,14 @@ public class Project {
         removeFromParent(taskToRemove);
         removeFromTasks(taskToRemove);
     }
+    
+    public ArrayList<Task> getNodesThatDepend(Task t){
+        ArrayList<Task> nodesThatDepend = new ArrayList<Task>();
+        for (Task current : tasks){
+            if (current.getDependentNodes().contains(t)){
+                nodesThatDepend.add(current);
+            }
+        }
+        return nodesThatDepend;
+    }
 }

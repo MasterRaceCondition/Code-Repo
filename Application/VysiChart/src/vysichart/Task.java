@@ -225,7 +225,7 @@ public class Task {
     public boolean isDependentNode(Task taskToCheck) {
         return dependentNodes.contains(taskToCheck);
     }
-
+    
     public void addChild(Task task) {
         children.add(task); // adds a node to the child array
     }

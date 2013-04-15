@@ -157,7 +157,7 @@ public class PERTRender extends JPanel {
                 
             }
             startX += 140; // add on len, startY is still centre
-            renderLayer(g, children, nextLayer, startX, startY);
+            renderLayer(g, firstLayer, nextLayer, startX, startY);
 
             // next, render next layer
 
@@ -198,13 +198,15 @@ public class PERTRender extends JPanel {
                         doesDepend = true;
                     } // else stay false 
                 }
-                if (!doesDepend) {
+                if (doesDepend == false) {
                     // doesn't depend on nodes that exist
                     nextLayer.add(current);
                 } else {
                     toRender.add(current);
                 }
             }
+            
+
 
             int n = toRender.size();
             int l = (n - 1) * (30 + 40); // box height = 80, gap = 30

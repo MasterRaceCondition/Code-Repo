@@ -91,7 +91,7 @@ public class PERTRender extends JPanel {
 
     public void drawNode(Graphics g, int x, int y, Task t) {
         g.drawRect(x, y, 120, 40); // default node size
-        g.drawString(t.getName(), x + 30, y + 20);
+        g.drawString(t.getName(), x + 10, y + 20);
         HashMap taskLocation = new HashMap();
         nodeLocations.put(t.getName() + "x", x + 120);
         nodeLocations.put(t.getName() + "y", y + 20);
@@ -169,6 +169,56 @@ public class PERTRender extends JPanel {
 
         } else {
             // this layer has tasks to render
+
+            //cycle through nodes in this layer
+            currentX += 20; // push forward
+            ArrayList<Task> nextLayer = new ArrayList<Task>(); // tasks dependant on this layer
+            ArrayList<Task> toRender = new ArrayList<Task>(); // to render this interation
+
+            for (Task current : currentLayer) {
+                // check is current is dependant on previous level
+                ArrayList<Task> currentDependants = current.getDependentNodes();
+                boolean doesDepend = false;
+                for (Task task : currentDependants) {
+                    if (lastLayer.contains(task)) {
+                        doesDepend = true;
+                    } // else stay false 
+                }
+                if (!doesDepend) {
+                    // doesn't depend on nodes that exist
+                    nextLayer.add(current);
+                } else {
+                    toRender.add(current);
+                }
+            }
+
+            int n = toRender.size();
+            int l = (n - 1) * (30 + 40); // box height = 80, gap = 30
+
+            int y = currentY - (l / 2); // set y pointer
+            for (Task task : toRender) {
+                // these tasks will be rendered
+                g.drawLine(currentX, y, currentX + 20, y);
+                drawNode(g, currentX + 20, y - 20, task); // render task
+                if (n != 1) {
+                    y += (l / (n - 1)); // l is distance between tasks
+                } // else no need to increase
+
+                // link to old nodes
+
+                ArrayList<Task> dependants = task.getDependentNodes();
+                for (Task currentDependant : dependants) {
+                    int[] currentCoords = getNodeLocation(currentDependant);
+                    // xCoord = currentCoords[0], y = cC[1]
+                    int xCoord = currentCoords[0];
+                    int yCoord = currentCoords[1];
+
+                    g.drawLine(xCoord, yCoord, xCoord + 20, yCoord);
+                    g.drawLine(xCoord + 20, yCoord, xCoord + 20, y);
+                }
+            }
+
+            renderLayer(g, toRender, nextLayer, currentX + 140, currentY);
         }
     }
 

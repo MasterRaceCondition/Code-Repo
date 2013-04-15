@@ -21,6 +21,7 @@ public class PERTRender extends JPanel {
 
     private Chart pert; // the gantt to render
     private Task breakdown; // we are currently showing a breakdown of:
+    private HashMap nodeLocations;
 
     public PERTRender(Chart pert, Task breakdown) // set up graphics window
     {
@@ -28,6 +29,7 @@ public class PERTRender extends JPanel {
         //setBackground(Color.WHITE);
         this.pert = pert;
         this.breakdown = breakdown;
+        this.nodeLocations = new HashMap();
     }
 
     public void setBreakdown(Task breakdown) {
@@ -43,12 +45,14 @@ public class PERTRender extends JPanel {
         int width = getWidth();             // width of window in pixels
         int height = getHeight();           // height of window in pixels
 
+        nodeLocations.clear(); // empty;
+
 
 
         super.paintComponent(g);
 
-        
-        if (this.breakdown == null){
+
+        if (this.breakdown == null) {
             g.drawString("PERT Is Not Configured", 10, 30);
         } else {
             g.drawString("Viewing Sub-Task Breakdown Of: " + breakdown.getName(), 10, 30);
@@ -59,7 +63,9 @@ public class PERTRender extends JPanel {
         drawStartOrEnd(g, false, 700); // end
         if (this.breakdown == null) {
             g.drawLine(155, 250, 700, 250); // if no tasks
-        } // else <add rendering code here>
+        } else {
+            drawChart(g, 155, 250);
+        }
     }
 
     public void drawStartOrEnd(Graphics g, boolean isStart, int x) {
@@ -83,15 +89,105 @@ public class PERTRender extends JPanel {
 
     }
 
-    public void drawNode(Graphics g, int x, int y) {
-        g.drawRect(x, y, 120, 80); // default node size
-        g.drawString("PERT task", x + 30, y + 20);
-        g.drawString("Task 3.7", x + 30, y + 40);
+    public void drawNode(Graphics g, int x, int y, Task t) {
+        g.drawRect(x, y, 120, 40); // default node size
+        g.drawString(t.getName(), x + 30, y + 20);
+        HashMap taskLocation = new HashMap();
+        nodeLocations.put(t.getName() + "x", x + 120);
+        nodeLocations.put(t.getName() + "y", y + 20);
+
     }
 
-    public void drawChart(Graphics g) {
+    public void drawChart(Graphics g, int startX, int startY) {
         // All 'next node' calculations are handled in here
         //TODO
+        ArrayList<Task> children = breakdown.getChildren(); // this is what we are renderng
+
+        if (children.isEmpty()) {
+            // draw line from start to finish, nothing to see here
+            g.drawLine(startX, startY, 700, startY); // if no tasks, current 700 will be endX
+        } else {
+            // this is where the rendering actually happens
+            // get first later
+            ArrayList<Task> firstLayer = new ArrayList<Task>(); // all tasks with no dependancies
+            ArrayList<Task> nextLayer = new ArrayList<Task>(); // all tasks with dependancies
+            for (Task child : children) {
+                if (child.getDependentNodes().isEmpty()) {
+                    firstLayer.add(child);
+                } else {
+                    nextLayer.add(child);
+                }
+            }
+
+            g.drawLine(startX, startY, startX + 20, startY);
+
+            startX += 20; // move along
+
+            // formula for split  l = [(g + b)(n - 1)]
+
+            int n = firstLayer.size();
+
+            int l = (n - 1) * (30 + 40); // box height = 80, gap = 30
+
+            g.drawLine(startX, (startY - (l / 2)), startX, (startY + (l / 2)));
+
+
+            int y = startY - (l / 2);
+
+            for (Task current : firstLayer) {
+                // draw brace
+                g.drawLine(startX, y, startX + 20, y);
+                drawNode(g, startX + 20, y - 20, current); // render task
+                if (n != 1) {
+                    y += (l / (n - 1)); // l is distance between tasks
+                } // else no need to increase
+            }
+            startX += 140; // add on len, startY is still centre
+            renderLayer(g, children, nextLayer, startX, startY);
+
+            // next, render next layer
+
+        }
+    }
+
+    public void renderLayer(Graphics g, ArrayList<Task> lastLayer, ArrayList<Task> currentLayer, int currentX, int currentY) {
+        // renders layers after the first layer;
+        if (currentLayer.isEmpty()) {
+            // this later is empty, this is the end
+            // close it off
+            for (Task current : lastLayer) {
+                int[] currentCoords = getNodeLocation(current);
+                // xCoord = currentCoords[0], y = cC[1]
+                int x = currentCoords[0];
+                int y = currentCoords[1];
+
+                g.drawLine(x, y, x + 20, y);
+                g.drawLine(x + 20, y, x + 20, currentY);
+            }
+
+            g.drawLine(currentX + 20, currentY, 700, currentY);
+
+        } else {
+            // this layer has tasks to render
+        }
+    }
+
+    private int[] getNodeLocation(Task t) {
+        // search hashmaps
+        String taskName = t.getName();
+
+        int xCoord = Integer.parseInt(String.valueOf(nodeLocations.get(taskName + "x")));
+        int yCoord = Integer.parseInt(String.valueOf(nodeLocations.get(taskName + "y")));
+        int[] arr = {xCoord, yCoord};
+
+        return arr;
+
+
+        // strip curely brackets
+
+
+
+
     }
 
     public void run() {

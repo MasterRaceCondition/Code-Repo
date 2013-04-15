@@ -189,11 +189,100 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
 
 
     }
+    
+    private int millisecondToOtherFormat(long duration, String conversionSwitch) {
+        switch (conversionSwitch) {
+            case ("year"):
+                return (int) (duration / 31556952000L);
+            case ("month"):
+                return (int) (duration / 2629746000L);
+            case ("week"):
+                return (int) (duration / 604800000);
+            case ("day"):
+                return (int) (duration / 86400000);
+            case ("hour"):
+                return (int) (duration / 3600000);
+            case ("minute"):
+                return (int) (duration / 60000);
+            default:
+                return (int) (duration / 1000); //returns in seconds
+        }
+    }
+    
+    private int dayOfMonthFromDayOfYear(int dayOfYear){
+        System.out.println(dayOfYear);
+        if (dayOfYear < 32){
+            return dayOfYear;
+        } else if (dayOfYear < 60){
+            return dayOfYear - 31;
+        } else if (dayOfYear < 91){
+            return dayOfYear - 59;
+        } else if (dayOfYear < 121){
+            return dayOfYear - 90;
+        } else if (dayOfYear < 152){
+            return dayOfYear - 120;
+        } else if (dayOfYear < 182){
+            return dayOfYear - 151;
+        } else if (dayOfYear < 213){
+            return dayOfYear - 181;
+        } else if (dayOfYear < 244){
+            return dayOfYear - 212;
+        } else if (dayOfYear < 274){
+            return dayOfYear - 243;
+        } else if (dayOfYear < 305){
+            return dayOfYear - 273;
+        } else if (dayOfYear < 335){
+            return dayOfYear - 304;
+        } else{
+            return dayOfYear - 334;
+        } // days are glitchy
+    }
+    
+    private String getStartMessage(){
+        long startTime = project.getTasks().get(0).getStartCalendar().getTimeInMillis();
+        int startYear = millisecondToOtherFormat(startTime, "year");
+        int startMonth = millisecondToOtherFormat(startTime, "month");
+        startMonth = startMonth % 12; // mod 12
+        int startDay = millisecondToOtherFormat(startTime, "day");
+        startDay = startDay - (startYear * 365);
+        startDay %= 365;
+        startYear = startYear + 1970;
+        startDay = dayOfMonthFromDayOfYear(startDay);
+        int startHour = millisecondToOtherFormat(startTime, "hour");
+        startHour %= 24;
+        int startMinute = millisecondToOtherFormat(startTime, "minute");
+        startMinute %= 60;
+        
+        return startHour + ":" + startMinute + " " + startDay + "/" + startMonth + "/" + startYear;
+ 
+    }
+    
+    private String getEndMessage(){
+        long endTime = project.getTasks().get(0).getEndCalendar().getTimeInMillis();
+        int endYear = millisecondToOtherFormat(endTime, "year");
+        int endMonth = millisecondToOtherFormat(endTime, "month");
+        endMonth = endMonth % 12; // mod 12
+        int endDay = millisecondToOtherFormat(endTime, "day");
+        endDay = endDay - (endYear * 365);
+        endYear = endYear + 1970; // epoch is 1970
+        endDay = dayOfMonthFromDayOfYear(endDay);
+        int endHour = millisecondToOtherFormat(endTime, "hour");
+        endHour %= 24;
+        int endMinute = millisecondToOtherFormat(endTime, "minute");
+        endMinute %= 60;
+        
+        return endHour + ":" + endMinute + " " + endDay + "/" + endMonth + "/" + endYear;
+ 
+    }
+    
+    
 
     public void refresh() {
         projectName.setText(project.getName());
         projectPath.setText(project.getFilePath());
         projectSize.setText(String.valueOf(project.getNumberOfTasks()));
+        projectStart.setText(getStartMessage());
+        projectEnd.setText(getEndMessage());
         reRender();
         ganttWrap.repaint(); //
         PERTWrap.repaint();    // Refreshes Render Panels
@@ -244,6 +333,10 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         projectSize = new javax.swing.JLabel();
         vysilogo = new javax.swing.JLabel();
         uoplogo = new javax.swing.JLabel();
+        lblProjectStart = new javax.swing.JLabel();
+        lblProjectEnd = new javax.swing.JLabel();
+        projectStart = new javax.swing.JLabel();
+        projectEnd = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         Files = new javax.swing.JMenu();
         filesOpen = new javax.swing.JMenuItem();
@@ -348,6 +441,14 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         uoplogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vysichart/vysichart uop.png"))); // NOI18N
         uoplogo.setToolTipText("");
 
+        lblProjectStart.setText("Project Start:");
+
+        lblProjectEnd.setText("Project End:");
+
+        projectStart.setText("-");
+
+        projectEnd.setText("-");
+
         javax.swing.GroupLayout projectWrapLayout = new javax.swing.GroupLayout(projectWrap);
         projectWrap.setLayout(projectWrapLayout);
         projectWrapLayout.setHorizontalGroup(
@@ -357,18 +458,30 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
                 .addComponent(vysilogo, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(projectWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblProject)
                     .addGroup(projectWrapLayout.createSequentialGroup()
                         .addGroup(projectWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(pjName)
                             .addComponent(pjFP)
                             .addComponent(pjSize))
                         .addGap(17, 17, 17)
-                        .addGroup(projectWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(projectName, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
-                            .addComponent(projectPath, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(projectSize, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(28, 28, 28)
+                        .addGroup(projectWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(projectSize, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(projectWrapLayout.createSequentialGroup()
+                                .addGroup(projectWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(projectPath, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+                                    .addComponent(projectName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addGroup(projectWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblProjectStart)
+                                    .addComponent(lblProjectEnd))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(projectWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(projectEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(projectStart, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, projectWrapLayout.createSequentialGroup()
+                        .addComponent(lblProject)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(uoplogo, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         projectWrapLayout.setVerticalGroup(
@@ -381,11 +494,15 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(projectWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(pjName)
-                            .addComponent(projectName))
+                            .addComponent(projectName)
+                            .addComponent(lblProjectStart)
+                            .addComponent(projectStart))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(projectWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(pjFP)
-                            .addComponent(projectPath))
+                            .addComponent(projectPath)
+                            .addComponent(lblProjectEnd)
+                            .addComponent(projectEnd))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(projectWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(pjSize)
@@ -654,14 +771,18 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JLabel lblProject;
+    private javax.swing.JLabel lblProjectEnd;
+    private javax.swing.JLabel lblProjectStart;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JScrollPane pertScroll;
     private javax.swing.JLabel pjFP;
     private javax.swing.JLabel pjName;
     private javax.swing.JLabel pjSize;
+    private javax.swing.JLabel projectEnd;
     private javax.swing.JLabel projectName;
     private javax.swing.JLabel projectPath;
     private javax.swing.JLabel projectSize;
+    private javax.swing.JLabel projectStart;
     private javax.swing.JPanel projectWrap;
     private javax.swing.JTabbedPane tabbedRenderPane;
     private javax.swing.JMenuItem tasksAdd;
@@ -708,4 +829,8 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     private javax.swing.JLabel uoplogo;
     private javax.swing.JLabel vysilogo;
     private javax.swing.JScrollPane wbtScroll;
+    private javax.swing.JLabel lblProjectEnd;
+    private javax.swing.JLabel lblProjectStart;
+    private javax.swing.JLabel projectStart;
+    private javax.swing.JLabel projectEnd;
 }

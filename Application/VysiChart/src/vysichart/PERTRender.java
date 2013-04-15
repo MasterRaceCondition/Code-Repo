@@ -22,6 +22,8 @@ public class PERTRender extends JPanel {
     private Chart pert; // the gantt to render
     private Task breakdown; // we are currently showing a breakdown of:
     private HashMap nodeLocations;
+    private int height; // yet to implement
+    private int width;
 
     public PERTRender(Chart pert, Task breakdown) // set up graphics window
     {
@@ -30,6 +32,7 @@ public class PERTRender extends JPanel {
         this.pert = pert;
         this.breakdown = breakdown;
         this.nodeLocations = new HashMap();
+        
     }
 
     public void setBreakdown(Task breakdown) {

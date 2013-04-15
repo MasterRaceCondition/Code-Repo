@@ -49,6 +49,12 @@ public class TaskInput extends javax.swing.JFrame {
         endMonth = new javax.swing.JComboBox();
         startDay = new javax.swing.JComboBox();
         endDay = new javax.swing.JComboBox();
+        startHour = new javax.swing.JComboBox();
+        startMinute = new javax.swing.JComboBox();
+        jSeparator1 = new javax.swing.JSeparator();
+        lblDates = new javax.swing.JLabel();
+        endHour = new javax.swing.JComboBox();
+        endMinute = new javax.swing.JComboBox();
         buttonWrap = new javax.swing.JPanel();
         submit = new javax.swing.JButton();
         cancel = new javax.swing.JButton();
@@ -82,27 +88,45 @@ public class TaskInput extends javax.swing.JFrame {
 
         endDay.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
 
+        startHour.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24" }));
+
+        startMinute.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00", "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55" }));
+
+        lblDates.setText("Dates (MM HH DD MM YYYY)");
+
+        endHour.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24" }));
+
+        endMinute.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00", "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55" }));
+
         javax.swing.GroupLayout inputWrapLayout = new javax.swing.GroupLayout(inputWrap);
         inputWrap.setLayout(inputWrapLayout);
         inputWrapLayout.setHorizontalGroup(
             inputWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(inputWrapLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(inputWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(inputWrapLayout.createSequentialGroup()
+                .addGroup(inputWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, inputWrapLayout.createSequentialGroup()
                         .addGroup(inputWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTaskName)
                             .addComponent(lblParent))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(inputWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(taskParent, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(taskName))
-                        .addGap(69, 69, 69))
-                    .addGroup(inputWrapLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(inputWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(taskName)
+                            .addComponent(taskParent, 0, 178, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, inputWrapLayout.createSequentialGroup()
                         .addGroup(inputWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblStartDate)
                             .addComponent(lblEndDate))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(inputWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(startMinute, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(endMinute, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(inputWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(startHour, 0, 54, Short.MAX_VALUE)
+                            .addComponent(endHour, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(inputWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(startDay, 0, 52, Short.MAX_VALUE)
                             .addComponent(endDay, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -113,7 +137,11 @@ public class TaskInput extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(inputWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(startYear, 0, 63, Short.MAX_VALUE)
-                            .addComponent(endYear, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                            .addComponent(endYear, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(inputWrapLayout.createSequentialGroup()
+                        .addComponent(lblDates)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addComponent(jSeparator1)
         );
         inputWrapLayout.setVerticalGroup(
             inputWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -126,19 +154,27 @@ public class TaskInput extends javax.swing.JFrame {
                 .addGroup(inputWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblParent)
                     .addComponent(taskParent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblDates)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(inputWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblStartDate)
                     .addComponent(startYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(startMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(startDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(startDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(startHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(startMinute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(inputWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEndDate)
                     .addComponent(endYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(endMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(endDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(36, Short.MAX_VALUE))
+                    .addComponent(endDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(endHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(endMinute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         submit.setText("Submit");
@@ -160,7 +196,7 @@ public class TaskInput extends javax.swing.JFrame {
         buttonWrapLayout.setHorizontalGroup(
             buttonWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, buttonWrapLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 244, Short.MAX_VALUE)
                 .addComponent(cancel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(submit))
@@ -183,9 +219,7 @@ public class TaskInput extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(buttonWrap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(inputWrap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(inputWrap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -223,10 +257,14 @@ public class TaskInput extends javax.swing.JFrame {
         Calendar end = Calendar.getInstance();
         start.set(Integer.parseInt(String.valueOf(startYear.getSelectedItem()))
                 , Integer.parseInt(String.valueOf(startMonth.getSelectedItem()))
-                , Integer.parseInt(String.valueOf(startDay.getSelectedItem())));
+                , Integer.parseInt(String.valueOf(startDay.getSelectedItem()))
+                , Integer.parseInt(String.valueOf(startHour.getSelectedItem()))
+                , Integer.parseInt(String.valueOf(startMinute.getSelectedItem())));
         end.set(Integer.parseInt(String.valueOf(endYear.getSelectedItem()))
                 , Integer.parseInt(String.valueOf(endMonth.getSelectedItem()))
-                , Integer.parseInt(String.valueOf(endDay.getSelectedItem())));
+                , Integer.parseInt(String.valueOf(endDay.getSelectedItem()))
+                , Integer.parseInt(String.valueOf(endHour.getSelectedItem()))
+                , Integer.parseInt(String.valueOf(endMinute.getSelectedItem())));
         
         newTask.setStartCalendar(start);
         newTask.setEndCalendar(end);
@@ -280,14 +318,20 @@ public class TaskInput extends javax.swing.JFrame {
     private javax.swing.JPanel buttonWrap;
     private javax.swing.JButton cancel;
     private javax.swing.JComboBox endDay;
+    private javax.swing.JComboBox endHour;
+    private javax.swing.JComboBox endMinute;
     private javax.swing.JComboBox endMonth;
     private javax.swing.JComboBox endYear;
     private javax.swing.JPanel inputWrap;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblDates;
     private javax.swing.JLabel lblEndDate;
     private javax.swing.JLabel lblParent;
     private javax.swing.JLabel lblStartDate;
     private javax.swing.JLabel lblTaskName;
     private javax.swing.JComboBox startDay;
+    private javax.swing.JComboBox startHour;
+    private javax.swing.JComboBox startMinute;
     private javax.swing.JComboBox startMonth;
     private javax.swing.JComboBox startYear;
     private javax.swing.JButton submit;

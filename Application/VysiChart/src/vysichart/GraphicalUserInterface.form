@@ -380,7 +380,6 @@
                   <Component id="vysilogo" min="-2" pref="159" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lblProject" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="pjName" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -388,14 +387,32 @@
                               <Component id="pjSize" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="projectName" pref="433" max="32767" attributes="0"/>
-                              <Component id="projectPath" max="32767" attributes="0"/>
-                              <Component id="projectSize" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="projectSize" alignment="1" max="32767" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="projectPath" pref="237" max="32767" attributes="0"/>
+                                      <Component id="projectName" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lblProjectStart" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblProjectEnd" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="projectEnd" min="-2" pref="123" max="-2" attributes="0"/>
+                                      <Component id="projectStart" min="-2" pref="123" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="lblProject" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                   <Component id="uoplogo" min="-2" pref="187" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -411,11 +428,15 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="pjName" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="projectName" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblProjectStart" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="projectStart" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="pjFP" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="projectPath" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblProjectEnd" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="projectEnd" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -486,6 +507,26 @@
               <Image iconType="3" name="/vysichart/vysichart uop.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value=""/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblProjectStart">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Project Start:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblProjectEnd">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Project End:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="projectStart">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="-"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="projectEnd">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="-"/>
           </Properties>
         </Component>
       </SubComponents>

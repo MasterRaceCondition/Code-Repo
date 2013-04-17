@@ -149,6 +149,14 @@ public class Task {
     public long getTaskDuration() {
         return taskDuration;
     }
+    
+    public long getTaskStartCalendarToMillisecond(){
+        return calendarToMillisecond(true);
+    }
+    
+    public long getTaskEndCalendarToMillisecond(){
+        return calendarToMillisecond(false);
+    }
 
     //set methods for modifying class variables.
     public void setTaskName(String taskName) {
@@ -254,9 +262,19 @@ public class Task {
             return false; // for root node, has no parent
         }
     }
-
-    public long calendarToMillisecond(Calendar date) {
-
+    /*
+     * Returns a calendar's millisecond value, starting at the Unix Epoch
+     * (01/01/1970).
+     */
+    public long calendarToMillisecond(boolean isStart) {
+        Calendar date;
+        if(isStart){
+            date = startCalendar;
+        }
+        else{
+            date = endCalendar;
+        }
+        
         long year = date.get(Calendar.YEAR) * 31556952000L;
         long day = date.get(Calendar.DAY_OF_YEAR) * 86400000;
         long hour = date.get(Calendar.HOUR_OF_DAY) * 3600000;
@@ -307,8 +325,8 @@ public class Task {
     }
 
     private long calculateDuration() {
-        return calendarToMillisecond(endCalendar)
-                - calendarToMillisecond(startCalendar);
+        return calendarToMillisecond(false)
+                - calendarToMillisecond(true);
     }
 
     public String getString() {

@@ -48,45 +48,48 @@ public class Vysichart {
 
         
         Calendar startCal = Calendar.getInstance();
-        startCal.set(2010, 5, 11, 6, 25);
+        startCal.set(2010, 5, 11, 6, 00);
         Calendar endCal = Calendar.getInstance();
-        endCal.set(2010, 5, 11, 6, 45);
+        endCal.set(2010, 5, 11, 6, 50);
         Task makeBreak = new Task("Make Breakfast", startCal, endCal);
         int[] cal = makeBreak.getTotalTime();
         String[] timeFrames = {"year", "month", "week", "day", "hour", 
                                 "minute", "second"};
-        endCal.set(2010, 5, 11, 6, 26);
-        Task makeCerial = new Task("Make Cerial", makeBreak, startCal, endCal);
-        startCal.set(2010, 5, 11, 6, 26);
-        endCal.set(2010, 5, 11, 6, 27);
-        Task makeJuice = new Task("Make Juice", makeBreak, startCal, endCal);
-        startCal.set(2010, 5, 11, 6, 27);
-        endCal.set(2010, 5, 11, 6, 28);
-        Task eatBreakfast = new Task("Eat The Breakfast", makeBreak, startCal, endCal);
-        startCal.set(2010, 5, 11, 6, 28);
-        endCal.set(2010, 5, 11, 6, 29);
-        Task getBowl = new Task("Get Bowl", makeCerial, startCal, endCal);
-        startCal.set(2010, 5, 11, 6, 29);
         endCal.set(2010, 5, 11, 6, 30);
-        Task pourCerial = new Task("Pour Cerial", makeCerial, startCal, endCal);
+        Task makeCerial = new Task("Make Cerial", makeBreak, startCal, endCal);
         startCal.set(2010, 5, 11, 6, 30);
-        endCal.set(2010, 5, 11, 6, 31);
+        endCal.set(2010, 5, 11, 6, 50);
+        Task makeJuice = new Task("Make Juice", makeBreak, startCal, endCal);
+        startCal.set(2010, 5, 11, 6, 50);
+        endCal.set(2010, 5, 11, 7, 30);
+        Task eatBreakfast = new Task("Eat The Breakfast", startCal, endCal);
+        startCal.set(2010, 5, 11, 6, 00);
+        endCal.set(2010, 5, 11, 6, 5);
+        Task getBowl = new Task("Get Bowl", makeCerial, startCal, endCal);
+        startCal.set(2010, 5, 11, 6, 5);
+        endCal.set(2010, 5, 11, 6, 10);
+        Task pourCerial = new Task("Pour Cerial", makeCerial, startCal, endCal);
+        startCal.set(2010, 5, 11, 6, 10);
+        endCal.set(2010, 5, 11, 6, 20);
         Task addMilk = new Task("Add Milk To Cerial", makeCerial, startCal, endCal);
         
-        startCal.set(2010, 5, 11, 6, 31);
-        endCal.set(2010, 5, 11, 6, 37);
+        startCal.set(2010, 5, 11, 6, 50);
+        endCal.set(2010, 5, 11, 7, 5);
         Task eatCerial = new Task("Eat Cerial", eatBreakfast, startCal, endCal);
-        startCal.set(2010, 5, 11, 6, 37);
-        endCal.set(2010, 5, 11, 6, 45);
+        startCal.set(2010, 5, 11, 7, 10);
+        endCal.set(2010, 5, 11, 7, 30);
         Task drinkJuice = new Task("Drink Juice", eatBreakfast, startCal, endCal);
 
         eatBreakfast.addDependantNode(makeCerial);
         eatBreakfast.addDependantNode(makeJuice);
 
+        System.out.println("time Difference between makeBreak and drinkJuice: " + Project.getTimeDifference(makeBreak, drinkJuice));
+        
         pourCerial.addDependantNode(getBowl);
         addMilk.addDependantNode(pourCerial);
 
-        System.out.println("Percentage: " + Project.getTaskPercentage(makeCerial));
+        System.out.println("Percentage of makeBreak: " + Project.getTaskPercentage(makeBreak));
+        System.out.println("Percentage of eatBreak: " + Project.getTaskPercentage(eatBreakfast));
 
         //makeBreakfast.printOut();
 

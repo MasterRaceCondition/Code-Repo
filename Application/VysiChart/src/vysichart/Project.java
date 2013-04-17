@@ -265,6 +265,19 @@ public class Project {
         return ((float)duration / (float) getProjectDuration()) * 100;
     }
     
+    public static long getTimeDifference(Task firstTask, Task secondTask){
+        System.out.println("Time difference between " + firstTask.getName() + " and "
+                + secondTask.getName() +": "+ (secondTask.calendarToMillisecond(true) -
+                firstTask.calendarToMillisecond(false)));
+        return secondTask.calendarToMillisecond(true) -
+                firstTask.calendarToMillisecond(false);
+    }
+    /*
+     * Overloaded method - takes long values instead of tasks.
+     */
+    public static long getTimeDifference(long firstTask, long secondTask){
+        return secondTask - firstTask;
+    }
     /*
      * Returns the total duration of the project.
      *
@@ -291,14 +304,14 @@ public class Project {
         //calculates the project
         if (startOrEnd == 's') {
             for (Task t : tasks) {
-                currentTaskTime = t.calendarToMillisecond(t.getStartCalendar());
+                currentTaskTime = t.calendarToMillisecond(true);
                 if (currentTaskTime < returnTaskTime) {
                     returnTaskTime = currentTaskTime;
                 }
             }
         } else {
             for (Task t : tasks) {
-                currentTaskTime = t.calendarToMillisecond(t.getStartCalendar());
+                currentTaskTime = t.calendarToMillisecond(true);
                 if (currentTaskTime > returnTaskTime) {
                     returnTaskTime = currentTaskTime;
                 }

@@ -22,7 +22,7 @@ public class GanttRender extends JPanel {
     private Chart gantt; // the gantt to render
     //Width in pixels is used to define one percent of the project in pixel width.
     private int xCoord, yCoord, pixelToPercent;
-    private long lastTaskLength; //Used to keep track of last task length.
+    private long lastTaskEndTime; //Used to keep track of last task length.
 
     public GanttRender(Chart gantt) // set up graphics window
     {
@@ -46,8 +46,6 @@ public class GanttRender extends JPanel {
 
         initAxis(g);
         
-        //debug value
-        int pixelToPercent = 5;
         
         
         System.out.println("X-COORD: " + xCoord + "     Y-COORD:" + yCoord);
@@ -57,56 +55,44 @@ public class GanttRender extends JPanel {
         double taskPercentage = 0;
         int taskWidth = 0; //The task width in pixels when rendered.
         long timeDifference = 0; //The time difference between tasks.
-        ArrayList<Task> tasks = gantt.getTasks();
-        int sizeOfTasks = tasks.size();
-        //DEBUG
-        for(int i = 0; i < sizeOfTasks; i++){
-            if(tasks.get(i).getTaskParent() == null){
-                //DEBUG
-                System.out.println(tasks.get(i).getName() + "is not a parent");
-                taskWidth = renderTask(tasks.get(i), g);
-                yCoord += 30;
-                ArrayList<Task> taskChildren = tasks.get(i).getChildren();
-                if(!taskChildren.isEmpty()){
-                    renderChildren(taskChildren, g);
-                }
-                if(i > 1){
-                        timeDifference = Project.getTimeDifference(
-                                lastTaskLength, tasks.get(i).getTaskStartCalendarToMillisecond());
-                        
-                }
-                xCoord += (taskWidth + Project.getWhitespacePercentage(timeDifference));
-                lastTaskLength = tasks.get(i).getTaskEndCalendarToMillisecond();
-            }  
+        ArrayList<Task> parentTasks = Project.getParents();
+        System.out.println("Size of parentTasks: " + parentTasks.size());
+        
+        for(Task p : parentTasks){
+            ArrayList<Task> children = p.getChildren();
+            taskWidth = renderTask(p, g);
+            yCoord += 30;
+            if(!children.isEmpty()){
+                renderTaskArrayList(children, g);
+            }
         }
+        
         xCoord = 10;
         yCoord = 30;
         //reset
 
     }
     
-    public void renderChildren(ArrayList<Task> children, Graphics g){
-        int sizeOfChildren = children.size();
+    public void renderTaskArrayList(ArrayList<Task> tasks, Graphics g){
+        int sizeOfTasks = tasks.size();
         int taskWidth = 0;
-        double taskPercentage = 0;
-        long timeDifference = 0;
-        for(int i = 0; i< sizeOfChildren; i++){
-            ArrayList<Task> childrenOfChild = children.get(i).getChildren();
-            if(!childrenOfChild.isEmpty()){
-                renderChildren(childrenOfChild, g);
+        for(int i = 0; i< sizeOfTasks; i++){
+            ArrayList<Task> children = tasks.get(i).getChildren();
+            taskWidth = renderTask(tasks.get(i), g);
+            yCoord += 30;
+            if(!children.isEmpty()){
+                renderTaskArrayList(children, g);
             }
-            else
+            else{
                 if(i > 1){
-                    timeDifference = Project.getTimeDifference(lastTaskLength, children.get(i).getTaskStartCalendarToMillisecond());
+                    long timeDifference = Project.getTimeDifference(lastTaskEndTime, tasks.get(i).getTaskStartCalendarToMillisecond());
                     xCoord += Project.getWhitespacePercentage(timeDifference);
-                    System.out.println("timeDifference is: " + timeDifference);
                 }
-                taskWidth = renderTask(children.get(i), g);
                 xCoord += taskWidth;
-                yCoord += 30;
-                lastTaskLength = children.get(i).getTaskEndCalendarToMillisecond();
+                lastTaskEndTime = tasks.get(i).getTaskEndCalendarToMillisecond();
             }
         }
+    }
     
     public int renderTask(Task task, Graphics g){
         double taskPercentage = Project.getTaskPercentage(task);

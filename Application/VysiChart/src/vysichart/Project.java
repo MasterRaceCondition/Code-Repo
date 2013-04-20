@@ -264,11 +264,10 @@ public class Project {
     public static float getWhitespacePercentage(long duration){
         return ((float)duration / (float) getProjectDuration()) * 100;
     }
-    
+    /*
+     * Overloaded method - takes tasks and returns a long value.
+     */
     public static long getTimeDifference(Task firstTask, Task secondTask){
-        System.out.println("Time difference between " + firstTask.getName() + " and "
-                + secondTask.getName() +": "+ (secondTask.calendarToMillisecond(true) -
-                firstTask.calendarToMillisecond(false)));
         return secondTask.calendarToMillisecond(true) -
                 firstTask.calendarToMillisecond(false);
     }
@@ -318,6 +317,16 @@ public class Project {
             }
         }
         return returnTaskTime;
+    }
+    
+    public static ArrayList<Task> getParents(){
+        ArrayList<Task> parents = new ArrayList<>();
+        for(Task t : tasks){
+            if(t.getTaskParent() == null){
+                parents.add(t);
+            }
+        }
+        return parents;
     }
 
     /*

@@ -117,6 +117,7 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
         ganttScroll.repaint();
 
         tabbedRenderPane.addTab("Gantt Chart", ganttScroll);
+        ganttWrap.setPreferredSize(new java.awt.Dimension(1200, 500)); // set gantt dimenstions
 
 
 

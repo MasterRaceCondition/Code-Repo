@@ -57,12 +57,12 @@ public class Vysichart {
                                 "minute", "second"};
         endCal.set(2010, 5, 11, 6, 30);
         Task makeCerial = new Task("Make Cerial", makeBreak, startCal, endCal);
-        startCal.set(2010, 5, 11, 6, 30);
+        startCal.set(2010, 5, 11, 6, 35);
         endCal.set(2010, 5, 11, 6, 50);
         Task makeJuice = new Task("Make Juice", makeBreak, startCal, endCal);
         startCal.set(2010, 5, 11, 6, 50);
         endCal.set(2010, 5, 11, 7, 30);
-        Task eatBreakfast = new Task("Eat The Breakfast", startCal, endCal);
+        Task eatBreakfast = new Task("Eat The Breakfast", makeBreak, startCal, endCal);
         startCal.set(2010, 5, 11, 6, 00);
         endCal.set(2010, 5, 11, 6, 5);
         Task getBowl = new Task("Get Bowl", makeCerial, startCal, endCal);

@@ -102,6 +102,9 @@ public class Task {
      */
 
     private void addToTasks() {
+        if (Project.getTasks().isEmpty()){
+            Project.setRoot(this);
+        }
         Project.addTask(this);
     }
 

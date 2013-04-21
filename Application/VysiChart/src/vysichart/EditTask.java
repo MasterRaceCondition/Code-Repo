@@ -25,6 +25,41 @@ public class EditTask extends javax.swing.JFrame {
         initComponents();
         
     }
+    
+    private void updateDateBoxes(){
+        Calendar startCal = gui.getProject().getTaskFromString(String.valueOf(taskSelector.getSelectedItem())).getStartCalendar();
+        Calendar endCal = gui.getProject().getTaskFromString(String.valueOf(taskSelector.getSelectedItem())).getEndCalendar();
+        
+        int startYearIndex = startCal.get(Calendar.YEAR) - 2010;
+        startYear.setSelectedIndex(startYearIndex);
+        
+        int startMonthIndex = startCal.get(Calendar.MONTH) - 1;
+        startMonth.setSelectedIndex(startMonthIndex);
+        
+        int startDayIndex = startCal.get(Calendar.DAY_OF_MONTH) - 1;
+        startDay.setSelectedIndex(startDayIndex);
+        
+        int startHourIndex = startCal.get(Calendar.HOUR_OF_DAY);
+        startHour.setSelectedIndex(startHourIndex);
+        
+        int startMinutesIndex = startCal.get(Calendar.MINUTE) / 5;
+        startMinute.setSelectedIndex(startMinutesIndex);
+        
+        int endYearIndex = endCal.get(Calendar.YEAR) - 2010;
+        endYear.setSelectedIndex(endYearIndex);
+        
+        int endMonthIndex = endCal.get(Calendar.MONTH) - 1;
+        endMonth.setSelectedIndex(endMonthIndex);
+        
+        int endDayIndex = endCal.get(Calendar.DAY_OF_MONTH) - 1;
+        endDay.setSelectedIndex(endDayIndex);
+        
+        int endHourIndex = endCal.get(Calendar.HOUR_OF_DAY);
+        endHour.setSelectedIndex(endHourIndex);
+        
+        int endMinutesIndex = endCal.get(Calendar.MINUTE) / 5;
+        endMinute.setSelectedIndex(endMinutesIndex);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -68,6 +103,11 @@ public class EditTask extends javax.swing.JFrame {
         lblTask.setText("Select Task To Edit:");
 
         taskSelector.setModel(new javax.swing.DefaultComboBoxModel(gui.getProject().getTasksAsStringArray()));
+        taskSelector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                taskSelectorActionPerformed(evt);
+            }
+        });
 
         editTask.setText("Edit");
         editTask.addActionListener(new java.awt.event.ActionListener() {
@@ -106,25 +146,25 @@ public class EditTask extends javax.swing.JFrame {
 
         lblEndDate.setText("Edit End Date:");
 
-        startDay.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "_", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        startDay.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
 
-        endDay.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "_", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        endDay.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
 
-        startMonth.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "_", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+        startMonth.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
 
-        endMonth.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "_", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+        endMonth.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
 
-        startYear.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "_", "2010", "2011", "2012", "2013", "2014" }));
+        startYear.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2010", "2011", "2012", "2013", "2014" }));
 
-        endYear.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "_", "2010", "2011", "2012", "2013", "2014" }));
+        endYear.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2010", "2011", "2012", "2013", "2014" }));
 
-        startMinute.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "_", "00", "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55" }));
+        startMinute.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00", "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55" }));
 
-        endMinute.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "_", "00", "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55" }));
+        endMinute.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00", "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55" }));
 
-        startHour.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "_", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24" }));
+        startHour.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24" }));
 
-        endHour.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "_", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24" }));
+        endHour.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24" }));
 
         lblDates.setText("Dates (MM HH DD MM YYYY)");
 
@@ -259,9 +299,7 @@ public class EditTask extends javax.swing.JFrame {
         index = newParent.getSelectedIndex();  // get new parent, if index = 0 then no new parent
         
         
-        if (String.valueOf(startYear.getSelectedItem()).equals("_") == false &&
-                String.valueOf(startMonth.getSelectedItem()).equals("_") == false &&
-                String.valueOf(startDay.getSelectedItem()).equals("_") == false){ // only if a valid date in enetred will this work
+ // only if a valid date in enetred will this work
             Calendar newStart = Calendar.getInstance();
             newStart.set(Integer.parseInt(String.valueOf(startYear.getSelectedItem()))
                     , Integer.parseInt(String.valueOf(startMonth.getSelectedItem()))
@@ -271,11 +309,9 @@ public class EditTask extends javax.swing.JFrame {
             
             taskToEdit.setStartCalendar(newStart); // update calendar
         
-        }
         
-        if (String.valueOf(endYear.getSelectedItem()).equals("_") == false &&
-                String.valueOf(endMonth.getSelectedItem()).equals("_") == false &&
-                String.valueOf(endDay.getSelectedItem()).equals("_") == false){ // only if a valid date in enetred will this work
+        
+
             Calendar newEnd = Calendar.getInstance();
             newEnd.set(Integer.parseInt(String.valueOf(endYear.getSelectedItem()))
                     , Integer.parseInt(String.valueOf(endMonth.getSelectedItem()))
@@ -284,7 +320,7 @@ public class EditTask extends javax.swing.JFrame {
                     , Integer.parseInt(String.valueOf(endMinute.getSelectedItem())));
             
             taskToEdit.setEndCalendar(newEnd); // update end calendar
-        }
+        
         
         if (newTaskName.equals("") == false && newTaskName.equals("blank = no edit") == false){
             taskToEdit.setTaskName(newTaskName); // set new name
@@ -319,6 +355,12 @@ public class EditTask extends javax.swing.JFrame {
     private void newNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_newNameActionPerformed
+
+    private void taskSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_taskSelectorActionPerformed
+        // Update all info boxes
+        
+        updateDateBoxes();
+    }//GEN-LAST:event_taskSelectorActionPerformed
 
     /**
      * @param args the command line arguments

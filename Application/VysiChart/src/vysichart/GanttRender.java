@@ -46,17 +46,13 @@ public class GanttRender extends JPanel {
 
         initAxis(g);
         
-        
-        
-        System.out.println("X-COORD: " + xCoord + "     Y-COORD:" + yCoord);
-        
+                
         //**PROTOTYPE**
         //a large arraylist will need to have a count stored instead.
         double taskPercentage = 0;
         int taskWidth = 0; //The task width in pixels when rendered.
         long timeDifference = 0; //The time difference between tasks.
         ArrayList<Task> parentTasks = Project.getParents();
-        System.out.println("Size of parentTasks: " + parentTasks.size());
         
         for(Task p : parentTasks){
             ArrayList<Task> children = p.getChildren();
@@ -95,6 +91,8 @@ public class GanttRender extends JPanel {
     }
     
     public int renderTask(Task task, Graphics g){
+        double startPercentage = (task.getTaskStartCalendarToMillisecond() - Project.findProjectStart().getTaskStartCalendarToMillisecond()) / Project.getProjectDuration();
+        System.out.println(startPercentage);
         double taskPercentage = Project.getTaskPercentage(task);
         int taskWidthInPixels = (int)taskPercentage * pixelToPercent;
         drawNode(g, xCoord, yCoord, taskWidthInPixels, task.getName());
@@ -113,7 +111,17 @@ public class GanttRender extends JPanel {
         // box height = 20
         // test boxWidth = 120
         g.drawRect(x, y, width, 30);
-        g.drawString(taskName, x + 10, y + 17);
+        String newName = "";
+        x += 10;
+        for(int i = 0; i < taskName.length(); i++){
+            newName += taskName.charAt(i);
+            if(newName.length()*pixelToPercent >= (width-(pixelToPercent*3))){
+                newName += "...";
+                x -= 9;
+                break;
+            }
+        }
+        g.drawString(newName, x, y + 17);
 
 
     }

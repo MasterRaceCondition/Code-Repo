@@ -282,7 +282,7 @@ public class Project {
      *
      */
     public static long getProjectDuration(){
-        int tasksSize = tasks.size();
+        int tasksSize = tasks.size();;
         int taskDuration = 0;
         for(int i = 0; i < tasksSize; i++){
             if(tasks.get(i).getChildren().isEmpty()){
@@ -293,30 +293,37 @@ public class Project {
     }
 
     /*
-     * Finds the project start/end times.
+     * Finds the project start/time.
      * Used when rendering gantt charts.
      * Needs redoing.
      */
-    public static long findProjectStartOrEnd(char startOrEnd) {
-        long currentTaskTime;
-        long returnTaskTime = 0;
-        //calculates the project
-        if (startOrEnd == 's') {
-            for (Task t : tasks) {
-                currentTaskTime = t.calendarToMillisecond(true);
-                if (currentTaskTime < returnTaskTime) {
-                    returnTaskTime = currentTaskTime;
-                }
-            }
-        } else {
-            for (Task t : tasks) {
-                currentTaskTime = t.calendarToMillisecond(true);
-                if (currentTaskTime > returnTaskTime) {
-                    returnTaskTime = currentTaskTime;
-                }
+    public static Task findProjectStart() {
+        Task currentTask = null;
+        ArrayList<Task> projectTasks = tasks;
+        projectTasks.remove(0);
+        for(Task t : projectTasks){
+           if(currentTask == null){
+               currentTask = t;
+           }
+           if(t.getTaskStartCalendarToMillisecond() < currentTask.getTaskStartCalendarToMillisecond()){
+               currentTask = t;
+           }
+        }
+        return currentTask;
+    }
+    /*
+     * Finds the project end time.
+     */
+    public static Task findProjectEnd(){
+        Task currentTask = null;
+        ArrayList<Task> projectTasks = tasks;
+        projectTasks.remove(0);
+        for(Task t : projectTasks){
+            if(currentTask == null || t.getTaskEndCalendarToMillisecond() > currentTask.getTaskEndCalendarToMillisecond()){
+                currentTask = t;
             }
         }
-        return returnTaskTime;
+        return currentTask;
     }
     
     public static ArrayList<Task> getParents(){

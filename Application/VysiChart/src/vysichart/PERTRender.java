@@ -143,10 +143,10 @@ public class PERTRender extends JPanel {
                 drawNode(g, startX + 20, y - 20, current); // render task     
                 // check if no nodes that depend
                 ArrayList<Task> nodesThatDepend = pert.getNodesThatDepend(current);
-                if (nodesThatDepend.isEmpty()){
+                if (nodesThatDepend.isEmpty() && nextLayer.isEmpty() == false){
                     // draw a line from the task to the end
-                    g.drawLine(startX + 140, y, 700, y);
-                    g.drawLine(700, y, 700, startY);
+                    g.drawLine(startX + 140, y, 650, y);
+                    g.drawLine(650, y, 650, startY);
                     
                 }
                 

@@ -45,89 +45,89 @@ public class Vysichart {
      public static void test2() {
 //make breakfast!
 Project makeBreakfast = new Project("Breakfast Maker", "D:/Documents/MRC/Vysichart/Breakfast");
+        
+        Calendar startProj = Calendar.getInstance();
+        startProj.set(2010, 5, 11, 6, 00);
+        Calendar endProj = Calendar.getInstance();
+        endProj.set(2010, 5, 11, 7, 30);
+
+        
+        Task makeBreak = new Task("Make Breakfast", startProj, endProj);
+        int[] cal = makeBreak.getTotalTime();
+        String[] timeFrames = {"year", "month", "week", "day", "hour", 
+                                "minute", "second"};
+        
+        Calendar startMakeCerial = Calendar.getInstance();
+        Calendar endMakeCerial = Calendar.getInstance();
+        startMakeCerial.set(2010, 5, 11, 6, 00);
+        endMakeCerial.set(2010, 5, 11, 6, 30);
+        Task makeCerial = new Task("Make Cerial", makeBreak, startMakeCerial, endMakeCerial);
+        
+        Calendar startMakeJuice = Calendar.getInstance();
+        Calendar endMakeJuice = Calendar.getInstance();
+        startMakeJuice.set(2010, 5, 11, 6, 35);
+        endMakeJuice.set(2010, 5, 11, 6, 50);
+        Task makeJuice = new Task("Make Juice", makeBreak, startMakeJuice, endMakeJuice);
+        
+        Calendar startEatBreakfast = Calendar.getInstance();
+        Calendar endEatBreakfast = Calendar.getInstance();
+        startEatBreakfast.set(2010, 5, 11, 6, 50);
+        endEatBreakfast.set(2010, 5, 11, 7, 30);
+        Task eatBreakfast = new Task("Eat Breakfast", makeBreak, startEatBreakfast, endEatBreakfast);
+        
+        Calendar startGetBowl = Calendar.getInstance();
+        Calendar endGetBowl = Calendar.getInstance();
+        startGetBowl.set(2010, 5, 11, 6, 00);
+        endGetBowl.set(2010, 5, 11, 6, 5);
+        Task getBowl = new Task("Get Bowl", makeCerial, startGetBowl, endGetBowl);
+        
+        Calendar startPourCerial = Calendar.getInstance();
+        Calendar endPourCerial = Calendar.getInstance();
+        startPourCerial.set(2010, 5, 11, 6, 00);
+        endPourCerial.set(2010, 5, 11, 6, 5);
+        Task pourCerial = new Task("Pour Cerial", makeCerial, startPourCerial, endPourCerial);
+        
+        Calendar startAddMilk = Calendar.getInstance();
+        Calendar endAddMilk = Calendar.getInstance();
+        startAddMilk.set(2010, 5, 11, 6, 10);
+        endAddMilk.set(2010, 5, 11, 6, 20);
+        Task addMilk = new Task("Add Milk", makeCerial, startAddMilk, endAddMilk);
+      
+        Calendar startEatCerial = Calendar.getInstance();
+        Calendar endEatCerial = Calendar.getInstance();
+        startEatCerial.set(2010, 5, 11, 6, 50);
+        endEatCerial.set(2010, 5, 11, 7, 5);
+        Task eatCerial = new Task("Eat Cerial", eatBreakfast, startEatCerial, endEatCerial);
+        
+        Calendar startDrinkJuice = Calendar.getInstance();
+        Calendar endDrinkJuice = Calendar.getInstance();
+        startDrinkJuice.set(2010, 5, 11, 7, 10);
+        endDrinkJuice.set(2010, 5, 11, 7, 30);
+        Task drinkJuice = new Task("Drink Juice", eatBreakfast, startDrinkJuice, endDrinkJuice);
 
 
-Calendar startProj = Calendar.getInstance();
-startProj.set(2010, 5, 11, 6, 00);
-Calendar endProj = Calendar.getInstance();
-endProj.set(2010, 5, 11, 7, 30);
+        eatBreakfast.addDependantNode(makeCerial);
+        eatBreakfast.addDependantNode(makeJuice);
+
+        System.out.println("time Difference between makeBreak and drinkJuice: " + Project.getTimeDifference(makeBreak, drinkJuice));
+
+        pourCerial.addDependantNode(getBowl);
+        addMilk.addDependantNode(pourCerial);
+
+        System.out.println("Percentage of makeBreak: " + Project.getTaskPercentage(makeBreak));
+        System.out.println("Percentage of eatBreak: " + Project.getTaskPercentage(eatBreakfast));
+
+        //makeBreakfast.printOut();
+
+        //System.out.println(makeBreakfast.getString());
+
+        GraphicalUserInterface gui = new GraphicalUserInterface(makeBreakfast);
 
 
-Task makeBreak = new Task("Make Breakfast", startProj, endProj);
-int[] cal = makeBreak.getTotalTime();
-String[] timeFrames = {"year", "month", "week", "day", "hour",
-"minute", "second"};
+        // no default contructor
+        gui.main(null);
 
-Calendar startMakeCerial = Calendar.getInstance();
-Calendar endMakeCerial = Calendar.getInstance();
-startMakeCerial.set(2010, 5, 11, 6, 00);
-endMakeCerial.set(2010, 5, 11, 6, 30);
-Task makeCerial = new Task("Make Cerial", makeBreak, startMakeCerial, endMakeCerial);
-
-Calendar startMakeJuice = Calendar.getInstance();
-Calendar endMakeJuice = Calendar.getInstance();
-startMakeJuice.set(2010, 5, 11, 6, 35);
-endMakeJuice.set(2010, 5, 11, 6, 50);
-Task makeJuice = new Task("Make Juice", makeBreak, startMakeJuice, endMakeJuice);
-
-Calendar startEatBreakfast = Calendar.getInstance();
-Calendar endEatBreakfast = Calendar.getInstance();
-startEatBreakfast.set(2010, 5, 11, 7, 15);
-endEatBreakfast.set(2010, 5, 11, 7, 30);
-Task eatBreakfast = new Task("Eat Breakfast", makeBreak, startEatBreakfast, endEatBreakfast);
-
-Calendar startGetBowl = Calendar.getInstance();
-Calendar endGetBowl = Calendar.getInstance();
-startGetBowl.set(2010, 5, 11, 6, 00);
-endGetBowl.set(2010, 5, 11, 6, 5);
-Task getBowl = new Task("Get Bowl", makeCerial, startGetBowl, endGetBowl);
-
-Calendar startPourCerial = Calendar.getInstance();
-Calendar endPourCerial = Calendar.getInstance();
-startPourCerial.set(2010, 5, 11, 6, 00);
-endPourCerial.set(2010, 5, 11, 6, 5);
-Task pourCerial = new Task("Pour Cerial", makeCerial, startPourCerial, endPourCerial);
-
-Calendar startAddMilk = Calendar.getInstance();
-Calendar endAddMilk = Calendar.getInstance();
-startAddMilk.set(2010, 5, 11, 6, 10);
-endAddMilk.set(2010, 5, 11, 6, 20);
-Task addMilk = new Task("Add Milk", makeCerial, startAddMilk, endAddMilk);
-
-Calendar startEatCerial = Calendar.getInstance();
-Calendar endEatCerial = Calendar.getInstance();
-startEatCerial.set(2010, 5, 11, 6, 50);
-endEatCerial.set(2010, 5, 11, 7, 5);
-Task eatCerial = new Task("Eat Cerial", eatBreakfast, startEatCerial, endEatCerial);
-
-Calendar startDrinkJuice = Calendar.getInstance();
-Calendar endDrinkJuice = Calendar.getInstance();
-startDrinkJuice.set(2010, 5, 11, 7, 10);
-endDrinkJuice.set(2010, 5, 11, 7, 30);
-Task drinkJuice = new Task("Drink Juice", eatBreakfast, startDrinkJuice, endDrinkJuice);
-
-eatBreakfast.addDependantNode(makeCerial);
-eatBreakfast.addDependantNode(makeJuice);
-
-System.out.println("time Difference between makeBreak and drinkJuice: " + Project.getTimeDifference(makeBreak, drinkJuice));
-
-pourCerial.addDependantNode(getBowl);
-addMilk.addDependantNode(pourCerial);
-
-System.out.println("Percentage of makeBreak: " + Project.getTaskPercentage(makeBreak));
-System.out.println("Percentage of eatBreak: " + Project.getTaskPercentage(eatBreakfast));
-
-//makeBreakfast.printOut();
-
-//System.out.println(makeBreakfast.getString());
-
-GraphicalUserInterface gui = new GraphicalUserInterface(makeBreakfast);
-
-
-// no default contructor
-gui.main(null);
-
-}
+    }
 
     public static void main(String[] args) {
 

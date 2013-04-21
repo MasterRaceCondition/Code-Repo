@@ -18,12 +18,50 @@ public class EditTask extends javax.swing.JFrame {
      */
     private static GraphicalUserInterface gui;
     private int currentTab; //Used for storing the index of the selected tab.
-    
+
     public EditTask(GraphicalUserInterface gui) {
         this.gui = gui;
         currentTab = gui.getCurrentTab();
         initComponents();
-        
+        updateDateBoxes();
+        newName.setText(String.valueOf(taskSelector.getSelectedItem()));
+
+
+    }
+
+    private void updateDateBoxes() {
+        Calendar startCal = gui.getProject().getTaskFromString(String.valueOf(taskSelector.getSelectedItem())).getStartCalendar();
+        Calendar endCal = gui.getProject().getTaskFromString(String.valueOf(taskSelector.getSelectedItem())).getEndCalendar();
+
+        int startYearIndex = startCal.get(Calendar.YEAR) - 2010;
+        startYear.setSelectedIndex(startYearIndex);
+
+        int startMonthIndex = startCal.get(Calendar.MONTH) - 1;
+        startMonth.setSelectedIndex(startMonthIndex);
+
+        int startDayIndex = startCal.get(Calendar.DAY_OF_MONTH) - 1;
+        startDay.setSelectedIndex(startDayIndex);
+
+        int startHourIndex = startCal.get(Calendar.HOUR_OF_DAY);
+        startHour.setSelectedIndex(startHourIndex);
+
+        int startMinutesIndex = startCal.get(Calendar.MINUTE) / 5;
+        startMinute.setSelectedIndex(startMinutesIndex);
+
+        int endYearIndex = endCal.get(Calendar.YEAR) - 2010;
+        endYear.setSelectedIndex(endYearIndex);
+
+        int endMonthIndex = endCal.get(Calendar.MONTH) - 1;
+        endMonth.setSelectedIndex(endMonthIndex);
+
+        int endDayIndex = endCal.get(Calendar.DAY_OF_MONTH) - 1;
+        endDay.setSelectedIndex(endDayIndex);
+
+        int endHourIndex = endCal.get(Calendar.HOUR_OF_DAY);
+        endHour.setSelectedIndex(endHourIndex);
+
+        int endMinutesIndex = endCal.get(Calendar.MINUTE) / 5;
+        endMinute.setSelectedIndex(endMinutesIndex);
     }
 
     /**
@@ -60,6 +98,11 @@ public class EditTask extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("VysiChart - Edit Task");
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
 
         title.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -68,6 +111,11 @@ public class EditTask extends javax.swing.JFrame {
         lblTask.setText("Select Task To Edit:");
 
         taskSelector.setModel(new javax.swing.DefaultComboBoxModel(gui.getProject().getTasksAsStringArray()));
+        taskSelector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                taskSelectorActionPerformed(evt);
+            }
+        });
 
         editTask.setText("Edit");
         editTask.addActionListener(new java.awt.event.ActionListener() {
@@ -90,7 +138,6 @@ public class EditTask extends javax.swing.JFrame {
 
         lblName.setText("Edit Task Name:");
 
-        newName.setText("blank = no edit");
         newName.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 newNameMouseClicked(evt);
@@ -106,25 +153,25 @@ public class EditTask extends javax.swing.JFrame {
 
         lblEndDate.setText("Edit End Date:");
 
-        startDay.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "_", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        startDay.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
 
-        endDay.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "_", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        endDay.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
 
-        startMonth.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "_", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+        startMonth.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
 
-        endMonth.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "_", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+        endMonth.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
 
-        startYear.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "_", "2010", "2011", "2012", "2013", "2014" }));
+        startYear.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2010", "2011", "2012", "2013", "2014" }));
 
-        endYear.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "_", "2010", "2011", "2012", "2013", "2014" }));
+        endYear.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2010", "2011", "2012", "2013", "2014" }));
 
-        startMinute.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "_", "00", "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55" }));
+        startMinute.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00", "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55" }));
 
-        endMinute.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "_", "00", "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55" }));
+        endMinute.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00", "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55" }));
 
-        startHour.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "_", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24" }));
+        startHour.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24" }));
 
-        endHour.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "_", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24" }));
+        endHour.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24" }));
 
         lblDates.setText("Dates (MM HH DD MM YYYY)");
 
@@ -235,90 +282,92 @@ public class EditTask extends javax.swing.JFrame {
 
     private void delTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delTaskActionPerformed
         // Delete current task
-        
+
         // get task from index
         int index = taskSelector.getSelectedIndex();
         Task taskToDelete = gui.getProject().getTasks().get(index);
         gui.getProject().deleteTask(taskToDelete);
         gui.refresh(); // FRESHEN UP
         gui.setTab(currentTab); //offsets the action of refresh and selects
-                                //the currently selected tab.
-        
-        this.dispose();  
+        //the currently selected tab.
+
+        this.dispose();
     }//GEN-LAST:event_delTaskActionPerformed
 
     private void editTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editTaskActionPerformed
         // Edit the tasks
-        
+
         int index = taskSelector.getSelectedIndex();
         Task taskToEdit = gui.getProject().getTasks().get(index);
-        
+
         String newTaskName = newName.getText(); // if newTaskName = "" or default message then no nothing
-        
+
         // get changed parent
         index = newParent.getSelectedIndex();  // get new parent, if index = 0 then no new parent
-        
-        
-        if (String.valueOf(startYear.getSelectedItem()).equals("_") == false &&
-                String.valueOf(startMonth.getSelectedItem()).equals("_") == false &&
-                String.valueOf(startDay.getSelectedItem()).equals("_") == false){ // only if a valid date in enetred will this work
-            Calendar newStart = Calendar.getInstance();
-            newStart.set(Integer.parseInt(String.valueOf(startYear.getSelectedItem()))
-                    , Integer.parseInt(String.valueOf(startMonth.getSelectedItem()))
-                    , Integer.parseInt(String.valueOf(startDay.getSelectedItem()))
-                    , Integer.parseInt(String.valueOf(startHour.getSelectedItem()))
-                    , Integer.parseInt(String.valueOf(startMinute.getSelectedItem())));
-            
-            taskToEdit.setStartCalendar(newStart); // update calendar
-        
-        }
-        
-        if (String.valueOf(endYear.getSelectedItem()).equals("_") == false &&
-                String.valueOf(endMonth.getSelectedItem()).equals("_") == false &&
-                String.valueOf(endDay.getSelectedItem()).equals("_") == false){ // only if a valid date in enetred will this work
-            Calendar newEnd = Calendar.getInstance();
-            newEnd.set(Integer.parseInt(String.valueOf(endYear.getSelectedItem()))
-                    , Integer.parseInt(String.valueOf(endMonth.getSelectedItem()))
-                    , Integer.parseInt(String.valueOf(endDay.getSelectedItem()))
-                    , Integer.parseInt(String.valueOf(endHour.getSelectedItem()))
-                    , Integer.parseInt(String.valueOf(endMinute.getSelectedItem())));
-            
-            taskToEdit.setEndCalendar(newEnd); // update end calendar
-        }
-        
-        if (newTaskName.equals("") == false && newTaskName.equals("blank = no edit") == false){
+
+
+        // only if a valid date in enetred will this work
+        Calendar newStart = Calendar.getInstance();
+        newStart.set(Integer.parseInt(String.valueOf(startYear.getSelectedItem())), Integer.parseInt(String.valueOf(startMonth.getSelectedItem())), Integer.parseInt(String.valueOf(startDay.getSelectedItem())), Integer.parseInt(String.valueOf(startHour.getSelectedItem())), Integer.parseInt(String.valueOf(startMinute.getSelectedItem())));
+
+        taskToEdit.setStartCalendar(newStart); // update calendar
+
+
+
+
+        Calendar newEnd = Calendar.getInstance();
+        newEnd.set(Integer.parseInt(String.valueOf(endYear.getSelectedItem())), Integer.parseInt(String.valueOf(endMonth.getSelectedItem())), Integer.parseInt(String.valueOf(endDay.getSelectedItem())), Integer.parseInt(String.valueOf(endHour.getSelectedItem())), Integer.parseInt(String.valueOf(endMinute.getSelectedItem())));
+
+        taskToEdit.setEndCalendar(newEnd); // update end calendar
+
+
+        if (newTaskName.equals("") == false && newTaskName.equals("blank = no edit") == false) {
             taskToEdit.setTaskName(newTaskName); // set new name
         }
-        
+
         // now to set new parent, the hard bit
-        if (index != 0){ // 0 is don't change
+        if (index != 0) { // 0 is don't change
             // when changing parent, we need to de-refrerence the old parent
-            
+
             gui.getProject().removeFromParent(taskToEdit);
-            
-            
+
+
             Task newTaskParent = gui.getProject().getTasks().get(index - 1); // cause of the extra index
             taskToEdit.setTaskParent(newTaskParent); // set new parent
-            
+
         }
-        
-        
-        
+
+
+
         gui.refresh(); // FRESHEN UP
         gui.setTab(currentTab); //offsets the action of refresh and selects
-                                //the currently selected tab.
-        
-        this.dispose();  
-        
-        
-        
-        
-        
+        //the currently selected tab.
+
+        this.dispose();
+
+
+
+
+
     }//GEN-LAST:event_editTaskActionPerformed
 
     private void newNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_newNameActionPerformed
+
+    private void taskSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_taskSelectorActionPerformed
+        // Update all info boxes
+
+        updateDateBoxes();
+        newName.setText(String.valueOf(taskSelector.getSelectedItem()));
+    }//GEN-LAST:event_taskSelectorActionPerformed
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        if (newName.getText().equals("")) {
+            newName.setText(String.valueOf(taskSelector.getSelectedItem()));
+        }
+        
+    }//GEN-LAST:event_formMouseClicked
 
     /**
      * @param args the command line arguments

@@ -23,6 +23,7 @@ public class GanttRender extends JPanel {
     //Width in pixels is used to define one percent of the project in pixel width.
     private int xCoord, yCoord, pixelToPercent;
     private long lastTaskEndTime; //Used to keep track of last task length.
+    private long projectDuration;
 
     public GanttRender(Chart gantt) // set up graphics window
     {
@@ -32,6 +33,7 @@ public class GanttRender extends JPanel {
         xCoord = 10;
         yCoord = 30;
         pixelToPercent = 5; //Default for debugging.
+        projectDuration = (Project.getRoot().getEndCalendar().getTimeInMillis() - Project.getRoot().getStartCalendar().getTimeInMillis());
     }
     
     @Override
@@ -91,9 +93,14 @@ public class GanttRender extends JPanel {
     }
     
     public int renderTask(Task task, Graphics g){
+        System.out.println(projectDuration);
+        System.out.println(task.getStartCalendar().getTimeInMillis() - Project.getTasks().get(0).getStartCalendar().getTimeInMillis());
+        double startPercentage = ((float)(task.getStartCalendar().getTimeInMillis() - Project.getTasks().get(0).getStartCalendar().getTimeInMillis()) / (float)(projectDuration)) * 100;
+        System.out.println(startPercentage);
         double taskPercentage = Project.getTaskPercentage(task);
         int taskWidthInPixels = (int)taskPercentage * pixelToPercent;
-        drawNode(g, xCoord, yCoord, taskWidthInPixels, task.getName());
+        int taskStartInPixels = (int)startPercentage * pixelToPercent;
+        drawNode(g, taskStartInPixels, yCoord, taskWidthInPixels, task.getName());
         return taskWidthInPixels;
     }
 

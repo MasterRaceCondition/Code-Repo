@@ -20,6 +20,7 @@ public class Project {
     private String filePath; // file path for save/load
     private float timeFrame; //total timeframe (in hrs), calculated from tasks (used to be in Chart)
     private long startProject, endProject; //start and end times of project
+    private static Task root;
 
     public Project() {
         // default constructor
@@ -37,6 +38,14 @@ public class Project {
 
         timeFrame = 0; // 0 tasks = 0 timeFrame
 
+    }
+    
+    public static void setRoot(Task task){
+        root = task;
+    }
+    
+    public static Task getRoot(){
+        return root;
     }
 
     // --- accessors ---
@@ -282,13 +291,8 @@ public class Project {
      *
      */
     public static long getProjectDuration(){
-        int tasksSize = tasks.size();
-        int taskDuration = 0;
-        for(int i = 0; i < tasksSize; i++){
-            if(tasks.get(i).getChildren().isEmpty()){
-                taskDuration += tasks.get(i).getTaskDuration();
-            }
-        }
+        Task task = tasks.get(0);
+        long taskDuration = (task.getEndCalendar().getTimeInMillis()) - (task.getStartCalendar().getTimeInMillis());
         return taskDuration;
     }
 

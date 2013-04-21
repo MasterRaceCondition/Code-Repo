@@ -23,6 +23,7 @@ public class EditTask extends javax.swing.JFrame {
         this.gui = gui;
         currentTab = gui.getCurrentTab();
         initComponents();
+        updateDateBoxes();
         
     }
     

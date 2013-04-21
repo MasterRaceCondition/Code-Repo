@@ -18,49 +18,48 @@ public class EditTask extends javax.swing.JFrame {
      */
     private static GraphicalUserInterface gui;
     private int currentTab; //Used for storing the index of the selected tab.
-    
+
     public EditTask(GraphicalUserInterface gui) {
         this.gui = gui;
         currentTab = gui.getCurrentTab();
         initComponents();
         updateDateBoxes();
         newName.setText(String.valueOf(taskSelector.getSelectedItem()));
-        
-        
+
+
     }
 
-    
-    private void updateDateBoxes(){
+    private void updateDateBoxes() {
         Calendar startCal = gui.getProject().getTaskFromString(String.valueOf(taskSelector.getSelectedItem())).getStartCalendar();
         Calendar endCal = gui.getProject().getTaskFromString(String.valueOf(taskSelector.getSelectedItem())).getEndCalendar();
-        
+
         int startYearIndex = startCal.get(Calendar.YEAR) - 2010;
         startYear.setSelectedIndex(startYearIndex);
-        
+
         int startMonthIndex = startCal.get(Calendar.MONTH) - 1;
         startMonth.setSelectedIndex(startMonthIndex);
-        
+
         int startDayIndex = startCal.get(Calendar.DAY_OF_MONTH) - 1;
         startDay.setSelectedIndex(startDayIndex);
-        
+
         int startHourIndex = startCal.get(Calendar.HOUR_OF_DAY);
         startHour.setSelectedIndex(startHourIndex);
-        
+
         int startMinutesIndex = startCal.get(Calendar.MINUTE) / 5;
         startMinute.setSelectedIndex(startMinutesIndex);
-        
+
         int endYearIndex = endCal.get(Calendar.YEAR) - 2010;
         endYear.setSelectedIndex(endYearIndex);
-        
+
         int endMonthIndex = endCal.get(Calendar.MONTH) - 1;
         endMonth.setSelectedIndex(endMonthIndex);
-        
+
         int endDayIndex = endCal.get(Calendar.DAY_OF_MONTH) - 1;
         endDay.setSelectedIndex(endDayIndex);
-        
+
         int endHourIndex = endCal.get(Calendar.HOUR_OF_DAY);
         endHour.setSelectedIndex(endHourIndex);
-        
+
         int endMinutesIndex = endCal.get(Calendar.MINUTE) / 5;
         endMinute.setSelectedIndex(endMinutesIndex);
     }
@@ -99,6 +98,11 @@ public class EditTask extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("VysiChart - Edit Task");
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
 
         title.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -278,81 +282,73 @@ public class EditTask extends javax.swing.JFrame {
 
     private void delTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delTaskActionPerformed
         // Delete current task
-        
+
         // get task from index
         int index = taskSelector.getSelectedIndex();
         Task taskToDelete = gui.getProject().getTasks().get(index);
         gui.getProject().deleteTask(taskToDelete);
         gui.refresh(); // FRESHEN UP
         gui.setTab(currentTab); //offsets the action of refresh and selects
-                                //the currently selected tab.
-        
-        this.dispose();  
+        //the currently selected tab.
+
+        this.dispose();
     }//GEN-LAST:event_delTaskActionPerformed
 
     private void editTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editTaskActionPerformed
         // Edit the tasks
-        
+
         int index = taskSelector.getSelectedIndex();
         Task taskToEdit = gui.getProject().getTasks().get(index);
-        
+
         String newTaskName = newName.getText(); // if newTaskName = "" or default message then no nothing
-        
+
         // get changed parent
         index = newParent.getSelectedIndex();  // get new parent, if index = 0 then no new parent
-        
-        
- // only if a valid date in enetred will this work
-            Calendar newStart = Calendar.getInstance();
-            newStart.set(Integer.parseInt(String.valueOf(startYear.getSelectedItem()))
-                    , Integer.parseInt(String.valueOf(startMonth.getSelectedItem()))
-                    , Integer.parseInt(String.valueOf(startDay.getSelectedItem()))
-                    , Integer.parseInt(String.valueOf(startHour.getSelectedItem()))
-                    , Integer.parseInt(String.valueOf(startMinute.getSelectedItem())));
-            
-            taskToEdit.setStartCalendar(newStart); // update calendar
-        
-        
-        
 
-            Calendar newEnd = Calendar.getInstance();
-            newEnd.set(Integer.parseInt(String.valueOf(endYear.getSelectedItem()))
-                    , Integer.parseInt(String.valueOf(endMonth.getSelectedItem()))
-                    , Integer.parseInt(String.valueOf(endDay.getSelectedItem()))
-                    , Integer.parseInt(String.valueOf(endHour.getSelectedItem()))
-                    , Integer.parseInt(String.valueOf(endMinute.getSelectedItem())));
-            
-            taskToEdit.setEndCalendar(newEnd); // update end calendar
-        
-        
-        if (newTaskName.equals("") == false && newTaskName.equals("blank = no edit") == false){
+
+        // only if a valid date in enetred will this work
+        Calendar newStart = Calendar.getInstance();
+        newStart.set(Integer.parseInt(String.valueOf(startYear.getSelectedItem())), Integer.parseInt(String.valueOf(startMonth.getSelectedItem())), Integer.parseInt(String.valueOf(startDay.getSelectedItem())), Integer.parseInt(String.valueOf(startHour.getSelectedItem())), Integer.parseInt(String.valueOf(startMinute.getSelectedItem())));
+
+        taskToEdit.setStartCalendar(newStart); // update calendar
+
+
+
+
+        Calendar newEnd = Calendar.getInstance();
+        newEnd.set(Integer.parseInt(String.valueOf(endYear.getSelectedItem())), Integer.parseInt(String.valueOf(endMonth.getSelectedItem())), Integer.parseInt(String.valueOf(endDay.getSelectedItem())), Integer.parseInt(String.valueOf(endHour.getSelectedItem())), Integer.parseInt(String.valueOf(endMinute.getSelectedItem())));
+
+        taskToEdit.setEndCalendar(newEnd); // update end calendar
+
+
+        if (newTaskName.equals("") == false && newTaskName.equals("blank = no edit") == false) {
             taskToEdit.setTaskName(newTaskName); // set new name
         }
-        
+
         // now to set new parent, the hard bit
-        if (index != 0){ // 0 is don't change
+        if (index != 0) { // 0 is don't change
             // when changing parent, we need to de-refrerence the old parent
-            
+
             gui.getProject().removeFromParent(taskToEdit);
-            
-            
+
+
             Task newTaskParent = gui.getProject().getTasks().get(index - 1); // cause of the extra index
             taskToEdit.setTaskParent(newTaskParent); // set new parent
-            
+
         }
-        
-        
-        
+
+
+
         gui.refresh(); // FRESHEN UP
         gui.setTab(currentTab); //offsets the action of refresh and selects
-                                //the currently selected tab.
-        
-        this.dispose();  
-        
-        
-        
-        
-        
+        //the currently selected tab.
+
+        this.dispose();
+
+
+
+
+
     }//GEN-LAST:event_editTaskActionPerformed
 
     private void newNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newNameActionPerformed
@@ -361,10 +357,17 @@ public class EditTask extends javax.swing.JFrame {
 
     private void taskSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_taskSelectorActionPerformed
         // Update all info boxes
-        
+
         updateDateBoxes();
         newName.setText(String.valueOf(taskSelector.getSelectedItem()));
     }//GEN-LAST:event_taskSelectorActionPerformed
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        if (newName.getText().equals("")) {
+            newName.setText(String.valueOf(taskSelector.getSelectedItem()));
+        }
+        
+    }//GEN-LAST:event_formMouseClicked
 
     /**
      * @param args the command line arguments

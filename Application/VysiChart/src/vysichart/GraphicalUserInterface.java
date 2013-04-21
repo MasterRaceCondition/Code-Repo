@@ -307,6 +307,7 @@ private String getStartMessage(){
         tasksAdd = new javax.swing.JMenuItem();
         editTask = new javax.swing.JMenuItem();
         configDependancies = new javax.swing.JMenuItem();
+        viewTaskInfo = new javax.swing.JMenuItem();
         charts = new javax.swing.JMenu();
         configPERT = new javax.swing.JMenuItem();
         Settings = new javax.swing.JMenu();
@@ -566,6 +567,10 @@ private String getStartMessage(){
         });
         Tasks.add(configDependancies);
 
+        viewTaskInfo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
+        viewTaskInfo.setText("View Task Info");
+        Tasks.add(viewTaskInfo);
+
         menuBar.add(Tasks);
 
         charts.setText("Charts");
@@ -738,6 +743,7 @@ private String getStartMessage(){
     private javax.swing.JTabbedPane tabbedRenderPane;
     private javax.swing.JMenuItem tasksAdd;
     private javax.swing.JLabel uoplogo;
+    private javax.swing.JMenuItem viewTaskInfo;
     private javax.swing.JLabel vysilogo;
     private javax.swing.JScrollPane wbtScroll;
     // End of variables declaration//GEN-END:variables
@@ -784,4 +790,5 @@ private String getStartMessage(){
     private javax.swing.JLabel lblProjectStart;
     private javax.swing.JLabel projectStart;
     private javax.swing.JLabel projectEnd;
+    private javax.swing.JMenuItem viewTaskInfo;
 }

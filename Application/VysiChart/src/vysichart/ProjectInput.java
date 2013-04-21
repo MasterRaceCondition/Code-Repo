@@ -62,6 +62,11 @@ public class ProjectInput extends javax.swing.JFrame {
 
         tabbedPain.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
         tabbedPain.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+        tabbedPain.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tabbedPainMouseReleased(evt);
+            }
+        });
 
         lblName.setText("Project Name:");
 
@@ -197,7 +202,7 @@ public class ProjectInput extends javax.swing.JFrame {
 
         tabbedPain.addTab("step 2", jPanel1);
 
-        submit.setText("Submit");
+        submit.setText("Next");
         submit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 submitActionPerformed(evt);
@@ -209,11 +214,11 @@ public class ProjectInput extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(title, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(tabbedPain, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(263, Short.MAX_VALUE)
-                .addComponent(submit)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(submit, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-            .addComponent(tabbedPain, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -237,7 +242,7 @@ public class ProjectInput extends javax.swing.JFrame {
     }//GEN-LAST:event_projNameKeyReleased
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
-        
+
         /*
          * Create New Project Object
          * Create New (Parentless) Task Object
@@ -246,35 +251,47 @@ public class ProjectInput extends javax.swing.JFrame {
          * ????
          * Profit
          */
-        
-        Project newProject = new Project(projName.getText(), filePath.getText()); // Create New Project Object
-        
-        Task newTask = new Task(taskName.getText()); // Create New (Parentless) Task Object
-        
-        Calendar start = Calendar.getInstance(); // Allocate Task Dates
-        Calendar end = Calendar.getInstance();
-        start.set(Integer.parseInt(String.valueOf(startYear.getSelectedItem()))
-                , Integer.parseInt(String.valueOf(startMonth.getSelectedItem()))
-                , Integer.parseInt(String.valueOf(startDay.getSelectedItem())));
-        end.set(Integer.parseInt(String.valueOf(endYear.getSelectedItem()))
-                , Integer.parseInt(String.valueOf(endMonth.getSelectedItem()))
-                , Integer.parseInt(String.valueOf(endDay.getSelectedItem())));
-        
-        newTask.setStartCalendar(start);
-        newTask.setEndCalendar(end);
-        
-        newProject.addTask(newTask); // Add The Task To The Project
-        
-        gui.setProject(newProject); // port project onto GUI
-        gui.refresh(); // FRESHEN UP
-        
-        this.dispose(); // ???, Profit
-        
-        
-        
-        
-        
+
+        if (submit.getText().equals("Next")) {
+            tabbedPain.setSelectedIndex(1);
+            submit.setText("Submit");
+        } else {
+
+            Project newProject = new Project(projName.getText(), filePath.getText()); // Create New Project Object
+
+            Task newTask = new Task(taskName.getText()); // Create New (Parentless) Task Object
+
+            Calendar start = Calendar.getInstance(); // Allocate Task Dates
+            Calendar end = Calendar.getInstance();
+            start.set(Integer.parseInt(String.valueOf(startYear.getSelectedItem())), Integer.parseInt(String.valueOf(startMonth.getSelectedItem())), Integer.parseInt(String.valueOf(startDay.getSelectedItem())));
+            end.set(Integer.parseInt(String.valueOf(endYear.getSelectedItem())), Integer.parseInt(String.valueOf(endMonth.getSelectedItem())), Integer.parseInt(String.valueOf(endDay.getSelectedItem())));
+
+            newTask.setStartCalendar(start);
+            newTask.setEndCalendar(end);
+
+            newProject.addTask(newTask); // Add The Task To The Project
+
+            gui.setProject(newProject); // port project onto GUI
+            gui.refresh(); // FRESHEN UP
+
+            this.dispose(); // ???, Profit
+        }
+
+
+
+
+
     }//GEN-LAST:event_submitActionPerformed
+
+    private void tabbedPainMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabbedPainMouseReleased
+        // change the submit button
+
+        if (tabbedPain.getSelectedIndex() == 0) {
+            submit.setText("Next");
+        } else {
+            submit.setText("Submit");
+        }
+    }//GEN-LAST:event_tabbedPainMouseReleased
 
     /**
      * @param args the command line arguments

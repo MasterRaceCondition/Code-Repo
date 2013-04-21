@@ -195,10 +195,18 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
 
 
     }
+    
+    public Date getStartDate(){
+        return project.getTasks().get(0).getStartCalendar().getTime();
+    }
+    
+    public Date getEndDate(){
+        return project.getTasks().get(0).getEndCalendar().getTime();
+    }
 
     
     private String getStartMessage(){
-        Date startTime = project.getTasks().get(0).getStartCalendar().getTime();
+        Date startTime = getStartDate();
         int startYear = startTime.getYear() + 1900;
         int startMonth = startTime.getMonth();
         int startDay = startTime.getDate();
@@ -209,7 +217,7 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     }
     
     private String getEndMessage(){
-        Date endTime = project.getTasks().get(0).getEndCalendar().getTime();
+        Date endTime = getEndDate();
         int endYear = endTime.getYear() + 1900;
         int endMonth = endTime.getMonth();
         int endDay = endTime.getDate();

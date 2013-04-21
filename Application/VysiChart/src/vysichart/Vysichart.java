@@ -47,11 +47,13 @@ public class Vysichart {
         Project makeBreakfast = new Project("Breakfast Maker", "D:/Documents/MRC/Vysichart/Breakfast");
 
         
+        Calendar startProj = Calendar.getInstance();
+        startProj.set(2010, 5, 11, 6, 00);
         Calendar startCal = Calendar.getInstance();
         startCal.set(2010, 5, 11, 6, 00);
         Calendar endCal = Calendar.getInstance();
         endCal.set(2010, 5, 11, 6, 50);
-        Task makeBreak = new Task("Make Breakfast", startCal, endCal);
+        Task makeBreak = new Task("Make Breakfast", startProj, endCal);
         int[] cal = makeBreak.getTotalTime();
         String[] timeFrames = {"year", "month", "week", "day", "hour", 
                                 "minute", "second"};

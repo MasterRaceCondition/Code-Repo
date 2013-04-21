@@ -198,23 +198,22 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
 
     
     private String getStartMessage(){
-        Date startTime = project.getTasks().get(0).getStartCalendar().getTime();
-        int startYear = startTime.getYear() + 1900;
-        int startMonth = startTime.getMonth();
-        int startDay = startTime.getDate();
-        int startHour = startTime.getHours();
-        int startMinute = startTime.getMinutes();
-
+        Calendar startTime = project.getTasks().get(0).getStartCalendar();
+        int startHour = startTime.get(Calendar.HOUR_OF_DAY);
+        int startMinute = startTime.get(Calendar.MINUTE);
+        int startDay = startTime.get(Calendar.DAY_OF_MONTH);
+        int startMonth = startTime.get(Calendar.MONTH);
+        int startYear = startTime.get(Calendar.YEAR);
         return startHour + ":" + startMinute + " " + startDay + "/" + startMonth + "/" + startYear;
     }
     
     private String getEndMessage(){
-        Date endTime = project.getTasks().get(0).getEndCalendar().getTime();
-        int endYear = endTime.getYear() + 1900;
-        int endMonth = endTime.getMonth();
-        int endDay = endTime.getDate();
-        int endHour = endTime.getHours();
-        int endMinute = endTime.getMinutes();
+        Calendar endTime = project.getTasks().get(0).getEndCalendar();
+        int endYear = endTime.get(Calendar.YEAR);
+        int endMonth = endTime.get(Calendar.MONTH);
+        int endDay = endTime.get(Calendar.DAY_OF_MONTH);
+        int endHour = endTime.get(Calendar.HOUR_OF_DAY);
+        int endMinute = endTime.get(Calendar.MINUTE);
 
         return endHour + ":" + endMinute + " " + endDay + "/" + endMonth + "/" + endYear;
     }

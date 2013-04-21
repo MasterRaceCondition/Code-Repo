@@ -282,7 +282,7 @@ public class Project {
      *
      */
     public static long getProjectDuration(){
-        int tasksSize = tasks.size();;
+        int tasksSize = tasks.size();
         int taskDuration = 0;
         for(int i = 0; i < tasksSize; i++){
             if(tasks.get(i).getChildren().isEmpty()){

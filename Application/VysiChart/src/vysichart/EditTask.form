@@ -204,9 +204,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="newName">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="blank = no edit"/>
-      </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="newNameMouseClicked"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="newNameActionPerformed"/>

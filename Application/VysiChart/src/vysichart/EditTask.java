@@ -24,8 +24,11 @@ public class EditTask extends javax.swing.JFrame {
         currentTab = gui.getCurrentTab();
         initComponents();
         updateDateBoxes();
+        newName.setText(String.valueOf(taskSelector.getSelectedItem()));
+        
         
     }
+
     
     private void updateDateBoxes(){
         Calendar startCal = gui.getProject().getTaskFromString(String.valueOf(taskSelector.getSelectedItem())).getStartCalendar();
@@ -131,7 +134,6 @@ public class EditTask extends javax.swing.JFrame {
 
         lblName.setText("Edit Task Name:");
 
-        newName.setText("blank = no edit");
         newName.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 newNameMouseClicked(evt);
@@ -361,6 +363,7 @@ public class EditTask extends javax.swing.JFrame {
         // Update all info boxes
         
         updateDateBoxes();
+        newName.setText(String.valueOf(taskSelector.getSelectedItem()));
     }//GEN-LAST:event_taskSelectorActionPerformed
 
     /**

@@ -244,13 +244,11 @@ public class TaskInput extends javax.swing.JFrame {
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
         // Build a Task From The Data Input
         
-        Task newTask = new Task(taskName.getText());
         // init task
         
         int index = taskParent.getSelectedIndex();
         ArrayList<Task> tasks = gui.getProject().getTasks();
         Task parent = tasks.get(index);
-        newTask.setTaskParent(parent); // set parent
         
         // now to do dates
         Calendar start = Calendar.getInstance();
@@ -266,10 +264,10 @@ public class TaskInput extends javax.swing.JFrame {
                 , Integer.parseInt(String.valueOf(endHour.getSelectedItem()))
                 , Integer.parseInt(String.valueOf(endMinute.getSelectedItem())));
         
-        newTask.setStartCalendar(start);
-        newTask.setEndCalendar(end);
         
-        gui.getProject().addTask(newTask); // add the task
+        Task newTask = new Task(taskName.getText(), parent, start, end); // set parent
+        
+        //gui.getProject().addTask(newTask); // add the task
         gui.refresh(); // FRESHEN UP
         gui.setTab(currentTab); //offsets the action of refresh and selects
                                 //the currently selected tab.

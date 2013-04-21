@@ -24,6 +24,44 @@ public class TaskInput extends javax.swing.JFrame {
         this.gui = gui;
         initComponents();
         currentTab = gui.getCurrentTab();
+        setDates();
+    }
+    
+    private void setDates(){
+        // sets the values of the date combo boxes
+        Calendar startCal = gui.getStartDate();
+        Calendar endCal = gui.getEndDate();
+        
+        int startYearIndex = startCal.get(Calendar.YEAR) - 2010;
+        startYear.setSelectedIndex(startYearIndex);
+        
+        int startMonthIndex = startCal.get(Calendar.MONTH) - 1;
+        startMonth.setSelectedIndex(startMonthIndex);
+        
+        int startDayIndex = startCal.get(Calendar.DAY_OF_MONTH) - 1;
+        startDay.setSelectedIndex(startDayIndex);
+        
+        int startHourIndex = startCal.get(Calendar.HOUR_OF_DAY);
+        startHour.setSelectedIndex(startHourIndex);
+        
+        int startMinutesIndex = startCal.get(Calendar.MINUTE) / 5;
+        startMinute.setSelectedIndex(startMinutesIndex);
+        
+        int endYearIndex = endCal.get(Calendar.YEAR) - 2010;
+        endYear.setSelectedIndex(endYearIndex);
+        
+        int endMonthIndex = endCal.get(Calendar.MONTH) - 1;
+        endMonth.setSelectedIndex(endMonthIndex);
+        
+        int endDayIndex = endCal.get(Calendar.DAY_OF_MONTH) - 1;
+        endDay.setSelectedIndex(endDayIndex);
+        
+        int endHourIndex = endCal.get(Calendar.HOUR_OF_DAY);
+        endHour.setSelectedIndex(endHourIndex);
+        
+        int endMinutesIndex = endCal.get(Calendar.MINUTE) / 5;
+        endMinute.setSelectedIndex(endMinutesIndex);
+        
     }
 
     /**

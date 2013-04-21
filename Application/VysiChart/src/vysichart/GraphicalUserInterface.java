@@ -8,6 +8,11 @@ package vysichart;
  *
  * @author Todd Perry
  */
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.ArrayList;
+
 public class GraphicalUserInterface extends javax.swing.JFrame {
 
     /**
@@ -190,90 +195,28 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
 
 
     }
-    
-    private int millisecondToOtherFormat(long duration, String conversionSwitch) {
-        switch (conversionSwitch) {
-            case ("year"):
-                return (int) (duration / 31556952000L);
-            case ("month"):
-                return (int) (duration / 2629746000L);
-            case ("week"):
-                return (int) (duration / 604800000);
-            case ("day"):
-                return (int) (duration / 86400000);
-            case ("hour"):
-                return (int) (duration / 3600000);
-            case ("minute"):
-                return (int) (duration / 60000);
-            default:
-                return (int) (duration / 1000); //returns in seconds
-        }
-    }
-    
-    private int dayOfMonthFromDayOfYear(int dayOfYear){
-        System.out.println(dayOfYear);
-        if (dayOfYear < 32){
-            return dayOfYear;
-        } else if (dayOfYear < 60){
-            return dayOfYear - 31;
-        } else if (dayOfYear < 91){
-            return dayOfYear - 59;
-        } else if (dayOfYear < 121){
-            return dayOfYear - 90;
-        } else if (dayOfYear < 152){
-            return dayOfYear - 120;
-        } else if (dayOfYear < 182){
-            return dayOfYear - 151;
-        } else if (dayOfYear < 213){
-            return dayOfYear - 181;
-        } else if (dayOfYear < 244){
-            return dayOfYear - 212;
-        } else if (dayOfYear < 274){
-            return dayOfYear - 243;
-        } else if (dayOfYear < 305){
-            return dayOfYear - 273;
-        } else if (dayOfYear < 335){
-            return dayOfYear - 304;
-        } else{
-            return dayOfYear - 334;
-        } // days are glitchy
-    }
+
     
     private String getStartMessage(){
-        long startTime = project.getTasks().get(0).getStartCalendar().getTimeInMillis();
-        int startYear = millisecondToOtherFormat(startTime, "year");
-        int startMonth = millisecondToOtherFormat(startTime, "month");
-        startMonth = startMonth % 12; // mod 12
-        int startDay = millisecondToOtherFormat(startTime, "day");
-        startDay = startDay - (startYear * 365);
-        startDay %= 365;
-        startYear = startYear + 1970;
-        startDay = dayOfMonthFromDayOfYear(startDay);
-        int startHour = millisecondToOtherFormat(startTime, "hour");
-        startHour %= 24;
-        int startMinute = millisecondToOtherFormat(startTime, "minute");
-        startMinute %= 60;
-        
+        Date startTime = project.getTasks().get(0).getStartCalendar().getTime();
+        int startYear = startTime.getYear() + 1900;
+        int startMonth = startTime.getMonth();
+        int startDay = startTime.getDate();
+        int startHour = startTime.getHours();
+        int startMinute = startTime.getMinutes();
+
         return startHour + ":" + startMinute + " " + startDay + "/" + startMonth + "/" + startYear;
- 
     }
     
     private String getEndMessage(){
-        long endTime = project.getTasks().get(0).getEndCalendar().getTimeInMillis();
-        int endYear = millisecondToOtherFormat(endTime, "year");
-        int endMonth = millisecondToOtherFormat(endTime, "month");
-        endMonth = endMonth % 12; // mod 12
-        int endDay = millisecondToOtherFormat(endTime, "day");
-        endDay = endDay - (endYear * 365);
-        endYear = endYear + 1970; // epoch is 1970
-        endDay = dayOfMonthFromDayOfYear(endDay);
-        int endHour = millisecondToOtherFormat(endTime, "hour");
-        endHour %= 24;
-        int endMinute = millisecondToOtherFormat(endTime, "minute");
-        endMinute %= 60;
-        
+        Date endTime = project.getTasks().get(0).getEndCalendar().getTime();
+        int endYear = endTime.getYear() + 1900;
+        int endMonth = endTime.getMonth();
+        int endDay = endTime.getDate();
+        int endHour = endTime.getHours();
+        int endMinute = endTime.getMinutes();
+
         return endHour + ":" + endMinute + " " + endDay + "/" + endMonth + "/" + endYear;
- 
     }
     
     

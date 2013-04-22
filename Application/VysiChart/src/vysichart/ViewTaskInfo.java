@@ -14,10 +14,27 @@ public class ViewTaskInfo extends javax.swing.JFrame {
      * Creates new form ViewTaskInfo
      */
     private static GraphicalUserInterface gui;
-    
+
     public ViewTaskInfo(GraphicalUserInterface gui) {
         this.gui = gui;
         initComponents();
+        updateInfo();
+    }
+
+    private void updateInfo() {
+        // get task
+        Task current = gui.getProject().getTaskFromString(String.valueOf(taskSelector.getSelectedItem()));
+        taskName.setText(current.getName());
+        if (Project.getRoot() == current) {
+            taskParent.setText("No Parent");
+        } else {
+            taskParent.setText(current.getTaskParent().getName());
+        }
+        
+        // now handle dates
+        
+        
+
     }
 
     /**
@@ -50,6 +67,11 @@ public class ViewTaskInfo extends javax.swing.JFrame {
         title.setText("Task Info");
 
         taskSelector.setModel(new javax.swing.DefaultComboBoxModel(gui.getProject().getTasksAsStringArray()));
+        taskSelector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                taskSelectorActionPerformed(evt);
+            }
+        });
 
         lblSelectTask.setText("Select Task:");
 
@@ -87,26 +109,22 @@ public class ViewTaskInfo extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(lblSelectTask)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(taskSelector, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(taskSelector, 0, 160, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(close))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(33, 33, 33)
-                        .addComponent(startDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(25, 25, 25)
-                        .addComponent(taskParent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(39, 39, 39)
-                        .addComponent(endDate, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(30, 30, 30)
-                        .addComponent(taskName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(endDate, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                            .addComponent(startDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(taskParent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(taskName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -146,6 +164,11 @@ public class ViewTaskInfo extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_closeActionPerformed
+
+    private void taskSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_taskSelectorActionPerformed
+        // update
+        updateInfo();
+    }//GEN-LAST:event_taskSelectorActionPerformed
 
     /**
      * @param args the command line arguments

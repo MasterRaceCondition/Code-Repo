@@ -460,7 +460,7 @@ private String getStartMessage(){
                             .addComponent(pjSize)
                             .addComponent(projectSize)))
                     .addComponent(vysilogo))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
             .addGroup(projectWrapLayout.createSequentialGroup()
                 .addComponent(uoplogo)
                 .addGap(0, 0, Short.MAX_VALUE))

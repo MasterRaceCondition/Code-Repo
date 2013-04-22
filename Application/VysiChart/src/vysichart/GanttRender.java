@@ -21,7 +21,8 @@ public class GanttRender extends JPanel {
 
     private Chart gantt; // the gantt to render
     //Width in pixels is used to define one percent of the project in pixel width.
-    private int xCoord, yCoord, pixelToPercent;
+    private int yCoord;
+    private static int pixelToPercent;
     private long lastTaskEndTime; //Used to keep track of last task length.
     private long projectDuration;
 
@@ -30,7 +31,6 @@ public class GanttRender extends JPanel {
         super();
         //setBackground(Color.WHITE);
         this.gantt = gantt;
-        xCoord = 10;
         yCoord = 30;
         pixelToPercent = 5; //Default for debugging.
         projectDuration = (Project.getRoot().getEndCalendar().getTimeInMillis() - Project.getRoot().getStartCalendar().getTimeInMillis());
@@ -65,7 +65,6 @@ public class GanttRender extends JPanel {
             }
         }
         
-        xCoord = 10;
         yCoord = 30;
         //reset
 
@@ -84,9 +83,7 @@ public class GanttRender extends JPanel {
             else{
                 if(i > 1){
                     long timeDifference = Project.getTimeDifference(lastTaskEndTime, tasks.get(i).getTaskStartCalendarToMillisecond());
-                    xCoord += Project.getWhitespacePercentage(timeDifference);
                 }
-                xCoord += taskWidth;
                 lastTaskEndTime = tasks.get(i).getTaskEndCalendarToMillisecond();
             }
         }

@@ -100,7 +100,7 @@ public class GanttRender extends JPanel {
         double taskPercentage = Project.getTaskPercentage(task);
         int taskWidthInPixels = (int)taskPercentage * pixelToPercent;
         int taskStartInPixels = (int)startPercentage * pixelToPercent;
-        drawNode(g, taskStartInPixels, yCoord, taskWidthInPixels, task.getName());
+        drawNode(g, taskStartInPixels+10, yCoord, taskWidthInPixels, task.getName());
         return taskWidthInPixels;
     }
 

@@ -266,6 +266,7 @@ public class Project {
 
     //Needs fixing - inaccurate due to counting children wrong
     public static float getTaskPercentage(Task task) {
+        System.out.println(task.getTaskDuration());
         return ((float) task.getTaskDuration() / (float) getProjectDuration()) * 100;
     }
     

@@ -205,7 +205,7 @@ public class GraphicalUserInterface extends javax.swing.JFrame {
     }
 
     
-private String getStartMessage(){
+    private String getStartMessage(){
         Calendar startTime = Project.getTasks().get(0).getStartCalendar();
         int startHour = startTime.get(Calendar.HOUR_OF_DAY);
         int startMinute = startTime.get(Calendar.MINUTE);
@@ -215,7 +215,7 @@ private String getStartMessage(){
         return startHour + ":" + startMinute + " " + startDay + "/" + startMonth + "/" + startYear;
     }
     
- private String getEndMessage(){
+    private String getEndMessage(){
         Calendar endTime = Project.getTasks().get(0).getEndCalendar();
         int endYear = endTime.get(Calendar.YEAR);
         int endMonth = endTime.get(Calendar.MONTH);

@@ -4,6 +4,8 @@
  */
 package vysichart;
 
+import java.util.Calendar;
+
 /**
  *
  * @author U AMD
@@ -31,10 +33,34 @@ public class ViewTaskInfo extends javax.swing.JFrame {
             taskParent.setText(current.getTaskParent().getName());
         }
         
-        // now handle dates
-        
-        
+        startDate.setText(getStartMessage());
+        endDate.setText(getEndMessage());
 
+        // now handle dates
+
+
+
+    }
+
+    private String getStartMessage() {
+        Calendar startTime = gui.getProject().getTaskFromString(String.valueOf(taskSelector.getSelectedItem())).getStartCalendar();
+        int startHour = startTime.get(Calendar.HOUR_OF_DAY);
+        int startMinute = startTime.get(Calendar.MINUTE);
+        int startDay = startTime.get(Calendar.DAY_OF_MONTH);
+        int startMonth = startTime.get(Calendar.MONTH);
+        int startYear = startTime.get(Calendar.YEAR);
+        return startHour + ":" + startMinute + " " + startDay + "/" + startMonth + "/" + startYear;
+    }
+
+    private String getEndMessage() {
+        Calendar endTime = gui.getProject().getTaskFromString(String.valueOf(taskSelector.getSelectedItem())).getEndCalendar();
+        int endYear = endTime.get(Calendar.YEAR);
+        int endMonth = endTime.get(Calendar.MONTH);
+        int endDay = endTime.get(Calendar.DAY_OF_MONTH);
+        int endHour = endTime.get(Calendar.HOUR_OF_DAY);
+        int endMinute = endTime.get(Calendar.MINUTE);
+
+        return endHour + ":" + endMinute + " " + endDay + "/" + endMonth + "/" + endYear;
     }
 
     /**

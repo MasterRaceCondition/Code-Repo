@@ -160,10 +160,13 @@
             <MenuItem class="javax.swing.JMenuItem" name="viewTaskInfo">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Ctrl+V"/>
+                  <KeyStroke key="Shift+Ctrl+V"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="View Task Info"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewTaskInfoActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

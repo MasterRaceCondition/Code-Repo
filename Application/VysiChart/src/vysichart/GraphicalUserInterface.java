@@ -569,6 +569,11 @@ private String getStartMessage(){
 
         viewTaskInfo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
         viewTaskInfo.setText("View Task Info");
+        viewTaskInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewTaskInfoActionPerformed(evt);
+            }
+        });
         Tasks.add(viewTaskInfo);
 
         menuBar.add(Tasks);
@@ -664,6 +669,12 @@ private String getStartMessage(){
         ConfigureDependants cd = new ConfigureDependants(this);
         cd.main(null);
     }//GEN-LAST:event_configDependanciesActionPerformed
+
+    private void viewTaskInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewTaskInfoActionPerformed
+        // Launch View Task Ingo
+        ViewTaskInfo vt = new ViewTaskInfo(this);
+        vt.main(null);
+    }//GEN-LAST:event_viewTaskInfoActionPerformed
 
     /**
      * @param args the command line arguments

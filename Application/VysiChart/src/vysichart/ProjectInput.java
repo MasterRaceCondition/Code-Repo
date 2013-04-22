@@ -308,6 +308,7 @@ public class ProjectInput extends javax.swing.JFrame {
             newTask.setEndCalendar(end);
 
             newProject.addTask(newTask); // Add The Task To The Project
+            Project.setRoot(newTask);
 
             gui.setProject(newProject); // port project onto GUI
             gui.refresh(); // FRESHEN UP

@@ -98,6 +98,7 @@ public class GanttRender extends JPanel {
         double startPercentage = ((float)(task.getStartCalendar().getTimeInMillis() - Project.getTasks().get(0).getStartCalendar().getTimeInMillis()) / (float)(projectDuration)) * 100;
         System.out.println(startPercentage);
         double taskPercentage = Project.getTaskPercentage(task);
+        System.out.println("TASK PERC" +taskPercentage);
         int taskWidthInPixels = (int)taskPercentage * pixelToPercent;
         int taskStartInPixels = (int)startPercentage * pixelToPercent;
         taskStartInPixels += 10;

@@ -150,7 +150,7 @@ public class Task {
     }
 
     public long getTaskDuration() {
-        return taskDuration;
+        return (this.getEndCalendar().getTimeInMillis()) - (this.getStartCalendar().getTimeInMillis());
     }
     
     public long getTaskStartCalendarToMillisecond(){

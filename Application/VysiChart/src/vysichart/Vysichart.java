@@ -83,14 +83,14 @@ Project makeBreakfast = new Project("Breakfast Maker", "D:/Documents/MRC/Vysicha
         
         Calendar startPourCerial = Calendar.getInstance();
         Calendar endPourCerial = Calendar.getInstance();
-        startPourCerial.set(2010, 5, 11, 6, 00);
-        endPourCerial.set(2010, 5, 11, 6, 5);
+        startPourCerial.set(2010, 5, 11, 6, 5);
+        endPourCerial.set(2010, 5, 11, 6, 10);
         Task pourCerial = new Task("Pour Cerial", makeCerial, startPourCerial, endPourCerial);
         
         Calendar startAddMilk = Calendar.getInstance();
         Calendar endAddMilk = Calendar.getInstance();
         startAddMilk.set(2010, 5, 11, 6, 10);
-        endAddMilk.set(2010, 5, 11, 6, 20);
+        endAddMilk.set(2010, 5, 11, 6, 30);
         Task addMilk = new Task("Add Milk", makeCerial, startAddMilk, endAddMilk);
       
         Calendar startEatCerial = Calendar.getInstance();

@@ -22,8 +22,9 @@ public class GanttRender extends JPanel {
     private Chart gantt; // the gantt to render
     //Width in pixels is used to define one percent of the project in pixel width.
     private int yCoord; 
-    private static int pixelToPercent;
+    private int pixelToPercent;
     private long lastTaskEndTime; //Used to keep track of last task length.
+    private long projectDuration;
 
     public GanttRender(Chart gantt) // set up graphics window
     {
@@ -31,15 +32,16 @@ public class GanttRender extends JPanel {
         //setBackground(Color.WHITE);
         this.gantt = gantt;
         yCoord = 30;
-        pixelToPercent = 5;
+        pixelToPercent = 5; //Default for debugging.
+        projectDuration = (Project.getRoot().getEndCalendar().getTimeInMillis() - Project.getRoot().getStartCalendar().getTimeInMillis());
     }
     
     
-    public static int getPixelToPercent(){
+    public int getPixelToPercent(){
         return pixelToPercent;
     }
     
-    public static void setPixelToPercent(int ratio){
+    public void setPixelToPercent(int ratio){
         pixelToPercent = ratio;
     }
     @Override
@@ -53,17 +55,10 @@ public class GanttRender extends JPanel {
         super.paintComponent(g);
 
         initAxis(g);
-        
-        
-       
-        
         //**PROTOTYPE**
         //a large arraylist will need to have a count stored instead.
-        double taskPercentage = 0;
         int taskWidth = 0; //The task width in pixels when rendered.
-        long timeDifference = 0; //The time difference between tasks.
         ArrayList<Task> parentTasks = Project.getParents();
-        System.out.println("Size of parentTasks: " + parentTasks.size());
         
         for(Task p : parentTasks){
             ArrayList<Task> children = p.getChildren();
@@ -90,18 +85,18 @@ public class GanttRender extends JPanel {
                 renderTaskArrayList(children, g);
             }
             else{
-                if(i > 1){
-                    long timeDifference = Project.getTimeDifference(lastTaskEndTime, tasks.get(i).getTaskStartCalendarToMillisecond());
-                }
                 lastTaskEndTime = tasks.get(i).getTaskEndCalendarToMillisecond();
             }
         }
     }
     
     public int renderTask(Task task, Graphics g){
+        double startPercentage = ((float)(task.getStartCalendar().getTimeInMillis() - Project.getTasks().get(0).getStartCalendar().getTimeInMillis()) / (float)(projectDuration)) * 100;
         double taskPercentage = Project.getTaskPercentage(task);
         int taskWidthInPixels = (int)taskPercentage * pixelToPercent;
-        drawNode(g, xCoord, yCoord, taskWidthInPixels, task.getName());
+        int taskStartInPixels = (int)startPercentage * pixelToPercent;
+        taskStartInPixels += 10;
+        drawNode(g, taskStartInPixels, yCoord, taskWidthInPixels, task.getName());
         return taskWidthInPixels;
     }
 
@@ -117,7 +112,17 @@ public class GanttRender extends JPanel {
         // box height = 20
         // test boxWidth = 120
         g.drawRect(x, y, width, 30);
-        g.drawString(taskName, x + 10, y + 17);
+        String newName = "";
+        x += 10;
+        for(int i = 0; i < taskName.length(); i++){
+            newName += taskName.charAt(i);
+            if(newName.length()*pixelToPercent >= (width-(pixelToPercent*3))){
+                newName += "...";
+                x -= 9;
+                break;
+            }
+        }
+        g.drawString(newName, x, y + 17);
 
 
     }

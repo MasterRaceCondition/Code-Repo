@@ -102,6 +102,9 @@ public class Task {
      */
 
     private void addToTasks() {
+        if (Project.getTasks().isEmpty()){
+            Project.setRoot(this);
+        }
         Project.addTask(this);
     }
 
@@ -147,7 +150,7 @@ public class Task {
     }
 
     public long getTaskDuration() {
-        return taskDuration;
+        return (this.getEndCalendar().getTimeInMillis()) - (this.getStartCalendar().getTimeInMillis());
     }
     
     public long getTaskStartCalendarToMillisecond(){

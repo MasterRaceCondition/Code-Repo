@@ -309,6 +309,9 @@ private String getStartMessage(){
         configDependancies = new javax.swing.JMenuItem();
         charts = new javax.swing.JMenu();
         configPERT = new javax.swing.JMenuItem();
+        ganttMenu = new javax.swing.JMenu();
+        ganttZoomIn = new javax.swing.JMenuItem();
+        ganttZoomOut = new javax.swing.JMenuItem();
         Settings = new javax.swing.JMenu();
         Help = new javax.swing.JMenu();
 
@@ -459,7 +462,7 @@ private String getStartMessage(){
                             .addComponent(pjSize)
                             .addComponent(projectSize)))
                     .addComponent(vysilogo))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
             .addGroup(projectWrapLayout.createSequentialGroup()
                 .addComponent(uoplogo)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -579,6 +582,23 @@ private String getStartMessage(){
         });
         charts.add(configPERT);
 
+        ganttMenu.setText("Gantt Magnification");
+
+        ganttZoomIn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_EQUALS, java.awt.event.InputEvent.ALT_MASK));
+        ganttZoomIn.setText("Zoom In");
+        ganttZoomIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ganttZoomInActionPerformed(evt);
+            }
+        });
+        ganttMenu.add(ganttZoomIn);
+
+        ganttZoomOut.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_MINUS, java.awt.event.InputEvent.ALT_MASK));
+        ganttZoomOut.setText("Zoom Out");
+        ganttMenu.add(ganttZoomOut);
+
+        charts.add(ganttMenu);
+
         menuBar.add(charts);
 
         Settings.setText("Settings");
@@ -660,6 +680,12 @@ private String getStartMessage(){
         cd.main(null);
     }//GEN-LAST:event_configDependanciesActionPerformed
 
+    private void ganttZoomInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ganttZoomInActionPerformed
+        int ratio = GanttRender.getPixelToPercent();
+        ratio *= 2;
+        GanttRender.setPixelToPercent(ratio);
+    }//GEN-LAST:event_ganttZoomInActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -717,8 +743,11 @@ private String getStartMessage(){
     private javax.swing.JMenuItem filesRefresh;
     private javax.swing.JMenuItem filesSave;
     private javax.swing.JMenuItem filesSaveAs;
+    private javax.swing.JMenu ganttMenu;
     private javax.swing.JScrollPane ganttScroll;
     private javax.swing.JPanel ganttWrap;
+    private javax.swing.JMenuItem ganttZoomIn;
+    private javax.swing.JMenuItem ganttZoomOut;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JLabel lblProject;
@@ -751,6 +780,7 @@ private String getStartMessage(){
     private javax.swing.JMenu charts;
     private javax.swing.JMenuItem configDependancies;
     private javax.swing.JMenuItem configPERT;
+    private javax.swing.JMenuItem ganttZoom;
     private javax.swing.JMenuItem editCopy;
     private javax.swing.JMenuItem editCut;
     private javax.swing.JMenuItem editPaste;
